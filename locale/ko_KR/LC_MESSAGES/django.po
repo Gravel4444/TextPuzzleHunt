@@ -1,0 +1,2180 @@
+# gph 한글 번역 초안 by Gemini Pro
+# Copyright (C) 2025
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Puzzle Hunt Site\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-09-01 22:50+0900\n"
+"PO-Revision-Date: 2025-09-05 06:15+0900\n"
+"Last-Translator: Gemini\n"
+"Language-Team: Korean (ko)\n"
+"Language: ko_KR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 3.7\n"
+
+#: .\puzzles_init_.py:13 .\puzzles\models.py:119
+msgid "puzzles"
+msgstr "퍼즐"
+
+#: .\puzzles\forms.py:24 .\puzzles\forms.py:202
+msgid "Team Username"
+msgstr "팀 계정"
+
+#: .\puzzles\forms.py:27
+msgid "This is the private username your team will use when logging in. It should be short and not contain special characters."
+msgstr "로그인 시 사용할 팀의 비공개 계정입니다. 짧게 만들어야 하며 특수문자는 포함할 수 없습니다."
+
+#: .\puzzles\forms.py:32
+msgid "Team Name"
+msgstr "팀명"
+
+#: .\puzzles\forms.py:35
+msgid "This is how your team name will appear on the public leaderboard."
+msgstr "이 이름이 순위표에 공개됩니다."
+
+#: .\puzzles\forms.py:39
+msgid "Team Password"
+msgstr "팀 비밀번호"
+
+#: .\puzzles\forms.py:41
+msgid "You’ll probably share this with your team."
+msgstr "팀원들과 공유하게 될 비밀번호입니다."
+
+#: .\puzzles\forms.py:44
+msgid "Retype Password"
+msgstr "비밀번호 확인"
+
+#: .\puzzles\forms.py:57
+msgid "That public team name isn’t allowed."
+msgstr "허용되지 않는 팀명입니다."
+
+#: .\puzzles\forms.py:62
+msgid "Passwords don’t match."
+msgstr "비밀번호가 일치하지 않습니다."
+
+#: .\puzzles\forms.py:67
+msgid "That login username has already been taken by a different team."
+msgstr "해당 로그인 계정은 다른 팀이 이미 사용 중입니다."
+
+#: .\puzzles\forms.py:73
+msgid "That public team name has already been taken by a different team."
+msgstr "해당 팀명은 다른 팀이 이미 사용 중입니다."
+
+#: .\puzzles\forms.py:83
+msgid "Someone with that email is already registered as a member on a different team."
+msgstr "해당 이메일 주소는 이미 다른 팀의 멤버로 등록되어 있습니다."
+
+#: .\puzzles\forms.py:88
+msgid "Name (required)"
+msgstr "이름 (필수)"
+
+#: .\puzzles\forms.py:90 .\puzzles\models.py:521
+msgid "Email (optional)"
+msgstr "이메일 (선택)"
+
+#: .\puzzles\forms.py:102
+msgid "All team members must have names."
+msgstr "모든 팀원은 이름을 입력해야 합니다."
+
+#: .\puzzles\forms.py:104
+msgid "That team member name isn’t allowed."
+msgstr "허용되지 않는 팀원 이름입니다."
+
+#: .\puzzles\forms.py:109
+msgid "You must list at least one email address."
+msgstr "최소 한 개 이상의 이메일 주소를 등록해야 합니다."
+
+#: .\puzzles\forms.py:111
+msgid "All team members must have unique emails."
+msgstr "모든 팀원은 고유한 이메일 주소를 사용해야 합니다."
+
+#: .\puzzles\forms.py:132
+msgid "One of the emails you listed is already on a different team."
+msgstr "입력한 이메일 중 하나가 이미 다른 팀에 등록되어 있습니다."
+
+#: .\puzzles\forms.py:138
+msgid "Enter your guess:"
+msgstr "정답 입력:"
+
+#: .\puzzles\forms.py:147
+msgid "Describe everything you’ve tried on this puzzle. We will provide a hint to help you move forward. The more detail you provide, the less likely it is that we’ll tell you something you already know."
+msgstr "이 퍼즐을 풀기 위해 시도했던 모든 것을 설명해주세요. 다음 단계로 나아가는 데 도움이 될 힌트를 드리겠습니다. 더 자세히 설명해주실수록, 이미 알고 있는 내용을 또 알려드릴 가능성이 줄어듭니다."
+
+#: .\puzzles\forms.py:157
+msgid "Everyone"
+msgstr "팀 전원에게 이메일"
+
+#: .\puzzles\forms.py:157
+msgid "No one"
+msgstr "이메일 보내지 않기"
+
+#: .\puzzles\forms.py:160
+msgid "When the hint is answered, send an email to:"
+msgstr "요청한 힌트가 도착하면, 이메일 받을 곳:"
+
+#: .\puzzles\forms.py:174
+msgid " (as followup)"
+msgstr " (추가 질문)"
+
+#: .\puzzles\forms.py:178
+msgid " (thread closed)"
+msgstr " (종료된 문의)"
+
+#: .\puzzles\forms.py:209
+msgid "That username doesn’t exist."
+msgstr "존재하지 않는 계정입니다."
+
+#: .\puzzles\messaging.py:60
+msgid "(Test) Discord alert:\n"
+msgstr "(테스트) 디스코드 알림:\n"
+
+#: .\puzzles\messaging.py:62
+msgid "(Real) Discord alert:\n"
+msgstr "(실제) 디스코드 알림:\n"
+
+#: .\puzzles\messaging.py:104
+#, python-brace-format
+msgid ""
+"Sending mail <{}> to <{}>:\n"
+"{}"
+msgstr ""
+"메일 발송 <{}> 수신 <{}>:\n"
+"{}"
+
+#: .\puzzles\messaging.py:116
+msgid "Unknown failure???"
+msgstr "알 수 없는 오류???"
+
+#: .\puzzles\messaging.py:118
+#, python-brace-format
+msgid ""
+"Could not send mail <{}> to <{}>:\n"
+"{}"
+msgstr ""
+"메일 발송 실패 <{}> 수신 <{}>:\n"
+"{}"
+
+#: .\puzzles\messaging.py:184
+#, python-brace-format
+msgid "Claimed by {}"
+msgstr "담당자: {}"
+
+#: .\puzzles\messaging.py:187 .\puzzles\messaging.py:239
+#, python-brace-format
+msgid "claimed by {}"
+msgstr "담당자: {}"
+
+#: .\puzzles\messaging.py:190
+msgid "U N C L A I M E D"
+msgstr "담당자 없음"
+
+#: .\puzzles\messaging.py:192
+msgid "Claim: "
+msgstr "담당하기: "
+
+#: .\puzzles\messaging.py:198
+#, python-brace-format
+msgid ""
+"Hint, {}: {}\n"
+"{}"
+msgstr ""
+"힌트, {}: {}\n"
+"{}"
+
+#: .\puzzles\messaging.py:199
+#, python-brace-format
+msgid "Embed: {}"
+msgstr "임베드: {}"
+
+#: .\puzzles\messaging.py:205 .\puzzles\messaging.py:244
+#, python-brace-format
+msgid ""
+"Discord API failure: modify\n"
+"{}"
+msgstr ""
+"디스코드 API 오류: 수정\n"
+"{}"
+
+#: .\puzzles\messaging.py:213
+#, python-brace-format
+msgid ""
+"Discord API failure: create\n"
+"{}"
+msgstr ""
+"디스코드 API 오류: 생성\n"
+"{}"
+
+#: .\puzzles\messaging.py:222
+#, python-brace-format
+msgid "Hint done: {}"
+msgstr "힌트 완료: {}"
+
+#: .\puzzles\messaging.py:234
+#, python-brace-format
+msgid "{} by {}"
+msgstr "{} (담당: {})"
+
+#: .\puzzles\messaging.py:328
+msgid "You’ve unlocked a new puzzle!"
+msgstr "새로운 퍼즐이 잠금 해제되었습니다!"
+
+#: .\puzzles\messaging.py:342
+msgid "You’ve solved a meta!"
+msgstr "메타 퍼즐을 해결했습니다!"
+
+#: .\puzzles\messaging.py:352
+#, python-format
+msgid "You’ve finished the %s!"
+msgstr "%s를 완료했습니다!"
+
+#: .\puzzles\messaging.py:360
+msgid "Hint answered!"
+msgstr "힌트가 도착했습니다!"
+
+#: .\puzzles\models.py:52 .\puzzles\models.py:70 .\puzzles\models.py:520
+msgid "Name"
+msgstr "이름"
+
+#: .\puzzles\models.py:53 .\puzzles\models.py:79
+msgid "Slug"
+msgstr "슬러그"
+
+#: .\puzzles\models.py:56 .\puzzles\templates\puzzles_list.html:11
+msgid "meta"
+msgstr "메타"
+
+#: .\puzzles\models.py:57 .\puzzles\models.py:100
+msgid "Order"
+msgstr "순서"
+
+#: .\puzzles\models.py:60 .\puzzles\models.py:99
+msgid "round"
+msgstr "라운드"
+
+#: .\puzzles\models.py:61
+msgid "rounds"
+msgstr "라운드"
+
+#: .\puzzles\models.py:80
+msgid "Slug used in URLs to identify this puzzle (must be unique)"
+msgstr "URL에서 이 퍼즐을 식별하는 데 사용되는 slug (고유해야 함)"
+
+#: .\puzzles\models.py:87
+msgid "Body template"
+msgstr "본문 템플릿"
+
+#: .\puzzles\models.py:88
+msgid ""
+"File name of a Django template (including .html) under\n"
+"        puzzle_bodies and solution_bodies containing the puzzle and\n"
+"        solution content, respectively. Defaults to slug + \".html\" if not\n"
+"        specified."
+msgstr "puzzle_bodies 및 solution_bodies 디렉토리 아래에 있는 장고 템플릿 파일 이름(.html 확장자 포함). 퍼즐과 풀이 콘텐츠를 각각 담고 있습니다. 지정하지 않으면 기본적으로 'slug.html'이 사용됩니다."
+
+#: .\puzzles\models.py:95
+msgid "Answer"
+msgstr "정답"
+
+#: .\puzzles\models.py:96
+msgid "Answer (fine if unnormalized)"
+msgstr "정답 (정규화되지 않아도 됨)"
+
+#: .\puzzles\models.py:101
+msgid "Is meta"
+msgstr "메타 퍼즐 여부"
+
+#: .\puzzles\models.py:105
+msgid "Unlock hours"
+msgstr "시간제 잠금 해제"
+
+#: .\puzzles\models.py:106
+msgid "If nonnegative, puzzle unlocks N hours after the hunt starts."
+msgstr "0 이상일 경우, 퍼즐은 헌트 시작 N시간 후에 잠금 해제됩니다."
+
+#: .\puzzles\models.py:107
+msgid "Unlock global"
+msgstr "전체 풀이 수 잠금 해제"
+
+#: .\puzzles\models.py:108
+msgid "If nonnegative, puzzle unlocks after N main round solves in any round."
+msgstr "0 이상일 경우, 라운드에 상관없이 메인 라운드 퍼즐이 N개 풀리면 잠금 해제됩니다."
+
+#: .\puzzles\models.py:109
+msgid "Unlock local"
+msgstr "라운드 내 풀이 수 잠금 해제"
+
+#: .\puzzles\models.py:110
+msgid "If nonnegative, puzzle unlocks after N main round solves in this round."
+msgstr "0 이상일 경우, 현재 라운드에서 메인 라운드 퍼즐이 N개 풀리면 잠금 해제됩니다."
+
+#: .\puzzles\models.py:113
+msgid "Emoji"
+msgstr "이모지"
+
+#: .\puzzles\models.py:114
+msgid "Emoji to use in Discord integrations involving this puzzle"
+msgstr "이 퍼즐과 관련된 디스코드 연동에 사용할 이모지"
+
+#: .\puzzles\models.py:118 .\puzzles\models.py:542 .\puzzles\models.py:562 .\puzzles\models.py:656 .\puzzles\models.py:675 .\puzzles\models.py:701 .\puzzles\models.py:777 .\puzzles\models.py:822
+msgid "puzzle"
+msgstr "퍼즐"
+
+#: .\puzzles\models.py:171
+msgid "Team name"
+msgstr "팀명"
+
+#: .\puzzles\models.py:172
+msgid "Public team name for scoreboards and communications"
+msgstr "점수판 및 공지에 사용될 공개 팀명"
+
+#: .\puzzles\models.py:176
+msgid "Creation time"
+msgstr "생성 시각"
+
+#: .\puzzles\models.py:179
+msgid "Start offset"
+msgstr "시작 시간 오프셋"
+
+#: .\puzzles\models.py:180
+msgid ""
+"How much earlier this team should start, for early-testing\n"
+"        teams; be careful with this!"
+msgstr "사전 테스트 팀 등을 위해 이 팀이 얼마나 일찍 시작해야 하는지 설정합니다. 주의해서 사용하세요!"
+
+#: .\puzzles\models.py:184
+msgid "Allow time unlocks"
+msgstr "시간제 잠금 해제 허용"
+
+#: .\puzzles\models.py:185
+msgid ""
+"Whether this team receives time-unlocked puzzles. Note that\n"
+"        if disabled, they may be able to access more puzzles by logging out"
+msgstr "이 팀이 시간제 잠금 해제 퍼즐을 받을지 여부. 비활성화할 경우, 로그아웃하여 더 많은 퍼즐에 접근할 수도 있습니다."
+
+#: .\puzzles\models.py:190
+msgid "Total hints awarded"
+msgstr "총 부여된 힌트 수"
+
+#: .\puzzles\models.py:191
+msgid ""
+"Number of additional hints to award the team (on top of\n"
+"        the default amount per day)"
+msgstr "팀에게 부여할 추가 힌트 개수 (매일 제공되는 기본 수량에 더해짐)"
+
+#: .\puzzles\models.py:195
+msgid "Total free answers awarded"
+msgstr "총 부여된 정답 보기 수"
+
+#: .\puzzles\models.py:196
+msgid ""
+"Number of additional free answers to award the team (on\n"
+"        top of the default amount per day)"
+msgstr "팀에게 부여할 추가 정답 보기 개수 (매일 제공되는 기본 수량에 더해짐)"
+
+#: .\puzzles\models.py:200
+msgid "Last solve time"
+msgstr "마지막 풀이 시각"
+
+#: .\puzzles\models.py:203
+msgid "Is prerelease testsolver"
+msgstr "사전 테스트 팀 여부"
+
+#: .\puzzles\models.py:204
+msgid ""
+"Whether this team is a prerelease testsolver. If true, the\n"
+"        team will have access to puzzles before the hunt starts"
+msgstr "이 팀이 사전 테스트 팀인지 여부. '예'일 경우, 헌트 시작 전에 퍼즐에 접근할 수 있습니다."
+
+#: .\puzzles\models.py:209
+msgid "Is hidden"
+msgstr "숨김 여부"
+
+#: .\puzzles\models.py:210
+msgid "If a team is hidden, it will not be visible to the public"
+msgstr "팀이 숨겨진 경우, 공개적으로 표시되지 않습니다."
+
+#: .\puzzles\models.py:214 .\puzzles\models.py:518 .\puzzles\models.py:541 .\puzzles\models.py:561 .\puzzles\models.py:655 .\puzzles\models.py:776 .\puzzles\models.py:821
+msgid "team"
+msgstr "팀"
+
+#: .\puzzles\models.py:215
+msgid "teams"
+msgstr "팀"
+
+#: .\puzzles\models.py:512
+#, python-brace-format
+msgid "Team created: {}"
+msgstr "팀 생성됨: {}"
+
+#: .\puzzles\models.py:524
+msgid "team member"
+msgstr "팀원"
+
+#: .\puzzles\models.py:525
+msgid "team members"
+msgstr "팀원"
+
+#: .\puzzles\models.py:534
+#, python-brace-format
+msgid "Team {} added member {} ({})"
+msgstr "팀 {}에 멤버 {} ({}) 추가됨"
+
+#: .\puzzles\models.py:544
+msgid "Unlock datetime"
+msgstr "잠금 해제 일시"
+
+#: .\puzzles\models.py:545
+msgid "View datetime"
+msgstr "열람 일시"
+
+#: .\puzzles\models.py:554
+msgid "puzzle unlock"
+msgstr "퍼즐 잠금 해제"
+
+#: .\puzzles\models.py:555
+msgid "puzzle unlocks"
+msgstr "퍼즐 잠금 해제"
+
+#: .\puzzles\models.py:564
+msgid "Submitted answer"
+msgstr "제출한 정답"
+
+#: .\puzzles\models.py:565
+msgid "Is correct"
+msgstr "정답 여부"
+
+#: .\puzzles\models.py:566 .\puzzles\models.py:778 .\puzzles\models.py:825
+msgid "Submitted datetime"
+msgstr "제출 일시"
+
+#: .\puzzles\models.py:567
+msgid "Used free answer"
+msgstr "정답 보기 사용"
+
+#: .\puzzles\models.py:572
+msgid "correct"
+msgstr "정답"
+
+#: .\puzzles\models.py:572
+msgid "wrong"
+msgstr "오답"
+
+#: .\puzzles\models.py:577
+msgid "answer submission"
+msgstr "정답 제출"
+
+#: .\puzzles\models.py:578
+msgid "answer submissions"
+msgstr "정답 제출"
+
+#: .\puzzles\models.py:592
+#, python-format
+msgid "%dd"
+msgstr "%d일"
+
+#: .\puzzles\models.py:594
+#, python-format
+msgid "%02ds"
+msgstr "%02d초"
+
+#: .\puzzles\models.py:597
+#, python-format
+msgid "%02dm"
+msgstr "%02d분"
+
+#: .\puzzles\models.py:600
+#, python-format
+msgid "%dh"
+msgstr "%d시간"
+
+#: .\puzzles\models.py:601
+#, python-brace-format
+msgid " {} ago"
+msgstr " {} 전"
+
+#: .\puzzles\models.py:605
+msgid ""
+"\n"
+"Hints:"
+msgstr ""
+"\n"
+"힌트:"
+
+#: .\puzzles\models.py:612
+#, python-brace-format
+msgid ":question: {} Team {} used a free answer on {}!{}"
+msgstr ":question: {} {} 팀이 {}에서 정답 보기를 사용했습니다!{}"
+
+#: .\puzzles\models.py:629
+#, python-brace-format
+msgid "{} {} Team {} submitted {} for {}: {}{}"
+msgstr "{} {} {} 팀이 {}에 {}을(를) 제출: {}{}"
+
+#: .\puzzles\models.py:632
+msgid "Correct!"
+msgstr "정답입니다!"
+
+#: .\puzzles\models.py:632
+msgid "Incorrect."
+msgstr "오답입니다."
+
+#: .\puzzles\models.py:658
+msgid "Extra guesses"
+msgstr "추가 시도 횟수"
+
+#: .\puzzles\models.py:661
+#, python-format
+msgid "%s has %d extra guesses for puzzle %s"
+msgstr "%s 팀에게 특정 퍼즐에 대한 추가 시도 횟수 %d개가 부여되었습니다. - %s 퍼즐"
+
+#: .\puzzles\models.py:667
+msgid "extra guess grant"
+msgstr "추가 시도 횟수 부여"
+
+#: .\puzzles\models.py:668
+msgid "extra guess grants"
+msgstr "추가 시도 횟수 부여"
+
+#: .\puzzles\models.py:677 .\puzzles\templates\base.html:127
+msgid "Guess"
+msgstr "제출"
+
+#: .\puzzles\models.py:678 .\puzzles\models.py:839
+msgid "Response"
+msgstr "응답"
+
+#: .\puzzles\models.py:681
+msgid "puzzle message"
+msgstr "퍼즐 메시지"
+
+#: .\puzzles\models.py:682
+msgid "puzzle messages"
+msgstr "퍼즐 메시지"
+
+#: .\puzzles\models.py:702
+msgid "Updates text"
+msgstr "업데이트 텍스트"
+
+#: .\puzzles\models.py:702
+msgid ""
+"\n"
+"        Text to show on the Updates (errata) page. If blank, it will not appear there.\n"
+"        Use $PUZZLE to refer to the puzzle. The text will be prefixed with \"On\n"
+"        (date),\" when displayed, so you should capitalize it the way it would\n"
+"        appear mid-sentence. HTML is ok.\n"
+"    "
+msgstr ""
+"\n"
+"        업데이트(정오표) 페이지에 표시할 텍스트입니다. 비워두면 표시되지 않습니다.\n"
+"        $PUZZLE을 사용하여 퍼즐을 지칭할 수 있습니다. 텍스트 앞에는 \"(날짜)에,\"가 붙으므로\n"
+"        문장 중간에 오는 것처럼 대소문자를 맞춰주세요. HTML 사용이 가능합니다.\n"
+"    "
+
+#: .\puzzles\models.py:708
+msgid "Puzzle text"
+msgstr "퍼즐 텍스트"
+
+#: .\puzzles\models.py:708
+msgid ""
+"\n"
+"        Text to show on the puzzle page. If blank, it will not appear there.\n"
+"        The text will be prefixed with \"On (date),\" when displayed, so you\n"
+"        should capitalize it the way it would appear mid-sentence. HTML is ok.\n"
+"    "
+msgstr ""
+"\n"
+"        퍼즐 페이지에 표시할 텍스트입니다. 비워두면 표시되지 않습니다.\n"
+"        텍스트 앞에는 \"(날짜)에,\"가 붙으므로 문장 중간에 오는 것처럼\n"
+"        대소문자를 맞춰주세요. HTML 사용이 가능합니다.\n"
+"    "
+
+#: .\puzzles\models.py:713
+msgid "Timestamp"
+msgstr "타임스탬프"
+
+#: .\puzzles\models.py:714
+msgid "Published"
+msgstr "게시됨"
+
+#: .\puzzles\models.py:717
+#, python-format
+msgid "%s erratum @ %s"
+msgstr "%s 정오표 @ %s"
+
+#: .\puzzles\models.py:743
+msgid "erratum"
+msgstr "정오표"
+
+#: .\puzzles\models.py:744
+msgid "errata"
+msgstr "정오표"
+
+#: .\puzzles\models.py:783
+msgid "fun"
+msgstr "재미"
+
+#: .\puzzles\models.py:784
+msgid "hard"
+msgstr "난이도"
+
+#: .\puzzles\models.py:785
+msgid "Anything else:"
+msgstr "기타:"
+
+#: .\puzzles\models.py:791
+msgid "survey"
+msgstr "설문조사"
+
+#: .\puzzles\models.py:792
+msgid "surveys"
+msgstr "설문조사"
+
+#: .\puzzles\models.py:811
+msgid "No response"
+msgstr "응답 없음"
+
+#: .\puzzles\models.py:812 .\puzzles\shortcuts.py:187
+msgid "Answered"
+msgstr "답변 완료"
+
+#: .\puzzles\models.py:815
+msgid "Refunded"
+msgstr "환불됨"
+
+#: .\puzzles\models.py:818
+msgid "Obsolete"
+msgstr "오래된 요청"
+
+#: .\puzzles\models.py:823
+msgid "Is followup"
+msgstr "추가 질문 여부"
+
+#: .\puzzles\models.py:826
+msgid "Hint question"
+msgstr "힌트 질문"
+
+#: .\puzzles\models.py:827
+msgid "Notify emails"
+msgstr "알림 이메일"
+
+#: .\puzzles\models.py:829
+msgid "Claimed datetime"
+msgstr "담당 시작 일시"
+
+#: .\puzzles\models.py:834
+msgid "Claimer"
+msgstr "담당자"
+
+#: .\puzzles\models.py:835
+msgid "Discord id"
+msgstr "디스코드 ID"
+
+#: .\puzzles\models.py:837
+msgid "Answered datetime"
+msgstr "답변 일시"
+
+#: .\puzzles\models.py:838
+msgid "Status"
+msgstr "상태"
+
+#: .\puzzles\models.py:842
+msgid "hint"
+msgstr "힌트"
+
+#: .\puzzles\models.py:843
+msgid "hints"
+msgstr "힌트"
+
+#: .\puzzles\models.py:883
+#, python-brace-format
+msgid ""
+"{} requested on {} {} by {}\n"
+"{}\n"
+msgstr ""
+"{}, {}에 {} 팀이 {}에서 요청\n"
+"{}\n"
+
+#: .\puzzles\models.py:886
+msgid "Followup hint"
+msgstr "추가 질문 힌트"
+
+#: .\puzzles\models.py:886 .\puzzles\templates\base.html:128
+msgid "Hint"
+msgstr "힌트"
+
+#: .\puzzles\models.py:893
+#, python-brace-format
+msgid ""
+"Team: {} ({})\n"
+"Puzzle: {} ({})\n"
+msgstr ""
+"팀: {} ({})\n"
+"퍼즐: {} ({})\n"
+
+#: .\puzzles\models.py:921
+#, python-brace-format
+msgid "Hint answered for {}"
+msgstr "{}의 힌트에 답변 완료"
+
+#: .\puzzles\shortcuts.py:34
+msgid "Missing action"
+msgstr "액션 누락"
+
+#: .\puzzles\shortcuts.py:36
+#, python-format
+msgid "Invalid action %r"
+msgstr "잘못된 액션 %r"
+
+#: .\puzzles\shortcuts.py:40
+msgid "Missing puzzle"
+msgstr "퍼즐 누락"
+
+#: .\puzzles\shortcuts.py:42
+#, python-format
+msgid "Invalid puzzle %r"
+msgstr "잘못된 퍼즐 %r"
+
+#: .\puzzles\shortcuts.py:45
+msgid "Not on a team"
+msgstr "팀에 속해있지 않음"
+
+#: .\puzzles\shortcuts.py:48
+msgid "Already on a team"
+msgstr "이미 팀에 속해있음"
+
+#: .\puzzles\shortcuts.py:76
+msgid "Create admin team"
+msgstr "관리자 팀 생성"
+
+#: .\puzzles\shortcuts.py:81
+msgid "Toggle testsolver"
+msgstr "테스트 팀으로 전환"
+
+#: .\puzzles\shortcuts.py:90
+msgid "Offset to start now"
+msgstr "지금 시작하도록 오프셋 설정"
+
+#: .\puzzles\shortcuts.py:95
+msgid "Hints (my team)"
+msgstr "힌트 (우리 팀)"
+
+#: .\puzzles\shortcuts.py:115 .\puzzles\shortcuts.py:140 .\puzzles\shortcuts.py:216 .\puzzles\templates\solve.html:61
+msgid "Reset"
+msgstr "초기화"
+
+#: .\puzzles\shortcuts.py:120
+msgid "Free answers (my team)"
+msgstr "정답 보기 (우리 팀)"
+
+#: .\puzzles\shortcuts.py:144
+msgid "Submit answer (this puzzle)"
+msgstr "정답 제출 (이 퍼즐)"
+
+#: .\puzzles\shortcuts.py:154 .\puzzles\templates\finishers.html:43
+msgid "Solve"
+msgstr "풀기"
+
+#: .\puzzles\shortcuts.py:164
+msgid "Free"
+msgstr "정답 보기 사용"
+
+#: .\puzzles\shortcuts.py:168
+msgid "Unsolve"
+msgstr "풀지 않은 상태로"
+
+#: .\puzzles\shortcuts.py:172
+msgid "Request hint (this puzzle)"
+msgstr "힌트 요청 (이 퍼즐)"
+
+#: .\puzzles\shortcuts.py:179
+msgid "Unanswered"
+msgstr "미답변"
+
+#: .\puzzles\shortcuts.py:185
+msgid "Ok"
+msgstr "확인"
+
+#: .\puzzles\shortcuts.py:191
+msgid "Guesses (my team, this puzzle)"
+msgstr "제출 기록 (우리 팀, 이 퍼즐)"
+
+#: .\puzzles\shortcuts.py:220
+msgid "Delete all (my team, this puzzle)"
+msgstr "모두 삭제 (우리 팀, 이 퍼즐)"
+
+#: .\puzzles\shortcuts.py:225 .\puzzles\templates\bigboard.html:194 .\puzzles\templates\hint_list.html:6 .\puzzles\templates\hint_list_query.html:7 .\puzzles\templates\hunt_stats.html:36 .\puzzles\templates\puzzles_list.html:35 .\puzzles\views.py:792
+msgid "Hints"
+msgstr "힌트"
+
+#: .\puzzles\shortcuts.py:230 .\puzzles\templates\bigboard.html:177 .\puzzles\templates\hunt_stats.html:35
+msgid "Guesses"
+msgstr "제출 기록"
+
+#: .\puzzles\templates\404.html:7
+msgid "Not Found"
+msgstr "찾을 수 없음"
+
+#: .\puzzles\templates\404.html:30
+msgid "This page is not a puzzle."
+msgstr "이 페이지는 퍼즐이 아닙니다."
+
+#: .\puzzles\templates\about.html:7 .\puzzles\templates\base.html:163
+msgid "About"
+msgstr "소개"
+
+#: .\puzzles\templates\about.html:11
+msgid "What are the rules?"
+msgstr "규칙"
+
+#: .\puzzles\templates\about.html:15
+#, python-format
+msgid "The puzzlehunt starts on <strong>%(hunt_start)s</strong> and ends on <strong>%(hunt_end)s</strong>, at which point puzzle solutions will be available. "
+msgstr "퍼즐헌트는 <strong>%(hunt_start)s</strong>에 시작하여 <strong>%(hunt_end)s</strong>에 종료되며, 종료 후 퍼즐 풀이가 공개됩니다. "
+
+#: .\puzzles\templates\about.html:22
+#, python-format
+msgid "Teams have a maximum size of %(max_members)s."
+msgstr "팀 최대 인원은 %(max_members)s명입니다."
+
+#: .\puzzles\templates\about.html:23
+msgid "We reserve the right to disqualify any team for unsportsmanlike conduct."
+msgstr "스포츠맨십에 어긋나는 행위를 하는 팀은 실격 처리될 수 있습니다."
+
+#: .\puzzles\templates\about.html:24
+#, python-format
+msgid "If you have any questions about the hunt, or if you want to contact us for any reason, email <a href=\"mailto:%(contact)s\">%(contact)s</a>. We will get back to you as soon as we can."
+msgstr "헌트에 대해 질문이 있거나 다른 이유로 연락이 필요하시면 <a href=\"mailto:%(contact)s\">%(contact)s</a>로 이메일을 보내주세요. 최대한 빨리 답변해 드리겠습니다."
+
+#: .\puzzles\templates\about.html:28
+msgid "What is a puzzlehunt?"
+msgstr "퍼즐헌트란 무엇인가요?"
+
+#: .\puzzles\templates\about.html:29
+msgid ""
+"In a puzzlehunt, each puzzle has an underlying pattern or insight, which you need to figure out (somewhat like the <a href=\"https://en.wikipedia.org/wiki/Crossword#Themes\">theme</a> of a crossword puzzle). Puzzles can come in many different forms; the only real commonality is that you usually receive no direct instructions, so it’s up to you to figure out how to "
+"make sense of the information you’re given. You can read a longer introduction to puzzlehunts <a href=\"https://blog.vero.site/post/puzzlehunts\" target=\"_blank\">here</a>."
+msgstr ""
+"퍼즐헌트에서는 각 퍼즐에 숨겨진 패턴이나 통찰력이 있으며, 이를 알아내는 것이 목표입니다 (마치 십자말 퍼즐의 <a href=\"https://en.wikipedia.org/wiki/Crossword#Themes\">테마</a>와 비슷합니다). 퍼즐은 다양한 형태로 나올 수 있으며, 유일한 공통점은 보통 직접적인 설명이 없다는 것입니다. 따라서 주어진 정보를 어떻게 이해해야 할지는 여러분에게 달려 있습니다. 퍼즐헌트에 대"
+"한 더 자세한 소개는 <a href=\"https://blog.vero.site/post/puzzlehunts\" target=\"_blank\">여기</a>에서 읽어볼 수 있습니다."
+
+#: .\puzzles\templates\about.html:30
+msgid ""
+"If you are new to puzzles and are interested in seeing some examples, or if you’re looking for some practice, we recommend looking at puzzles from other online hunts such as <a target=\"_blank\" href=\"https://galacticpuzzlehunt.com/\">Galactic Puzzle Hunt</a>, <a target=\"_blank\" href =\"https://teammatehunt.com/\">Teammate Hunt</a>, <a target=\"_blank\" "
+"href=\"https://puzzlepotluck.com/\">Puzzle Potluck</a>, or <a target=\"_blank\" href=\"https://reddothunt.sg/2018\">REDDOThunt</a>."
+msgstr ""
+"퍼즐이 처음이고 예시를 보고 싶거나 연습이 필요하다면 <a target=\"_blank\" href=\"https://galacticpuzzlehunt.com/\">Galactic Puzzle Hunt</a>, <a target=\"_blank\" href =\"https://teammatehunt.com/\">Teammate Hunt</a>, <a target=\"_blank\" href=\"https://puzzlepotluck.com/\">Puzzle Potluck</a>, 또는 <a target=\"_blank\" href=\"https://reddothunt.sg/"
+"2018\">REDDOThunt</a>와 같은 다른 온라인 헌트의 퍼즐들을 살펴보는 것을 추천합니다."
+
+#: .\puzzles\templates\about.html:33
+msgid "What is and isn’t allowed?"
+msgstr "허용되는 것과 허용되지 않는 것은 무엇인가요?"
+
+#: .\puzzles\templates\about.html:41
+msgid "What is the format of this hunt?"
+msgstr "이번 헌트의 형식은 무엇인가요?"
+
+#: .\puzzles\templates\about.html:42
+msgid "A few puzzles will be available at the start, and the primary way to unlock new puzzles is by solving puzzles and progressing through the hunt, although puzzles may also be unlocked over time."
+msgstr "시작 시 몇 개의 퍼즐이 주어지며, 새로운 퍼즐을 여는 주된 방법은 퍼즐을 풀고 헌트를 진행하는 것입니다. 시간이 지남에 따라 퍼즐이 잠금 해제될 수도 있습니다."
+
+#: .\puzzles\templates\about.html:43
+msgid "Each answer is a string of letters A–Z. Lowercase letters will be changed into uppercase, and any other characters will be stripped before checking for correctness."
+msgstr "각 정답은 A-Z 알파벳 문자열입니다. 소문자는 대문자로 변환되며, 다른 모든 문자는 정답 확인 전에 제거됩니다."
+
+#: .\puzzles\templates\about.html:44
+#, python-format
+msgid "You have <strong>%(max_guesses)s total guesses</strong> for each puzzle. If you legitimately run out of guesses and need more, feel free to contact us, though we won’t grant your request if we see that you were, for example, guessing random thematic answers, or brute-forcing all 10-letter words."
+msgstr "각 퍼즐당 <strong>총 %(max_guesses)s번</strong>의 시도 횟수가 주어집니다. 정당한 이유로 시도 횟수를 모두 사용했고 더 필요하다면 저희에게 연락해주세요. 하지만 예를 들어 무작위로 주제와 관련된 단어를 추측하거나, 10글자 단어를 모두 시도하는 등의 행위가 보이면 요청이 받아들여지지 않을 것입니다."
+
+#: .\puzzles\templates\about.html:47
+msgid "How will hints work?"
+msgstr "힌트는 어떻게 사용되나요?"
+
+#: .\puzzles\templates\about.html:49
+#, python-format
+msgid "Starting on <strong>%(hint_start)s</strong>, teams will receive one hint every <strong>FIXME</strong> until the end of the hunt."
+msgstr "<strong>%(hint_start)s</strong>부터 헌트가 끝날 때까지 <strong>FIXME</strong>마다 팀에게 힌트가 하나씩 주어집니다."
+
+#: .\puzzles\templates\about.html:51
+#, python-format
+msgid "The first <strong>%(hints)s hint</strong> your team receives may only be used on the first set of puzzles in the hunt."
+msgid_plural "The first <strong>%(hints)s hints</strong> your team receives may only be used on the first set of puzzles in the hunt."
+msgstr[0] "팀이 받는 첫 <strong>%(hints)s개의 힌트</strong>는 헌트의 첫 번째 퍼즐 세트에서만 사용할 수 있습니다."
+
+#: .\puzzles\templates\about.html:53
+msgid "You can use a hint to get help on a puzzle. This can be something like a nudge in the right direction (i.e. you give us your progress on the puzzle and we’ll try to get you unstuck) or an answer to a question (e.g. “Which answers to these crossword clues are wrong?”)."
+msgstr "힌트를 사용해 퍼즐에 대한 도움을 받을 수 있습니다. 이는 올바른 방향으로 나아가도록 도와주는 것(예: 퍼즐 진행 상황을 알려주시면 막힌 부분을 해결하도록 도와드립니다)이나 질문에 대한 답변(예: '이 십자말풀이 단서 중 틀린 답은 무엇인가요?') 등이 될 수 있습니다."
+
+#: .\puzzles\templates\about.html:55
+msgid "You can request only one hint at a time."
+msgstr "한 번에 하나의 힌트만 요청할 수 있습니다."
+
+#: .\puzzles\templates\archive.html:11
+msgid "Hunt Archive"
+msgstr "지난 퍼즐헌트"
+
+#: .\puzzles\templates\archive.html:14
+msgid "Current Hunt!"
+msgstr "이번 퍼즐헌트"
+
+#: .\puzzles\templates\archive.html:15
+msgid "Link to Archive"
+msgstr "지난 퍼즐헌트 링크"
+
+#: .\puzzles\templates\base.html:16
+#, python-format
+msgid "Registration for this year's %(hunt)s is now open!"
+msgstr "올해 %(hunt)s의 등록이 시작되었습니다!"
+
+#: .\puzzles\templates\base.html:57
+msgid "Currently impersonating"
+msgstr "현재 사용중인 임시 계정"
+
+#: .\puzzles\templates\base.html:63
+msgid "Available hints:"
+msgstr "사용 가능한 힌트:"
+
+#: .\puzzles\templates\base.html:69
+msgid "Free answers:"
+msgstr "정답 보기:"
+
+#: .\puzzles\templates\base.html:81
+msgid "Admin toolbox"
+msgstr "관리자 도구"
+
+#: .\puzzles\templates\base.html:83
+msgid "Shortcuts"
+msgstr "관리자 숏컷"
+
+#: .\puzzles\templates\base.html:87
+msgid "Hints that need answering:"
+msgstr "답변이 필요한 힌트:"
+
+#: .\puzzles\templates\base.html:97
+msgid "Even though you’re an admin, you’re not currently marked as a testsolver, so you won’t be able to view puzzles."
+msgstr "당신은 관리자이지만 현재 테스트 팀으로 지정되어 있지 않아 퍼즐을 볼 수 없습니다."
+
+#: .\puzzles\templates\base.html:108
+msgid "This puzzle’s answer:"
+msgstr "이 퍼즐의 정답:"
+
+#: .\puzzles\templates\base.html:111 .\puzzles\templates\base.html:120
+msgid "Django admin"
+msgstr "장고 관리자"
+
+#: .\puzzles\templates\base.html:112 .\puzzles\templates\survey_list.html:7
+msgid "Surveys"
+msgstr "설문조사"
+
+#: .\puzzles\templates\base.html:116
+msgid "This team"
+msgstr "이 팀"
+
+#: .\puzzles\templates\base.html:121 .\puzzles\templates\hint.html:20
+msgid "Impersonate"
+msgstr "임시 계정 사용하기"
+
+#: .\puzzles\templates\base.html:123
+msgid "All guesses"
+msgstr "모든 정답 제출 기록"
+
+#: .\puzzles\templates\base.html:124
+msgid "All hints"
+msgstr "모든 힌트"
+
+#: .\puzzles\templates\base.html:126
+msgid "Download logs"
+msgstr "로그 다운로드"
+
+#: .\puzzles\templates\base.html:129 .\puzzles\templates\hunt_stats.html:33 .\puzzles\templates\team.html:85
+msgid "Puzzle"
+msgstr "퍼즐"
+
+#: .\puzzles\templates\base.html:152
+msgid "Logout"
+msgstr "로그아웃"
+
+#: .\puzzles\templates\base.html:154 .\puzzles\templates\login.html:5
+msgid "Login"
+msgstr "로그인"
+
+#: .\puzzles\templates\base.html:155
+msgid "Register"
+msgstr "등록"
+
+#: .\puzzles\templates\base.html:160
+msgid "Home"
+msgstr "메인화면"
+
+#: .\puzzles\templates\base.html:167 .\puzzles\templates\story.html:5
+msgid "Story"
+msgstr "스토리"
+
+#: .\puzzles\templates\base.html:172
+msgid "Puzzles"
+msgstr "퍼즐"
+
+#: .\puzzles\templates\base.html:176
+msgid "Teams"
+msgstr "팀"
+
+#: .\puzzles\templates\base.html:180
+msgid "Updates"
+msgstr "업데이트"
+
+#: .\puzzles\templates\base.html:185 .\puzzles\templates\wrapup.html:48
+msgid "Wrap-Up"
+msgstr "마무리"
+
+#: .\puzzles\templates\base.html:189
+msgid "Archive"
+msgstr "아카이브"
+
+#: .\puzzles\templates\base.html:234
+msgid "Powered by <a href=\"https://github.com/galacticpuzzlehunt/gph-site\">gph-site</a>"
+msgstr "Powered by <a href=\"https://github.com/galacticpuzzlehunt/gph-site\">gph-site</a>"
+
+#: .\puzzles\templates\bigboard.html:7
+msgid "Bigboard"
+msgstr "순위표"
+
+#: .\puzzles\templates\bigboard.html:11
+msgid "Back to wrap-up"
+msgstr "마무리 화면으로 돌아가기"
+
+#: .\puzzles\templates\bigboard.html:143
+msgid "Hide finished teams"
+msgstr "완주한 팀 숨기기"
+
+#: .\puzzles\templates\bigboard.html:144
+msgid "You can put ?30 after the URL to limit to 30 teams."
+msgstr "URL 뒤에 ?30을 붙여 30개 팀으로 제한하여 볼 수 있습니다."
+
+#: .\puzzles\templates\bigboard.html:158 .\puzzles\templates\finishers.html:40 .\puzzles\templates\stats.html:44 .\puzzles\templates\survey.html:31 .\puzzles\templates\teams.html:21
+msgid "Team"
+msgstr "팀"
+
+#: .\puzzles\templates\bigboard.html:159
+msgid "#"
+msgstr "순위"
+
+#: .\puzzles\templates\bigboard.html:163
+msgid "Last solve"
+msgstr "마지막으로 푼 시점"
+
+#: .\puzzles\templates\bigboard.html:169 .\puzzles\templates\hunt_stats.html:34 .\puzzles\templates\teams.html:23
+msgid "Solves"
+msgstr "푼 문제 수"
+
+#: .\puzzles\templates\bigboard.html:185
+msgid "Unlocks"
+msgstr "해금한 문제 수"
+
+#: .\puzzles\templates\bigboard.html:213
+#, python-format
+msgid "%%Solve/Guess"
+msgstr "%%정답/시도"
+
+#: .\puzzles\templates\bigboard.html:221
+#, python-format
+msgid "%%Solve/Unlock"
+msgstr "%%정답/해금"
+
+#: .\puzzles\templates\biggraph.html:7 .\puzzles\templates\finishers.html:11 .\puzzles\templates\hunt_stats.html:10 .\puzzles\templates\wrapup.html:7
+msgid "Big Graph"
+msgstr "종합 그래프"
+
+#: .\puzzles\templates\biggraph.html:11 .\puzzles\templates\finishers.html:10 .\puzzles\templates\hunt_stats.html:5 .\puzzles\templates\hunt_stats.html:15 .\puzzles\templates\wrapup.html:5
+msgid "Hunt Stats"
+msgstr "통계"
+
+#: .\puzzles\templates\biggraph.html:12 .\puzzles\templates\finishers.html:6 .\puzzles\templates\finishers.html:31 .\puzzles\templates\hunt_stats.html:9 .\puzzles\templates\wrapup.html:6
+msgid "Finishers"
+msgstr "완주자"
+
+#: .\puzzles\templates\biggraph.html:36
+#, python-format
+msgid "Top %(teams)s Teams"
+msgstr "상위 %(teams)s개 팀"
+
+#: .\puzzles\templates\bridge.html:62
+msgid "The Bridge"
+msgstr "브릿지"
+
+#: .\puzzles\templates\bridge.html:65
+msgid "Email recipients list"
+msgstr "이메일 수신자 목록"
+
+#: .\puzzles\templates\bridge.html:66
+#, python-format
+msgid "There is currently <strong>%(recipients)s</strong> recipient."
+msgid_plural "There are currently <strong>%(recipients)s</strong> recipients."
+msgstr[0] "현재 <strong>%(recipients)s</strong>명의 수신자가 있습니다."
+
+#: .\puzzles\templates\countdown.html:20
+msgid "Refresh the page!"
+msgstr "페이지를 새로고침하세요!"
+
+#: .\puzzles\templates\edit_team.html:5
+#, python-format
+msgid "Edit %(team_name)s Members"
+msgstr "%(team_name)s의 팀원 수정"
+
+#: .\puzzles\templates\edit_team.html:31 .\puzzles\templates\hint.html:142 .\puzzles\templates\hints.html:126 .\puzzles\templates\login.html:35 .\puzzles\templates\password_change.html:24 .\puzzles\templates\password_reset.html:24 .\puzzles\templates\password_reset_confirm.html:25 .\puzzles\templates\register.html:73 .\puzzles\templates\register.html:75
+#: .\puzzles\templates\solve.html:59
+msgid "Submit"
+msgstr "입력"
+
+#: .\puzzles\templates\edit_team.html:38 .\puzzles\templates\register.html:83
+msgid "Add another team member"
+msgstr "다른 팀원 추가"
+
+#: .\puzzles\templates\errata.html:7
+msgid "New erratum"
+msgstr "새 정오표"
+
+#: .\puzzles\templates\errata.html:12
+msgid "Errata / Updates"
+msgstr "정오표 및 공지"
+
+#: .\puzzles\templates\errata.html:18 .\puzzles\templates\puzzle.html:46
+msgid "UNPUBLISHED"
+msgstr "미게시"
+
+#: .\puzzles\templates\errata.html:21
+#, python-format
+msgid "On %(erratum_time)s, "
+msgstr "%(erratum_time)s에, "
+
+#: .\puzzles\templates\errata.html:25
+msgid "Emails:"
+msgstr "이메일:"
+
+#: .\puzzles\templates\finishers.html:41
+msgid "Unlock"
+msgstr "잠금 해제"
+
+#: .\puzzles\templates\finishers.html:42 .\puzzles\templates\stats.html:47 .\puzzles\templates\team.html:88
+msgid "Time to solve"
+msgstr "풀어낸 시간"
+
+#: .\puzzles\templates\free_answer.html:5 .\puzzles\templates\free_answer.html:15
+#, python-format
+msgid "Free answer: %(puzzle_name)s"
+msgstr "정답 보기: %(puzzle_name)s"
+
+#: .\puzzles\templates\free_answer.html:9 .\puzzles\templates\hints.html:10 .\puzzles\templates\post_hunt_solve.html:9 .\puzzles\templates\solution.html:10 .\puzzles\templates\solve.html:10 .\puzzles\templates\stats.html:10 .\puzzles\templates\survey.html:10
+msgid "Back to the puzzle"
+msgstr "퍼즐로 돌아가기"
+
+#: .\puzzles\templates\free_answer.html:17 .\puzzles\templates\post_hunt_solve.html:17 .\puzzles\templates\puzzle.html:37 .\puzzles\templates\solve.html:18
+msgid "Solved!"
+msgstr "풀어냄"
+
+#: .\puzzles\templates\free_answer.html:23
+msgid "You already solved this puzzle!"
+msgstr "이미 이 퍼즐을 풀었습니다!"
+
+#: .\puzzles\templates\free_answer.html:25
+msgid "You can't use a free answer on a metapuzzle."
+msgstr "메타 퍼즐에는 정답 보기를 사용할 수 없습니다."
+
+#: .\puzzles\templates\free_answer.html:27 .\puzzles\views.py:697
+msgid "You have no free answers to use."
+msgstr "사용할 수 있는 정답 보기가 없습니다."
+
+#: .\puzzles\templates\free_answer.html:29
+#, python-format
+msgid "You have <b>%(answers)s free answer</b>"
+msgid_plural "You have <b>%(answers)s free answers</b>"
+msgstr[0] "<b>%(answers)s개의 정답 보기</b>가 있습니다"
+
+#: .\puzzles\templates\free_answer.html:31
+msgid ". Are you sure you want to use one on this puzzle?"
+msgstr ". 이 퍼즐에 사용하시겠습니까?"
+
+#: .\puzzles\templates\free_answer.html:34
+msgid "Yes"
+msgstr "네"
+
+#: .\puzzles\templates\free_answer.html:35
+msgid "No"
+msgstr "아니요"
+
+#: .\puzzles\templates\hint.html:7
+#, python-format
+msgid "Hint: %(puzzle)s from %(team)s"
+msgstr "힌트: %(team)s 팀의 %(puzzle)s"
+
+#: .\puzzles\templates\hint.html:12
+msgid "Answer a hint"
+msgstr "힌트에 답변하기"
+
+#: .\puzzles\templates\hint.html:16 .\puzzles\templates\hint_list.html:14
+msgid "Your name is"
+msgstr "이름:"
+
+#: .\puzzles\templates\hint.html:16 .\puzzles\templates\hint_list.html:14
+msgid "anonymous"
+msgstr "익명"
+
+#: .\puzzles\templates\hint.html:21
+msgid "View in admin"
+msgstr "관리자 페이지에서 보기"
+
+#: .\puzzles\templates\hint.html:28
+msgid ""
+"You’re answering a follow-up hint: the team indicated the last\n"
+"        hint they got wasn’t helpful for some reason, and they’d\n"
+"        like clarification. Their previous hints are included here for context.\n"
+"        <br>The follow-up request, at the bottom, does not consume a hint\n"
+"        regardless of what status you assign to it. You should clarify whatever\n"
+"        was confusing or mistargeted in the last response, but feel free to\n"
+"        request that the team use a real hint instead. Setting this hint to\n"
+"        Refunded will also prevent additional follow-ups to the follow-up."
+msgstr ""
+"추가 질문에 답변하고 있습니다: \n"
+"팀이 마지막 힌트가 도움이 되지 않았다고 표시하여 설명을 요청했습니다. 문맥 파악을 위해 이전 힌트들이 여기에 포함되어 있습니다.\n"
+"<br>가장 아래에 있는 추가 질문 요청은 어떤 상태로 지정하든 힌트를 소모하지 않습니다. 이전 답변에서 혼란스러웠거나 잘못된 부분을 명확히 설명해야 하지만, 대신 실제 힌트를 사용하도록 팀에 요청할 수도 있습니다. 이 힌트를 '환불됨'으로 설정하면 추가 질문에 대한 추가 질문을 막을 수 있습니다."
+
+#: .\puzzles\templates\hint.html:42 .\puzzles\templates\hint.html:65 .\puzzles\templates\hint_list_entry.html:7 .\puzzles\templates\hint_list_query.html:23
+msgid "followup"
+msgstr "추가 질문"
+
+#: .\puzzles\templates\hint.html:49 .\puzzles\templates\hint.html:89 .\puzzles\templates\hint.html:153 .\puzzles\templates\hint_list_query.html:48
+#, python-format
+msgid "%(status)s %(answered_since)s ago by %(claimer)s"
+msgstr "%(claimer)s 님이 %(answered_since)s 전에 %(status)s"
+
+#: .\puzzles\templates\hint.html:81 .\puzzles\templates\hint_list_entry.html:33
+msgid "guesses"
+msgstr "이전 입력 내역"
+
+#: .\puzzles\templates\hint.html:93 .\puzzles\templates\hint_list_entry.html:11 .\puzzles\templates\hint_list_query.html:51
+#, python-format
+msgid "Claimed %(claimed_since)s ago by %(claimer)s"
+msgstr "%(claimer)s 님이 %(claimed_since)s 전에 담당 시작"
+
+#: .\puzzles\templates\hint.html:97
+#, python-format
+msgid "Claimed at unknown time (!?) by %(claimer)s"
+msgstr "%(claimer)s 님이 알 수 없는 시간(!?)에 담당 시작"
+
+#: .\puzzles\templates\hint.html:100
+msgid "Claim this hint"
+msgstr "이 힌트 담당하기"
+
+#: .\puzzles\templates\hint.html:105 .\puzzles\templates\hint_list_entry.html:46 .\puzzles\templates\hint_list_query.html:58
+msgid "all from same team"
+msgstr "같은 팀의 모든 요청"
+
+#: .\puzzles\templates\hint.html:110 .\puzzles\templates\hint_list_entry.html:51 .\puzzles\templates\hint_list_query.html:63
+msgid "all from same puzzle"
+msgstr "같은 퍼즐의 모든 요청"
+
+#: .\puzzles\templates\hint.html:115 .\puzzles\templates\hint_list_entry.html:56 .\puzzles\templates\hint_list_query.html:68
+msgid "both"
+msgstr "둘 다"
+
+#: .\puzzles\templates\hint.html:138
+msgid "Unclaim"
+msgstr "담당 취소"
+
+#: .\puzzles\templates\hint.html:140
+msgid "Back to list"
+msgstr "목록으로 돌아가기"
+
+#: .\puzzles\templates\hint.html:164
+msgid "Copy response"
+msgstr "답변 복사하기"
+
+#: .\puzzles\templates\hint_answered_email.html:4 .\puzzles\templates\hint_answered_email.txt:5
+#, python-format
+msgid "Your hint question for the puzzle %(puzzle)s has been answered."
+msgstr "%(puzzle)s 퍼즐에 대한 질문에 힌트가 도착했습니다."
+
+#: .\puzzles\templates\hint_answered_email.html:6 .\puzzles\templates\hint_answered_email.txt:7
+msgid "Question:"
+msgstr "질문:"
+
+#: .\puzzles\templates\hint_answered_email.html:7 .\puzzles\templates\hint_answered_email.txt:10
+msgid "Response:"
+msgstr "답변:"
+
+#: .\puzzles\templates\hint_answered_email.html:9
+#, python-format
+msgid "If you still need help, you can make another request <a href=\"%(link)s\">here</a>."
+msgstr "여전히 도움이 필요하다면 <a href=\"%(link)s\">여기</a>에서 다른 요청을 할 수 있습니다."
+
+#: .\puzzles\templates\hint_answered_email.txt:13
+#, python-format
+msgid "If you still need help, you can make another request at %(link)s"
+msgstr "여전히 도움이 필요하다면 %(link)s 에서 다른 요청을 할 수 있습니다."
+
+#: .\puzzles\templates\hint_list.html:10
+msgid "Open Hints"
+msgstr "답변 대기 중인 힌트"
+
+#: .\puzzles\templates\hint_list.html:19
+msgid "Search hints…"
+msgstr "힌트 검색…"
+
+#: .\puzzles\templates\hint_list.html:32
+msgid "Requested by most teams"
+msgstr "가장 많은 팀이 요청"
+
+#: .\puzzles\templates\hint_list.html:35
+msgid "Top hint answerers"
+msgstr "최고의 힌트 답변자"
+
+#: .\puzzles\templates\hint_list_entry.html:16
+#, python-format
+msgid "CLAIM: Created %(submitted_since)s ago"
+msgstr "담당 요청: %(submitted_since)s 전 생성됨"
+
+#: .\puzzles\templates\hint_list_entry.html:41
+msgid "view without claiming"
+msgstr "담당하지 않고 보기"
+
+#: .\puzzles\templates\hint_list_query.html:11
+msgid "Back to hint queue"
+msgstr "힌트 대기열로 돌아가기"
+
+#: .\puzzles\templates\hint_list_query.html:40
+msgid "view in admin"
+msgstr "관리자 페이지에서 보기"
+
+#: .\puzzles\templates\hint_list_query.html:53
+msgid "Unclaimed"
+msgstr "담당자 없음"
+
+#: .\puzzles\templates\hints.html:6 .\puzzles\templates\hints.html:40
+#, python-format
+msgid "Hints: %(puzzle_name)s"
+msgstr "힌트: %(puzzle_name)s"
+
+#: .\puzzles\templates\hints.html:46 .\puzzles\templates\hints.html:56
+#, python-format
+msgid "You have <b>%(hints)s hint</b>"
+msgid_plural "You have <b>%(hints)s hints</b>"
+msgstr[0] "<b>힌트 %(hints)s개</b>가 있습니다"
+
+#: .\puzzles\templates\hints.html:48
+#, python-format
+msgid "that you may use to ask for a hint on <b>any of the first %(intro_count)s puzzles.</b>"
+msgstr "이 힌트는 <b>첫 %(intro_count)s개 퍼즐 중 하나</b>에 질문하는 데 사용할 수 있습니다."
+
+#: .\puzzles\templates\hints.html:52
+#, python-format
+msgid "Your remaining <b>%(hints)s hint</b>"
+msgid_plural "Your remaining <b>%(hints)s hints</b>"
+msgstr[0] "남은 <b>힌트 %(hints)s개</b>는"
+
+#: .\puzzles\templates\hints.html:54
+msgid "can be used on <b>any puzzle in the hunt.</b>"
+msgstr "<b>퍼즈헌트의 모든 퍼즐</b>에 사용할 수 있습니다."
+
+#: .\puzzles\templates\hints.html:58
+msgid "that you may use to ask for a hint on any puzzle."
+msgstr "모든 퍼즐에 힌트를 요청하는 데 사용할 수 있습니다."
+
+#: .\puzzles\templates\hints.html:63
+#, python-format
+msgid "You can also use your <b>%(answers)s free answer</b>"
+msgid_plural "You can also use your <b>%(answers)s free answers</b>"
+msgstr[0] "또한 <b>정답 엿보기 %(answers)s개</b>를"
+
+#: .\puzzles\templates\hints.html:65
+msgid "as a hint if you run out of hints."
+msgstr "힌트가 부족할 경우 힌트로 대신 사용할 수 있습니다."
+
+#: .\puzzles\templates\hints.html:67
+#, python-format
+msgid "You have no usable hints, but you do have <b>%(answers)s free answer</b>"
+msgid_plural "You have no usable hints, but you do have <b>%(answers)s free answers</b>"
+msgstr[0] "사용 가능한 힌트는 없지만, <b>정답 엿보기 %(answers)s개</b>가 있습니다"
+
+#: .\puzzles\templates\hints.html:69
+msgid "that you may use as a hint."
+msgstr "이것을 힌트로 사용할 수 있습니다."
+
+#: .\puzzles\templates\hints.html:73
+msgid "You may have <b>one hint</b> open at a time. You must wait until that hint is answered to ask another."
+msgstr "한 번에 <b>하나의 힌트</b>만 요청할 수 있습니다. 해당 힌트를 받아야만 또 다른 힌트를 요청할 수 있습니다."
+
+#: .\puzzles\templates\hints.html:76
+#, python-format
+msgid "See the <a href=\"%(about)s#Hints\">about page</a> for details on when hints will be released."
+msgstr "힌트가 언제 제공되는지에 대한 자세한 내용은 <a href=\"%(about)s#Hints\">소개 페이지</a>를 참조하세요."
+
+#: .\puzzles\templates\hints.html:80
+msgid "Request a hint"
+msgstr "힌트 요청하기"
+
+#: .\puzzles\templates\hints.html:88
+msgid "You’ve already solved this puzzle, but you can ask for a hint anyway if you’d like (for example, if you’re not sure about a step or you backsolved it). The restrictions above still apply."
+msgstr "이미 이 퍼즐을 해결했지만, 원한다면 힌트를 요청할 수 있습니다 (예: 특정 단계를 확신할 수 없거나 백솔브로 풀었을 경우). 위 제한 사항은 여전히 적용됩니다."
+
+#: .\puzzles\templates\hints.html:103
+msgid "You’re asking us for a follow-up to your last hint. This won’t consume one of your hints; we’ll see if we can be more helpful based on your submission, but we may ask you to use a new regular hint instead."
+msgstr "받은 힌트에 대해 추가 질문을 요청하고 있습니다. 일단은 힌트 개수를 소모하지 않습니다. 작성한 내용을 보고 더 도움이 될 수 있는지 확인하겠지만, 대신 경우에 따라 힌트 개수를 차감하도록 요청할 수도 있습니다."
+
+#: .\puzzles\templates\hints.html:132
+msgid "Previously requested hints"
+msgstr "힌트 요청 내역"
+
+#: .\puzzles\templates\hints.html:134
+msgid "This wasn’t helpful"
+msgstr "봐도 모르겠어요"
+
+#: .\puzzles\templates\hints.html:140
+msgid "Q:"
+msgstr "Q:"
+
+#: .\puzzles\templates\hints.html:142 .\puzzles\templates\hints.html:144
+msgid "A:"
+msgstr "A:"
+
+#: .\puzzles\templates\hints.html:142
+msgid "No response yet."
+msgstr "아직 힌트가 도착하지 않았습니다."
+
+#: .\puzzles\templates\hints.html:150
+#, python-format
+msgid "Asked %(submitted_time)s"
+msgstr "%(submitted_time)s에 질문함"
+
+#: .\puzzles\templates\hints.html:153
+#, python-format
+msgid "Answered %(answered_time)s"
+msgstr "%(answered_time)s에 답변함"
+
+#: .\puzzles\templates\hints.html:158
+msgid "Looks like you solved this puzzle before we could send you a response! Your use of the hint was refunded."
+msgstr "힌트를 받기 전에 퍼즐을 풀어낸 것 같네요! 사용한 힌트는 환불되었습니다."
+
+#: .\puzzles\templates\hints.html:160
+msgid "This was a follow-up hint."
+msgstr "추가 질문에 대한 힌트입니다."
+
+#: .\puzzles\templates\hints.html:162
+msgid "Your use of the hint was refunded."
+msgstr "사용한 힌트는 환불되었습니다."
+
+#: .\puzzles\templates\home.html:51
+#, python-format
+msgid "The %(title)s has now come to a close. Thanks for puzzling with us!"
+msgstr "%(title)s가 끝났습니다. 퍼즐을 즐겨주셔서 감사합니다!"
+
+#: .\puzzles\templates\home.html:54
+#, python-format
+msgid "The %(title)s is now over, but you can still register and progress through the hunt until %(hunt_close)s."
+msgstr "%(title)s는 끝났지만, %(hunt_close)s까지 계속 등록하고 퍼즐헌트를 진행할 수 있습니다."
+
+#: .\puzzles\templates\home.html:60
+#, python-format
+msgid "Please fill out our <a href=\"%(feedback_url)s\">feedback form</a> and check out our <a href=\"%(wrapup_url)s\">wrap-up</a>!"
+msgstr "<a href=\"%(feedback_url)s\">피드백 설문지</a> 작성을 부탁드립니다. <a href=\"%(wrapup_url)s\">마무리</a>도 확인해 주세요!"
+
+#: .\puzzles\templates\home.html:62
+#, python-format
+msgid "Please fill out our <a href=\"%(feedback_url)s\">feedback form</a> to let us know what you thought about the hunt."
+msgstr "<a href=\"%(feedback_url)s\">피드백 설문지</a>를 작성하여 이번 퍼즐헌트에 대한 의견을 보내주세요."
+
+#: .\puzzles\templates\home.html:70
+msgid "What"
+msgstr "무엇을"
+
+#: .\puzzles\templates\home.html:72
+msgid "A mysterious list of puzzles has appeared on the internet! If you can solve them, you could win prizes and bragging rights!"
+msgstr "인터넷에 의문의 퍼즐 목록이 나타났습니다! 이 퍼즐들을 풀면 상품과 명예를 얻을 수 있습니다!"
+
+#: .\puzzles\templates\home.html:74
+msgid "there are no prizes"
+msgstr "상품은 없습니다"
+
+#: .\puzzles\templates\home.html:78
+msgid "When"
+msgstr "언제"
+
+#: .\puzzles\templates\home.html:83
+#, python-format
+msgid "The hunt began on %(hunt_start)s, and ended on %(hunt_end)s."
+msgstr "헌트는 %(hunt_start)s에 시작하여 %(hunt_end)s에 종료되었습니다."
+
+#: .\puzzles\templates\home.html:86
+#, python-format
+msgid "The hunt will begin on %(hunt_start)s, and it will end %(num_days)s days later on %(hunt_end)s."
+msgstr "헌트는 %(hunt_start)s에 시작하여 %(num_days)s일 후인 %(hunt_end)s에 종료됩니다."
+
+#: .\puzzles\templates\home.html:91
+msgid "Who"
+msgstr "누가"
+
+#: .\puzzles\templates\home.html:95
+#, python-format
+msgid "This was a puzzlehunt run by %(organizer)s."
+msgstr "이 퍼즐헌트는 %(organizer)s가 주최했습니다."
+
+#: .\puzzles\templates\home.html:98
+#, python-format
+msgid "This is a puzzlehunt run by %(organizer)s."
+msgstr "이 퍼즐헌트는 %(organizer)s가 주최합니다."
+
+#: .\puzzles\templates\home.html:99
+#, python-format
+msgid "Registration is open! Be sure to check out our <a href=\"%(about_url)s\">about</a> page for more information."
+msgstr "참가 신청이 시작되었습니다! 자세한 정보는 <a href=\"%(about_url)s\">소개</a> 페이지를 확인하세요."
+
+#: .\puzzles\templates\home.html:112
+msgid "Register your team!"
+msgstr "팀을 등록하세요!"
+
+#: .\puzzles\templates\home.html:115
+msgid "Register at"
+msgstr "등록"
+
+#: .\puzzles\templates\hunt_stats.html:20
+msgid "Total teams:"
+msgstr "총 팀 수:"
+
+#: .\puzzles\templates\hunt_stats.html:21
+msgid "Total participants:"
+msgstr "총 참가자 수:"
+
+#: .\puzzles\templates\hunt_stats.html:22 .\puzzles\templates\stats.html:31
+msgid "Hints asked:"
+msgstr "요청된 힌트 수:"
+
+#: .\puzzles\templates\hunt_stats.html:25 .\puzzles\templates\stats.html:28
+msgid "Total guesses:"
+msgstr "입력된 횟수:"
+
+#: .\puzzles\templates\hunt_stats.html:26 .\puzzles\templates\stats.html:27
+msgid "Total solves:"
+msgstr "풀려진 횟수:"
+
+#: .\puzzles\templates\hunt_stats.html:27
+msgid "Metas solved:"
+msgstr "풀어낸 메타퍼즐 수:"
+
+#: .\puzzles\templates\hunt_stats.html:34
+msgid "Total number of correct answers"
+msgstr "총 정답 수"
+
+#: .\puzzles\templates\hunt_stats.html:35
+msgid "Total number of answer attempts"
+msgstr "총 정답입력 횟수"
+
+#: .\puzzles\templates\hunt_stats.html:36
+msgid "Total number of hints requested"
+msgstr "총 힌트 요청 수"
+
+#: .\puzzles\templates\hunt_stats.html:37
+msgid "Total number of non-backsolves"
+msgstr "'순서에 맞게 풀어낸' 퍼즐 수"
+
+#: .\puzzles\templates\hunt_stats.html:37
+msgid "Forward solves"
+msgstr "순방향 풀이"
+
+#: .\puzzles\templates\hunt_stats.html:38
+msgid "Forward solve after using no hints on this puzzle"
+msgstr "이 퍼즐에 힌트를 사용하지 않고 순방향으로 품"
+
+#: .\puzzles\templates\hunt_stats.html:38
+msgid "0⁠-⁠hint forward"
+msgstr "힌트 0개 순방향 풀이"
+
+#: .\puzzles\templates\hunt_stats.html:39
+msgid "Forward solve after using one hint on this puzzle"
+msgstr "이 퍼즐에 힌트 한 개를 사용하고 순방향으로 품"
+
+#: .\puzzles\templates\hunt_stats.html:39
+msgid "1⁠-⁠hint forward"
+msgstr "힌트 1개 순방향 풀이"
+
+#: .\puzzles\templates\hunt_stats.html:40
+msgid "Forward solve after using multiple hints on this puzzle"
+msgstr "이 퍼즐에 여러 힌트를 사용하고 순방향으로 품"
+
+#: .\puzzles\templates\hunt_stats.html:40
+msgid "2⁠+⁠-⁠hint forward"
+msgstr "힌트 2개+ 순방향 풀이"
+
+#: .\puzzles\templates\hunt_stats.html:41
+msgid "Solved after the round meta or within five minutes of it"
+msgstr "라운드 메타 이후 또는 5분 이내에 품"
+
+#: .\puzzles\templates\hunt_stats.html:41
+msgid "Back solves"
+msgstr "역방향 풀이"
+
+#: .\puzzles\templates\hunt_stats.html:42
+msgid "Made at least one guess but none were correct"
+msgstr "한 번 이상 시도했지만 정답 없음"
+
+#: .\puzzles\templates\hunt_stats.html:42
+msgid "No solve"
+msgstr "미해결"
+
+#: .\puzzles\templates\login.html:24
+#, python-format
+msgid "If you haven’t created a team yet, <a href=\"%(register_url)s\" tabindex=\"1\">register a new team here</a>."
+msgstr "아직 팀을 만들지 않았다면, <a href=\"%(register_url)s\" tabindex=\"1\">새로운 팀 등록하기</a>."
+
+#: .\puzzles\templates\login.html:26
+#, python-format
+msgid "Forgot your password? <a href=\"%(password_url)s\" tabindex=\"1\">Click here to reset password</a>."
+msgstr "비밀번호를 잊으셨나요? <a href=\"%(password_url)s\" tabindex=\"1\">비밀번호를 재설정하기</a>"
+
+#: .\puzzles\templates\password_change.html:5 .\puzzles\templates\password_reset_confirm.html:6
+msgid "Password Change"
+msgstr "비밀번호 변경"
+
+#: .\puzzles\templates\password_change_done.html:5
+msgid "Password Change Done"
+msgstr "비밀번호 변경 완료"
+
+#: .\puzzles\templates\password_change_done.html:7
+#, python-format
+msgid "You may <a href=\"%(home_url)s\">return to the home page</a>."
+msgstr "<a href=\"%(home_url)s\">홈페이지로 돌아가기</a>"
+
+#: .\puzzles\templates\password_reset.html:5 .\puzzles\templates\password_reset_done.html:5
+msgid "Password Reset"
+msgstr "비밀번호 재설정"
+
+#: .\puzzles\templates\password_reset_confirm.html:29
+msgid "The password reset link was invalid, possibly because it has already been used. Please request a new password reset."
+msgstr "비밀번호 재설정 링크가 유효하지 않습니다. 이미 사용되었을 수 있습니다. 새로운 비밀번호 재설정을 요청해주세요."
+
+#: .\puzzles\templates\password_reset_done.html:6
+msgid "An email has been sent to your team with a link to reset your password."
+msgstr "비밀번호 재설정 링크가 이메일로 전송되었습니다."
+
+#: .\puzzles\templates\password_reset_email.html:2 .\puzzles\templates\password_reset_email.txt:3
+#, python-format
+msgid "A request was made to reset the password for %(team_name)s. Please click the link below to reset your password:"
+msgstr "%(team_name)s 팀의 비밀번호 재설정 요청이 있었습니다. 아래 링크를 클릭하여 비밀번호를 재설정하세요:"
+
+#: .\puzzles\templates\password_reset_email.html:6 .\puzzles\templates\password_reset_email.txt:7
+msgid "Sincerely,"
+msgstr "감사합니다."
+
+#: .\puzzles\templates\post_hunt_solve.html:5 .\puzzles\templates\post_hunt_solve.html:15
+#, python-format
+msgid "Check: %(puzzle_name)s"
+msgstr "확인: %(puzzle_name)s"
+
+#: .\puzzles\templates\post_hunt_solve.html:19
+msgid "Incorrect!"
+msgstr "틀렸습니다."
+
+#: .\puzzles\templates\puzzle.html:15
+msgid "Submit an answer"
+msgstr "정답 제출"
+
+#: .\puzzles\templates\puzzle.html:17
+msgid "Use free answer"
+msgstr "정답 엿보기 사용"
+
+#: .\puzzles\templates\puzzle.html:21
+msgid "Ask for a hint"
+msgstr "힌트 요청하기"
+
+#: .\puzzles\templates\puzzle.html:21
+msgid "View hints"
+msgstr "힌트 보기"
+
+#: .\puzzles\templates\puzzle.html:24
+msgid "Check your answer spoiler-free"
+msgstr "스포일러 없이 정답 확인하기"
+
+#: .\puzzles\templates\puzzle.html:27
+msgid "View solution"
+msgstr "풀이 보기"
+
+#: .\puzzles\templates\puzzle.html:28
+msgid "Stats"
+msgstr "통계"
+
+#: .\puzzles\templates\puzzle.html:49
+#, python-format
+msgid "On %(hint_time)s"
+msgstr "%(hint_time)s에"
+
+#: .\puzzles\templates\puzzle.html:57
+#, python-format
+msgid ""
+"This puzzle doesn’t seem to exist yet.\n"
+"    Searched for a puzzle template named <code>%(template_name)s</code>"
+msgstr ""
+"이 퍼즐이 아직 존재하지 않는 것 같습니다.\n"
+"    <code>%(template_name)s</code> 이름의 퍼즐 템플릿을 찾았습니다"
+
+#: .\puzzles\templates\puzzle.html:60
+msgid "This puzzle template exists, but it doesn’t seem to define a puzzle content block. Check the post production guide?"
+msgstr "이 퍼즐 템플릿은 존재하지만, 퍼즐 콘텐츠 블록을 정의하지 않은 것 같습니다. 후반 작업 가이드를 확인해보시겠어요?"
+
+#: .\puzzles\templates\puzzles.html:7 .\puzzles\templates\round.html:21
+msgid "You are a pre-release testsolver, so you may be seeing puzzles that are locked for the general public. Please be careful!"
+msgstr "당신은 사전 출시 테스트 팀원이므로, 일반 대중에게는 잠겨 있는 퍼즐을 볼 수 있습니다. 주의해주세요!"
+
+#: .\puzzles\templates\puzzles_list.html:13
+msgid "new!"
+msgstr "new!"
+
+#: .\puzzles\templates\puzzles_list.html:22
+#, python-format
+msgid "<b>%(correct)s</b> solve"
+msgid_plural "<b>%(correct)s</b> solves"
+msgstr[0] "<b>%(correct)s</b> 개 해결"
+
+#: .\puzzles\templates\puzzles_list.html:23
+#, python-format
+msgid "<b>%(guesses)s</b> guess"
+msgid_plural "<b>%(guesses)s</b> guesses"
+msgstr[0] "<b>%(guesses)s</b> 번 시도"
+
+#: .\puzzles\templates\puzzles_list.html:25
+#, python-format
+msgid "<b>%(teams)s</b> team"
+msgid_plural "<b>%(teams)s</b> teams"
+msgstr[0] "<b>%(teams)s</b> 개 팀"
+
+#: .\puzzles\templates\puzzles_list.html:33
+msgid "Solution"
+msgstr "풀이"
+
+#: .\puzzles\templates\register.html:11
+msgid "Register a new team"
+msgstr "새 팀 등록하기"
+
+#: .\puzzles\templates\register.html:14
+#, python-format
+msgid "You’re already logged in as %(team_name)s!"
+msgstr "이미 %(team_name)s으로 로그인되어 있습니다!"
+
+#: .\puzzles\templates\register.html:38
+msgid "Team members"
+msgstr "팀원"
+
+#: .\puzzles\templates\register.html:40
+msgid "You will also be able to add and remove team members at any later time on your team’s profile page."
+msgstr "팀 프로필에서 언제든지 팀원을 추가하고 제거할 수 있습니다."
+
+#: .\puzzles\templates\register.html:41
+msgid "You’ll need to provide an email address for at least one of your team members."
+msgstr "팀원 중 최소 한 명의 이메일 주소를 제공해야 합니다."
+
+#: .\puzzles\templates\registration_email.html:2 .\puzzles\templates\registration_email.txt:3
+#, python-format
+msgid "You have successfully registered team %(team_name)s for the %(hunt_title)s."
+msgstr "%(hunt_title)s에 %(team_name)s 팀이 성공적으로 등록되었습니다."
+
+#: .\puzzles\templates\registration_email.html:4
+#, python-format
+msgid "If you need to modify your team information, you can do so at <a href=\"%(team_link)s\">%(team_link)s</a>"
+msgstr "팀 정보를 수정해야 하는 경우, <a href=\"%(team_link)s\">%(team_link)s</a>에서 할 수 있습니다"
+
+#: .\puzzles\templates\registration_email.html:6 .\puzzles\templates\registration_email.txt:7
+msgid "See you at the hunt!"
+msgstr "퍼즐헌트에서 만나요!"
+
+#: .\puzzles\templates\registration_email.txt:5
+#, python-format
+msgid "If you need to modify your team information, you can do so at %(team_link)s"
+msgstr "팀 정보를 수정해야 하는 경우, %(team_link)s 에서 할 수 있습니다"
+
+#: .\puzzles\templates\round.html:10
+msgid "All puzzles"
+msgstr "모든 퍼즐"
+
+#: .\puzzles\templates\round.html:26
+msgid "Imagine some cool art goes here."
+msgstr "여기에 멋진 그림이 들어간다고 상상해보세요."
+
+#: .\puzzles\templates\solution.html:6 .\puzzles\templates\solution.html:31
+#, python-format
+msgid "Solution: %(puzzle_name)s"
+msgstr "풀이: %(puzzle_name)s"
+
+#: .\puzzles\templates\solution.html:32
+msgid "Answer:"
+msgstr "정답:"
+
+#: .\puzzles\templates\solution.html:37
+msgid "Written by"
+msgstr "출제자:"
+
+#: .\puzzles\templates\solution.html:39
+msgid "aliens"
+msgstr "외계인"
+
+#: .\puzzles\templates\solution.html:45
+#, python-format
+msgid ""
+"This solution doesn’t seem to exist yet.\n"
+"    Searched for a solution template named <code>%(template_name)s</code>"
+msgstr ""
+"이 풀이가 아직 존재하지 않는 것 같습니다.\n"
+"    <code>%(template_name)s</code> 이름의 풀이 템플릿을 찾았습니다"
+
+#: .\puzzles\templates\solution.html:48
+msgid "This solution template exists, but it doesn’t seem to define a solution content block. Check the post production guide?"
+msgstr "이 풀이 템플릿은 존재하지만, 풀이 콘텐츠 블록을 정의하지 않은 것 같습니다. 후반 작업 가이드를 확인해보시겠어요?"
+
+#: .\puzzles\templates\solution.html:53
+msgid "Author’s Notes"
+msgstr "해설"
+
+#: .\puzzles\templates\solution.html:59
+msgid "Appendix"
+msgstr "부록"
+
+#: .\puzzles\templates\solve.html:6 .\puzzles\templates\solve.html:16
+#, python-format
+msgid "Solve: %(puzzle_name)s"
+msgstr "풀기: %(puzzle_name)s"
+
+#: .\puzzles\templates\solve.html:25
+msgid "Optional survey"
+msgstr "설문조사"
+
+#: .\puzzles\templates\solve.html:26
+msgid "You can come back to this page at any time to edit your response."
+msgstr "언제든지 답변을 수정할 수 있습니다."
+
+#: .\puzzles\templates\solve.html:37
+#, python-format
+msgid "On a scale from 1 to %(max_value)s, how %(adjective)s was this puzzle?"
+msgstr "1점에서 %(max_value)s점까지, 이 퍼즐의 %(adjective)s 점수는 얼마였나요?"
+
+#: .\puzzles\templates\solve.html:113 .\puzzles\templates\survey.html:29
+msgid "Comments"
+msgstr "코멘트"
+
+#: .\puzzles\templates\solve.html:114 .\puzzles\templates\survey.html:30
+msgid "Submitted"
+msgstr "제출됨"
+
+#: .\puzzles\templates\solve.html:124
+msgid "Edit"
+msgstr "수정하기"
+
+#: .\puzzles\templates\solve.html:148
+msgid "You have no more guesses remaining for this puzzle!"
+msgstr "이 퍼즐에 대한 시도 횟수를 모두 사용했습니다!"
+
+#: .\puzzles\templates\solve.html:163
+#, python-format
+msgid "You have %(guesses)s guess remaining for this puzzle."
+msgid_plural "You have %(guesses)s guesses remaining for this puzzle."
+msgstr[0] "이 퍼즐에 대한 시도 횟수가 %(guesses)s번 남았습니다."
+
+#: .\puzzles\templates\solve.html:173
+#, python-format
+msgid "You have <b><a href=\"%(slug)s\">%(answers)s free answer</a></b>"
+msgid_plural "You have <b><a href=\"%(slug)s\">%(answers)s free answers</a></b>"
+msgstr[0] "<b>정답 엿보기<a href=\"%(slug)s\">%(answers)s개</a></b>가 있습니다"
+
+#: .\puzzles\templates\solve.html:175
+msgid " that you may use to instantly solve any non-meta puzzle."
+msgstr "이것으로 메타가 아닌 퍼즐을 즉시 해결할 수 있습니다."
+
+#: .\puzzles\templates\solve.html:180
+msgid "Previous guesses"
+msgstr "이전 제출 기록"
+
+#: .\puzzles\templates\stats.html:6 .\puzzles\templates\stats.html:22
+#, python-format
+msgid "Stats: %(puzzle_name)s"
+msgstr "통계: %(puzzle_name)s"
+
+#: .\puzzles\templates\stats.html:32
+msgid "Teams unlocked:"
+msgstr "잠금 해제한 팀:"
+
+#: .\puzzles\templates\stats.html:45 .\puzzles\templates\team.html:86
+msgid "Incorrect guesses"
+msgstr "오답 제출"
+
+#: .\puzzles\templates\stats.html:46 .\puzzles\templates\team.html:87
+msgid "Unlock time"
+msgstr "잠금 해제 시간"
+
+#: .\puzzles\templates\stats.html:48 .\puzzles\templates\team.html:89
+msgid "Solve time"
+msgstr "해결 시간"
+
+#: .\puzzles\templates\story.html:13
+msgid "Meta Meta"
+msgstr "메타 메타"
+
+#: .\puzzles\templates\story.html:14
+msgid "You succeeded!"
+msgstr "성공했습니다!"
+
+#: .\puzzles\templates\story.html:20
+msgid "Intro Meta"
+msgstr "인트로 메타"
+
+#: .\puzzles\templates\story.html:21
+msgid "But wait..."
+msgstr "하지만 잠깐..."
+
+#: .\puzzles\templates\story.html:27
+msgid "Hunt Open"
+msgstr "헌트 시작"
+
+#: .\puzzles\templates\story.html:28
+msgid "Time to solve puzzles..."
+msgstr "퍼즐을 풀 시간..."
+
+#: .\puzzles\templates\story.html:35
+msgid "Get hyped!"
+msgstr "기대하세요!"
+
+#: .\puzzles\templates\survey.html:6 .\puzzles\templates\survey.html:21
+#, python-format
+msgid "Surveys: %(puzzle_name)s"
+msgstr "설문조사: %(puzzle_name)s"
+
+#: .\puzzles\templates\team.html:12
+msgid "Edit team members"
+msgstr "팀원 수정"
+
+#: .\puzzles\templates\team.html:13
+msgid "Change password"
+msgstr "비밀번호 변경"
+
+#: .\puzzles\templates\team.html:17
+msgid "Disable time unlocks"
+msgstr "시간제 잠금 해제 비활성화"
+
+#: .\puzzles\templates\team.html:19
+msgid "Enable time unlocks"
+msgstr "시간제 잠금 해제 활성화"
+
+#: .\puzzles\templates\teams.html:6
+msgid "Team Scoreboard"
+msgstr "팀 순위표"
+
+#: .\puzzles\templates\teams.html:20
+msgid "Rank"
+msgstr "순위"
+
+#: .\puzzles\templates\teams.html:24
+msgid "Finish time"
+msgstr "완료 시간"
+
+#: .\puzzles\templates\teams.html:35
+msgid "impersonate"
+msgstr "임시 계정"
+
+#: .\puzzles\templates\victory.html:8
+#, python-format
+msgid "Congratulations on completing the %(title)s!<br>You will receive more information shortly via email."
+msgstr "%(title)s 완료를 축하합니다!<br>자세한 정보는 곧 이메일로 보내드리겠습니다."
+
+#: .\puzzles\templates\wrapup.html:52
+msgid "Congratulations!"
+msgstr "축하합니다!"
+
+#: .\puzzles\templatetags\puzzle_tags.py:27
+#, python-brace-format
+msgid "{}h{}m"
+msgstr "{}시간{}분"
+
+#: .\puzzles\templatetags\puzzle_tags.py:29
+#, python-brace-format
+msgid "{}m{}s"
+msgstr "{}분{}초"
+
+#: .\puzzles\templatetags\puzzle_tags.py:31
+#, python-brace-format
+msgid "{}s"
+msgstr "{}초"
+
+#: .\puzzles\views.py:89
+msgid "Invalid puzzle name."
+msgstr "유효하지 않은 퍼즐 이름입니다."
+
+#: .\puzzles\views.py:99
+msgid "You must be signed in and have a registered team to access this page."
+msgstr "이 페이지에 접근하려면 로그인하고 팀을 등록해야 합니다."
+
+#: .\puzzles\views.py:146 .\puzzles\views.py:152
+msgid "Sorry, not available until the hunt ends."
+msgstr "죄송합니다. 퍼즐헌트가 끝날 때까지 이용할 수 없습니다."
+
+#: .\puzzles\views.py:158
+msgid "Sorry, the hunt is over."
+msgstr "죄송합니다. 퍼즐헌트가 종료되었습니다."
+
+#: .\puzzles\views.py:207
+#, python-format
+msgid ""
+"team [%s] token [%s]\n"
+"%s"
+msgstr ""
+"팀 [%s] 토큰 [%s]\n"
+"%s"
+
+#: .\puzzles\views.py:213
+msgid "Recaptcha failed."
+msgstr "Recaptcha 인증에 실패했습니다."
+
+#: .\puzzles\views.py:241
+msgid "Team created"
+msgstr "팀이 생성되었습니다"
+
+#: .\puzzles\views.py:288
+msgid "Password reset"
+msgstr "비밀번호 재설정"
+
+#: .\puzzles\views.py:313
+#, python-brace-format
+msgid "Team “{}” not found."
+msgstr "“{}” 팀을 찾을 수 없습니다."
+
+#: .\puzzles\views.py:404
+msgid "You’re not logged in."
+msgstr "로그인되어 있지 않습니다."
+
+#: .\puzzles\views.py:444
+msgid "Team updated!"
+msgstr "팀 정보가 업데이트되었습니다!"
+
+#: .\puzzles\views.py:485
+msgid "Invalid round name."
+msgstr "유효하지 않은 라운드 이름입니다."
+
+#: .\puzzles\views.py:594 .\puzzles\views.py:695
+msgid "You’ve already solved this puzzle!"
+msgstr "이미 퍼즐을 풀었습니다!"
+
+#: .\puzzles\views.py:597
+msgid "You have no more guesses for this puzzle!"
+msgstr "이 퍼즐에 대한 시도 횟수를 모두 사용했습니다!"
+
+#: .\puzzles\views.py:617
+msgid "All puzzle answers will have at least one letter A through Z (case does not matter)."
+msgstr "모든 퍼즐 정답은 최소 한글자 이상의 한국어입니다."
+
+#: .\puzzles\views.py:620
+#, python-format
+msgid "You’ve already tried calling in the answer “%s” for this puzzle."
+msgstr "이미 이 퍼즐에 “%s”이라는 답을 제출했습니다."
+
+#: .\puzzles\views.py:635
+#, python-format
+msgid "%s is correct!"
+msgstr "%s: 정답입니다!"
+
+#: .\puzzles\views.py:638
+#, python-format
+msgid "Team %s has finished the hunt!"
+msgstr "%s 팀이 퍼즐헌트를 완료했습니다!"
+
+#: .\puzzles\views.py:639
+#, python-format
+msgid ""
+"\n"
+"Emails: <%s>"
+msgstr ""
+"\n"
+"이메일: <%s>"
+
+#: .\puzzles\views.py:643
+#, python-format
+msgid "%s is incorrect."
+msgstr "%s: 오답입니다."
+
+#: .\puzzles\views.py:660
+msgid "Thanks!"
+msgstr "감사합니다!"
+
+#: .\puzzles\views.py:693
+msgid "You can’t use a free answer on a metapuzzle."
+msgstr "메타 퍼즐에는 정답 엿보기를 사용할 수 없습니다."
+
+#: .\puzzles\views.py:706
+msgid "Free answer used!"
+msgstr "정답 엿보기를 사용했습니다!"
+
+#: .\puzzles\views.py:796
+#, python-brace-format
+msgid " from {}"
+msgstr "{} 팀"
+
+#: .\puzzles\views.py:800
+#, python-brace-format
+msgid " on {}"
+msgstr "{} 퍼즐"
+
+#: .\puzzles\views.py:850
+msgid "Sorry, hints are closed."
+msgstr "죄송합니다. 힌트 접수가 마감되었습니다."
+
+#: .\puzzles\views.py:853
+msgid "You have no hints available!"
+msgstr "사용 가능한 힌트가 없습니다!"
+
+#: .\puzzles\views.py:855
+msgid "You have no hints that can be used on this puzzle."
+msgstr "이 퍼즐에 사용할 수 있는 힌트가 없습니다."
+
+#: .\puzzles\views.py:857
+#, python-format
+msgid "You already have a hint open (on %s)! You can have one hint open at a time."
+msgstr "이미 (%s 퍼즐에) 요청한 힌트가 있습니다! 한 번에 하나의 힌트만 요청할 수 있습니다."
+
+#: .\puzzles\views.py:880
+msgid "Your request for a hint has been submitted and the puzzle hunt staff has been notified—we will respond to it soon!"
+msgstr "힌트 요청이 제출되어 퍼즐 헌트 운영진에게 전달되었습니다. 곧 답변해 드리겠습니다!"
+
+#: .\puzzles\views.py:911
+msgid "Unclaimed."
+msgstr "담당자 없음."
+
+#: .\puzzles\views.py:916
+msgid "Oh no! The status of this hint changed. Likely either someone else answered it, or the team solved the puzzle. You may wish to copy your text and reload."
+msgstr "오 이런! 이 힌트의 상태가 변경되었습니다. 다른 사람이 답변했거나 팀이 퍼즐을 해결했을 가능성이 높습니다. 작성한 텍스트를 복사하고 새로고침하는 것을 권장합니다."
+
+#: .\puzzles\views.py:924
+msgid "Hint saved."
+msgstr "힌트가 저장되었습니다."
+
+#: .\puzzles\views.py:932
+#, python-brace-format
+msgid "This hint has been answered by {}!"
+msgstr "이 힌트는 {}님이 답변했습니다!"
+
+#: .\puzzles\views.py:934
+msgid "This hint has been answered!"
+msgstr "이 힌트는 답변이 완료되었습니다!"
+
+#: .\puzzles\views.py:938
+#, python-brace-format
+msgid "This hint is currently claimed by {}!"
+msgstr "이 힌트는 현재 {}님이 담당하고 있습니다!"
+
+#: .\puzzles\views.py:940
+msgid "This hint is currently claimed!"
+msgstr "이 힌트는 현재 담당자가 있습니다!"
+
+#: .\puzzles\views.py:946
+msgid "You have claimed this hint!"
+msgstr "이 힌트를 담당하기 시작했습니다!"
+
+#: .\puzzles\views.py:948
+msgid "Please set your name before claiming hints! (If you just set your name, you can refresh or click Claim.)"
+msgstr "힌트를 담당하기 전에 이름을 설정해주세요! (이름을 방금 설정했다면, 새로고침하거나 '담당하기'를 클릭하세요.)"
