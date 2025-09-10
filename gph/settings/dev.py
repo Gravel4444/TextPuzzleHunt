@@ -11,10 +11,10 @@ ALLOWED_HOSTS = ['*']
 EMAIL_SUBJECT_PREFIX = ''
 
 HUNT_START_TIME = timezone.make_aware(datetime.datetime(
-    year=9000,
-    month=1,
-    day=1,
-    hour=0,
+    year=2025,
+    month=9,
+    day=9,
+    hour=20,
     minute=0,
 ))
 

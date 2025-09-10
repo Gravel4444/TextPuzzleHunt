@@ -35,7 +35,12 @@ RECAPTCHA_SCORE_THRESHOLD = 0.5
 
 # Google Analytics
 GA_CODE = '''
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-20GVWJS0Q8"></script>
 <script>
-  /* FIXME */
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-20GVWJS0Q8');
 </script>
 '''

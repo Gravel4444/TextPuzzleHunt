@@ -26,9 +26,9 @@ os.makedirs(LOGS_DIR, exist_ok=True)
 
 SECRET_KEY = os.environ.get('SECRET_KEY', 'FIXME_SECRET_KEY_HERE')
 
-RECAPTCHA_SITEKEY = None
-RECAPTCHA_SECRETKEY = None
-RECAPTCHA_SCORE_THRESHOLD = 0
+RECAPTCHA_SITEKEY = os.environ.get('RECAPTCHA_SITEKEY')
+RECAPTCHA_SECRETKEY = os.environ.get('RECAPTCHA_SECRETKEY')
+RECAPTCHA_SCORE_THRESHOLD = 0.5
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -158,14 +158,14 @@ SOLUTION_STATIC_ROOT = os.path.normpath(os.path.join(BASE_DIR, 'puzzles/template
 STATICFILES_STORAGE = 'gph.storage.CustomStorage'
 
 # Email SMTP information
-
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'FIXME'
-EMAIL_HOST_USER = 'FIXME'
-EMAIL_HOST_PASSWORD = 'FIXME'
-EMAIL_PORT = 'FIXME'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_SUBJECT_PREFIX = '[FIXME Puzzle Hunt] '
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+EMAIL_SUBJECT_PREFIX = '[📝텍스트 퍼즐헌트📝] ' # 원하는 제목 접두사로 변경 가능
+
 
 # https://docs.djangoproject.com/en/3.1/topics/logging/
 
@@ -258,10 +258,10 @@ LOGOUT_REDIRECT_URL = 'index'
 # under different environments.
 
 HUNT_START_TIME = timezone.make_aware(datetime.datetime(
-    year=9001,
-    month=1,
-    day=1,
-    hour=0,
+    year=2025,
+    month=9,
+    day=9,
+    hour=20,
     minute=0,
 ), timezone=datetime.timezone(datetime.timedelta(hours=11)))
 HUNT_END_TIME = timezone.make_aware(datetime.datetime(
