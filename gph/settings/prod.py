@@ -13,7 +13,7 @@ DOMAIN = 'FIXME'
 
 # List of places you're serving from, e.g.
 # ['galacticpuzzlehunt.com', 'gph.example.com']; or just ['*']
-ALLOWED_HOSTS = ['https://textpuzzlehunt.onrender.com']
+ALLOWED_HOSTS = ['textpuzzlehunt.onrender.com']
 
 
 DATABASES = {
