@@ -154,7 +154,7 @@ class SpacelesserNode(template.Node):
 
 # <힌트 수정> 아래 코드 전부 추가
 
-class CannedHintNode(Node):
+class CannedHintNode(template.Node):
     def __init__(self, hint_id, nodelist):
         self.hint_id = hint_id.strip('"\'') # 따옴표 제거
         self.nodelist = nodelist
@@ -205,7 +205,7 @@ class CannedHintNode(Node):
         # hint_canned_display.html 템플릿을 사용하여 HTML을 렌더링합니다.
         return render_to_string('hint_canned_display.html', template_context)
 
-class CannedHintSectionNode(Node):
+class CannedHintSectionNode(template.Node):
     def __init__(self, section_name, nodelist):
         self.section_name = section_name
         self.nodelist = nodelist
