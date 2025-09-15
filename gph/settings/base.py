@@ -69,21 +69,49 @@ MIDDLEWARE = [
     'puzzles.views.accept_ranges_middleware',
 ]
 
-# <수정> Render 환경 변수(REDIS_URL)를 직접 사용하도록 고정합니다.
 REDIS_URL = os.environ.get('REDIS_URL')
-CACHES = {
-    "default": {
-        "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": REDIS_URL + "/1",
-        "OPTIONS": {"CLIENT_CLASS": "django_redis.client.DefaultClient"},
+
+if REDIS_URL:
+    # --- 배포 환경 설정 ---
+    # REDIS_URL 환경 변수가 존재할 경우, 해당 URL을 사용해 Redis에 연결합니다.
+    CACHES = {
+        "default": {
+            "BACKEND": "django_redis.cache.RedisCache",
+            "LOCATION": REDIS_URL + "/1",
+            "OPTIONS": {
+                "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            },
+        }
     }
-}
-CHANNEL_LAYERS = {
-    "default": {
-        "BACKEND": "channels_redis.core.RedisChannelLayer",
-        "CONFIG": {"hosts": [REDIS_URL + "/2"]},
+    CHANNEL_LAYERS = {
+        "default": {
+            "BACKEND": "channels_redis.core.RedisChannelLayer",
+            "CONFIG": {
+                "hosts": [REDIS_URL + "/2"],
+            },
+        }
     }
-}
+else:
+    # --- 로컬 개발 환경 설정 ---
+    # REDIS_URL 환경 변수가 없을 경우, 기존과 같이 로컬(127.0.0.1) Redis를 사용합니다.
+    # 이렇게 하면 로컬 개발 환경이 깨지지 않습니다.
+    CACHES = {
+        "default": {
+            "BACKEND": "django_redis.cache.RedisCache",
+            "LOCATION": "redis://127.0.0.1:6379/1",
+            "OPTIONS": {
+                "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            },
+        }
+    }
+    CHANNEL_LAYERS = {
+        "default": {
+            "BACKEND": "channels_redis.core.RedisChannelLayer",
+            "CONFIG": {
+                "hosts": [{'address':('127.0.0.1', 6379), 'db': 2}],
+            },
+        }
+    }
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 SESSION_CACHE_ALIAS = 'default'
