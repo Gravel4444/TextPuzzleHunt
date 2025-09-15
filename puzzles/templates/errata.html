@@ -17,15 +17,17 @@
         {% if not erratum.published %}
         <strong>[<a href="{% url 'admin:puzzles_erratum_change' erratum.id %}">{% translate "UNPUBLISHED" %}</a>]</strong>
         {% endif %}
-        {% format_time erratum.timestamp "DATE_AT_TIME" as erratum_time %}
+        {% format_time erratum.timestamp "DATE_TIME_FINISHED" as erratum_time %}
         {% blocktranslate %}On {{ erratum_time }}, {% endblocktranslate %}
         {{ erratum.formatted_updates_text|safe }}
+        <!--
         {% if is_superuser and erratum.puzzle %}
         <details>
             <summary>{% translate "Emails:" %}</summary>
             <textarea>{{ erratum.get_emails|join:', ' }}</textarea>
         </details>
         {% endif %}
+        -->
     </div>
     {% endif %}
     {% endfor %}

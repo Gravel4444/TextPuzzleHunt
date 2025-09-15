@@ -17,13 +17,13 @@
 <a href="{% url 'free-answer' puzzle.slug %}" class="btn">{% translate "Use free answer" %}</a>
 {% endif %}
 {% endif %}
-{% if can_view_hints %}
+{% if can_view_hints or hunt_is_over %}
 <a href="{% url 'hints' puzzle.slug %}" class="btn">{% if can_ask_for_hints %}{% translate "Ask for a hint" %}{% else %}{% translate "View hints" %}{% endif %}</a>
 {% endif %}
 {% if hunt_is_closed or not team and hunt_is_over %}
 <a href="{% url 'post-hunt-solve' puzzle.slug %}" class="btn">{% translate "Check your answer spoiler-free" %}</a>
 {% endif %}
-{% if hunt_is_over or is_superuser %}
+{% if has_finished_hunt or hunt_is_over or is_superuser %}
 <a href="{% url 'solution' puzzle.slug %}" class="btn">{% translate "View solution" %}</a>
 <a href="{% url 'stats' puzzle.slug %}" class="btn">{% translate "Stats" %}</a>
 {% endif %}
@@ -45,7 +45,7 @@
         {% if not erratum.published %}
         <strong>[<a href="{% url 'admin:puzzles_erratum_change' erratum.id %}">{% translate "UNPUBLISHED" %}</a>]</strong>
         {% endif %}
-        {% format_time erratum.timestamp "DATE_AT_TIME" as hint_time %}
+        {% format_time erratum.timestamp "DATE_TIME_FINISHED" as hint_time %}
         {% blocktranslate %}On {{ hint_time }}{% endblocktranslate %},
         {{ erratum.puzzle_text|safe }}
     </div>
@@ -54,10 +54,10 @@
 
     {% puzzleblock puzzle-body %}
     {% if puzzle_body %}{{ puzzle_body }}{% elif template_name %}
-    {% blocktranslate %}This puzzle doesn&rsquo;t seem to exist yet.
-    Searched for a puzzle template named <code>{{ template_name }}</code>{% endblocktranslate %}
+    이 퍼즐이 아직 존재하지 않는 것 같습니다.
+    <code>%(template_name)s</code> 이름의 퍼즐 템플릿을 찾았습니다.  
     {% else %}
-    {% translate "This puzzle template exists, but it doesn&rsquo;t seem to define a puzzle content block. Check the post production guide?" %}
+    이 퍼즐 템플릿은 존재하지만, 퍼즐 콘텐츠 블록을 정의하지 않은 것 같습니다. 후반 작업 가이드를 확인해보시겠어요?
     {% endif %}
 </main>
 

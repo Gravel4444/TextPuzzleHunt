@@ -21,11 +21,13 @@
     <link rel="stylesheet" href="{% static "css/skeleton.css" %}">
     <link rel="stylesheet" href="{% static "css/base.css" %}">
 
-    <!--나눔명조 폰트, 나눔스퀘어 네오 삽입-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!--나눔명조 폰트, 나눔스퀘어 네오, 나눔고딕 D2coding 삽입-->
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css" rel="stylesheet">
+    <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-gothic-coding.css" rel="stylesheet">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
@@ -61,7 +63,7 @@
                         {% endif %}
                         {% if team and num_hints_remaining > 0 %}
                         <span class="current-stat" title="{% translate 'Available hints:' %} {{ num_hints_remaining }}">
-                            {% include 'icon-hint.svg' %}
+                            ✏️
                             <span class="current-stat-label">{{ num_hints_remaining }}</span>
                         </span>
                         {% endif %}
@@ -72,8 +74,8 @@
                         </span>
                         {% endif %}
                         {% if team and hunt_has_started %}
-                        <span class="current-stat" title="Solves: {{ team.solves|length }}">
-                            {% include 'icon-solve.svg' %}
+                        <span class="current-stat" title="해결한 문제: {{ team.solves|length }}">
+                            ⭕
                             <span class="current-stat-label">{{ team.solves|length }}</span>
                         </span>
                         {% endif %}
@@ -167,7 +169,7 @@
                         {% translate "Story" %}
                     </a>
                     {% endif %}
-                    {% if hunt_has_started or hunt_has_almost_started %}
+                    {% if team_has_started or hunt_is_closed %}
                     <a{% if '/puzzle' in request.path or puzzle %} class="selected-tab"{% endif %} href="{% url 'puzzles' %}">
                         {% translate "Puzzles" %}
                     </a>
@@ -180,14 +182,15 @@
                         {% translate "Updates" %}
                     </a>
                     {% endif %}
-                    {% if wrapup_page_visible %}
+                    {% if has_finished_hunt %}
                     <a{% if '/wrapup' in request.path %} class="selected-tab"{% endif %} href="{% url 'wrapup' %}">
                         {% translate "Wrap-Up" %}
                     </a>
                     {% endif %}
+                    <!-- 이번이 1회라 아카이브 제거
                     <a{% if request.path == '/archive' %} class="selected-tab"{% endif %} href="{{ archive_link }}">
                         {% translate "Archive" %}
-                    </a>
+                    </a> -->
                 </div>
             </div>
         </span>

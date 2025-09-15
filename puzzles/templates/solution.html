@@ -42,15 +42,15 @@ h4 {
 
     {% puzzleblock solution-body %}
     {% if solution_body %}{{ solution_body }}{% elif template_name %}
-    {% blocktranslate %}This solution doesn&rsquo;t seem to exist yet.
-    Searched for a solution template named <code>{{ template_name }}</code>{% endblocktranslate %}
+    이 풀이가 아직 존재하지 않는 것 같습니다.
+    <code>%(template_name)s</code> 이름의 풀이 템플릿을 찾았습니다.  
     {% else %}
-    {% translate "This solution template exists, but it doesn&rsquo;t seem to define a solution content block. Check the post production guide?" %}
+    이 풀이 템플릿은 존재하지만, 풀이 콘텐츠 블록을 정의하지 않은 것 같습니다. 후반 작업 가이드를 확인해보시겠어요?
     {% endif %}
 
     {% puzzleblock author-notes %}
     {% if author_notes %}
-    <h2 id="authors-notes">{% translate "Author&rsquo;s Notes" %}</h2>
+    <h2 id="authors-notes">작가의 말</h2>
     {{ author_notes }}
     {% endif %}
 

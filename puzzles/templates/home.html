@@ -25,7 +25,7 @@
         display: none;
     }
 
-    .feedback, .register {
+    .feedback, .register, .hunt_start {
         text-align: center;
         margin-bottom: 40px;
     }
@@ -41,9 +41,52 @@
     font-size: 80%;
     line-height: 1.5;
 }
+
+.responsive-title{
+    /* 1. 띄어쓰기 기준으로만 줄바꿈되도록 설정 */
+    word-break: keep-all;
+    /* 2. 화면 크기에 따라 글씨 크기가 자동으로 조절되도록 설정 */
+    /* 최소 24px, 기본은 화면 너비의 5%, 최대 50px */
+    font-size: clamp(24px, 5vw, 6rem);
+}
+
+.marquee-container {
+    font-size: 4rem;
+    margin: 0px 0px 50px 0px;
+    line-height: 1.2;
+    width: 100%;       /* 컨테이너의 너비를 100%로 설정합니다. */
+    overflow: hidden;    /* 컨테이너를 벗어나는 텍스트를 숨깁니다. (중요!) */
+    white-space: nowrap; /* 텍스트가 길어져도 줄바꿈되지 않도록 합니다. */
+}
+
+.marquee-text {
+    display: inline-block; /* 텍스트를 한 덩어리로 만들어 움직일 수 있게 합니다. */
+    /* 애니메이션 설정: 이름, 지속 시간, 속도, 반복 */
+    animation: marquee 60s linear infinite;
+    display: inline-block;
+
+    font-family: "NanumSquareNeoExtraBold";
+}
+
+.marquee-text:hover {
+    /* 마우스를 올리면 잠시 멈추도록 설정 (선택 사항) */
+    animation-play-state: paused;
+}
+
+/* 애니메이션의 실제 움직임을 정의합니다. */
+@keyframes marquee {
+  0%   { transform: translateX(0%); } /* 시작: 오른쪽 바깥에서 시작 */
+  100% { transform: translateX(-50%); } /* 끝: 왼쪽 바깥으로 완전히 사라짐 */
+}
 </style>
 
-<h1>{{ hunt_title }}</h1>
+<h1 class="responsive-title">{{ hunt_title }}</h1>
+
+<div class="marquee-container">
+  <div class="marquee-text">
+    <span>📝T📝E📝X📝T📝P📝U📝Z📝Z📝L📝E📝H📝U📝N📝T</span><span>📝T📝E📝X📝T📝P📝U📝Z📝Z📝L📝E📝H📝U📝N📝T</span>
+  </div>
+</div>
 
 {% if hunt_is_over %}
 <div class="feedback">
@@ -110,8 +153,22 @@
 <div class="register">
     <a href="{% url 'register' %}" class="btn">{% translate "Register your team!" %}</a>
 </div>
+<!-- 이건 무슨 용도의 코드지
 <h3 class="print-register">
     <a>{% translate "Register at" %} https://FIXME</a>
 </h3>
+-->
 {% endif %}
+
+{% if can_start_hunt and request.user.is_authenticated %}
+<div class="hunt_start">
+    <form action="{% url 'start_hunt' %}" method="post">
+        {% csrf_token %}
+        <button class="btn" type="submit" style="font-size: 3rem;">
+            ‼️시작하기‼️
+        </button>
+    </form>
+</div>
+{% endif %}
+
 {% endblock %}

@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load puzzle_tags %}
 
 {% block page-title %}
 <title>{% blocktranslate with puzzle_name=puzzle.name %}Check: {{ puzzle_name }}{% endblocktranslate %}</title>
@@ -21,6 +22,24 @@
 </h1>
 
 <main>
+    <!-- <h4>고정된 힌트 보기</h4>
+    <ul>
+        {% if not request.GET.show_canned_hints %}
+            <a href="?show_canned_hints=true" class="btn">힌트 목록 열기</a>
+        {% endif %}
+        {% if request.GET.show_canned_hints %}
+            <div>
+                {% puzzleblock hint-body %}
+                {% if hint_body %}{{ hint_body|safe }}{% elif template_name %}
+                이 힌트가 아직 존재하지 않는 것 같습니다.
+                <code>{{ template_name }}</code> 이름의 힌트 템플릿을 찾았습니다.  
+                {% else %}
+                이 힌트 템플릿은 존재하지만, 힌트 콘텐츠 블록을 정의하지 않은 것 같습니다. 후반 작업 가이드를 확인해보시겠어요?
+                {% endif %}
+            </div>
+        {% endif %}
+    </ul> -->
+
     <form>
         {{ form.non_field_errors }}
         {% for field in form %}

@@ -1,0 +1,41 @@
+<table class="canned-hint-table">
+    <tbody>
+        <colgorup>
+            <col style="width:25%">
+            <col style="width:75%">
+        </colgorup>
+        <tr>
+            <th class="hint-title-cell">
+                {{ title|safe }}
+                {% if not is_unlocked %}
+                    (🔒)
+                {% endif %}
+            </th>
+
+            <td class="hint-content-cell">
+                {% if is_unlocked %}
+                    <div class="canned-hint-content">
+                        {{ content|safe }}
+                    </div>
+                {% else %}
+                    <form method="post" action="{{ action_url }}">
+                        {% csrf_token %}
+                        <input type="hidden" name="unlock_canned_hint" value="{{ hint_id }}">
+                        
+                        {% if hunt_is_over %}
+                            <button class="btn" type="submit" onclick="return confirm('이 작업은 되돌릴 수 없습니다.');">
+                                힌트 보기
+                            </button>
+                        {% elif team.num_hints_remaining > 0 %}
+                            <button class="btn" type="submit" onclick="return confirm('✏️연필 1개를 사용하여 힌트를 보시겠습니까? 이 작업은 되돌릴 수 없습니다.');">
+                                힌트 보기 (&minus;1✏️)
+                            </button>
+                        {% else %}
+                            ✏️<b>연필</b>이 부족합니다!
+                        {% endif %}
+                    </form>
+                {% endif %}
+            </td>
+        </tr>
+    </tbody>
+</table>

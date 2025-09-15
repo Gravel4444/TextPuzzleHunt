@@ -25,14 +25,10 @@
 <table class="hint-table">
     {% if hint.is_followup %}
     <div class="note">
-        {% blocktranslate %}You&rsquo;re answering a follow-up hint: the team indicated the last
-        hint they got wasn&rsquo;t helpful for some reason, and they&rsquo;d
-        like clarification. Their previous hints are included here for context.
-        <br>The follow-up request, at the bottom, does not consume a hint
-        regardless of what status you assign to it. You should clarify whatever
-        was confusing or mistargeted in the last response, but feel free to
-        request that the team use a real hint instead. Setting this hint to
-        Refunded will also prevent additional follow-ups to the follow-up.{% endblocktranslate %}
+        {% blocktranslate %}추가 질문에 답변하고 있습니다: <br>팀이 마지막 힌트가 도움이 되지 않았다고 표시하여 설명을 요청했습니다.
+        문맥 파악을 위해 이전 힌트들이 여기에 포함되어 있습니다.<br>가장 아래에 있는 추가 질문 요청은 어떤 상태로 지정하든 힌트를 소모하지 않습니다.
+        이전 답변에서 혼란스러웠거나 잘못된 부분을 명확히 설명해야 하지만, 대신 과도하게 설명이 필요한 경우 실제 힌트를 사용하도록 팀에 요청할 수도 있습니다.
+        <br>이 힌트를 '환불됨'으로 설정하면 추가 질문에 대한 추가 질문을 막을 수 있습니다.{% endblocktranslate %}
     </div>
     {% endif %}
     {% for hint in previous_same_team %}
@@ -123,7 +119,14 @@
         </tr>
     </tbody>
 </table>
-
+{% if previous_canned_hint %}
+    <ul>
+        팀에서 이미 확인한 고정된 힌트:<br>
+        {% for canned_hint in previous_canned_hint %}
+            {% format_time canned_hint.opened_datetime 'DATE_AT_TIME' %} : {{ canned_hint.hint_id }}<br>
+        {% endfor %}
+    </ul>
+{% endif %}
 {{ form.non_field_errors }}
 <form method="post" class="hint-controls">
     {% csrf_token %}

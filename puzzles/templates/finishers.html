@@ -32,29 +32,29 @@ td {
 
 <main>
 <table class="sortable list-table">
-    <col style="width: 50%">
-    <col style="width: 20%">
-    <col style="width: 10%">
-    <col style="width: 20%">
+    <col style="width: 30%">
+    <col style="width: 27%">
+    <col style="width: 16%">
+    <col style="width: 27%">
     <tr onclick="document.querySelector('tbody').className = 'sorting'">
         <th>{% translate "Team" %}</th>
-        <th>{% translate "Unlock" %} ({{ start_time|date:"T" }})</th>
+        <th>{% translate "Unlock" %}</th>
         <th>{% translate "Time to solve" %}</th>
-        <th>{% translate "Solve" %} ({{ start_time|date:"T" }})</th>
+        <th>{% translate "Solve" %}</th>
     </tr>
     {% for team in data %}
     <tr>
         <td><a href="{% url 'team' team.team.team_name %}">
             {{ team.team.team_name }}
         </a></td>
-        <td sorttable_customkey="{{ team.unlock_time|unix_time }}">
-            {% format_time team.unlock_time %}
+        <td sorttable_customkey="{{ team.start_time|unix_time }}">
+            {% format_time team.start_time "DATE_TIME_FINISHED"%}
         </td>
         <td sorttable_customkey="{{ team.total_time }}">
             {% format_duration team.total_time %}
         </td>
         <td sorttable_customkey="{{ team.solve_time|unix_time }}">
-            {% format_time team.solve_time %}
+            {% format_time team.solve_time "DATE_TIME_FINISHED"%}
         </td>
     </tr>
     {% if is_superuser %}

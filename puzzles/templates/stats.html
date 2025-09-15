@@ -24,28 +24,32 @@
 <main>
     <div class="info-row">
         <div>
-            <div class="stat-entry">{% translate "Total solves:" %} <span class="stat-value">{{ solves }}</span></div>
-            <div class="stat-entry">{% translate "Total guesses:" %} <span class="stat-value">{{ guesses }}</span></div>
+            <div class="stat-entry">풀어낸 팀: <span class="stat-value">{{ solves }}</span></div>
+            <div class="stat-entry">{% translate "Teams unlocked:" %} <span class="stat-value">{{ unlock_count }}</span></div>            
         </div>
         <div>
-            <div class="stat-entry">{% translate "Hints asked:" %} <span class="stat-value">{{ hint_count }}</span></div>
-            <div class="stat-entry">{% translate "Teams unlocked:" %} <span class="stat-value">{{ unlock_count }}</span></div>
+            <div class="stat-entry">{% translate "Total guesses:" %} <span class="stat-value">{{ guesses }}</span></div>
+            <div class="stat-entry">{% translate "Hints asked:" %} <span class="stat-value">{{ total_hint_count }}</span></div>
+        </div>
+        <div>
+            <div class="stat-entry">힌트 보기 횟수: <span class="stat-value">{{ canned_hint_count }}</span></div>
+            <div class="stat-entry">힌트 요청 횟수: <span class="stat-value">{{ asked_hint_count }}</span></div>
         </div>
     </div>
 
     <table class="sortable list-table">
-        <col style="width: 40%">
-        <col style="width: 10%">
-        <col style="width: 20%">
-        <col style="width: 10%">
-        <col style="width: 20%">
+        <col style="width: 35%">
+        <col style="width: 15%">
+        <col style="width: 18%">
+        <col style="width: 14%">
+        <col style="width: 18%">
         <tbody>
             <tr>
                 <th>{% translate "Team" %}</th>
                 <th>{% translate "Incorrect guesses" %}</th>
-                <th>{% translate "Unlock time" %} ({{ start_time|date:"T" }})</th>
+                <th>{% translate "Unlock time" %}</th>
                 <th>{% translate "Time to solve" %}</th>
-                <th>{% translate "Solve time" %} ({{ start_time|date:"T" }})</th>
+                <th>{% translate "Solve time" %}</th>
             </tr>
             {% for solver in solvers %}
             <tr{% if solver.is_current %} class="current-team"{% endif %}>

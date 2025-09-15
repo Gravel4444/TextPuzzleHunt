@@ -175,6 +175,10 @@ class Team(models.Model):
     # Time of creation of team
     creation_time = models.DateTimeField(auto_now_add=True, verbose_name=_('Creation time'))
 
+    # <시작 수정> 팀별 헌트 시작 시간을 기록하기 위한 필드를 추가합니다.
+    team_start_time = models.DateTimeField(null=True, blank=True, verbose_name=_('Hunt Start Time'),
+        help_text=_('The time this team clicked the "Start Hunt" button.'))
+
     start_offset = models.DurationField(
         default=datetime.timedelta, verbose_name=_('Start offset'),
         help_text=_('''How much earlier this team should start, for early-testing
@@ -374,6 +378,7 @@ class Team(models.Model):
     def asked_hints(self):
         return tuple(self.hint_set.select_related('puzzle', 'puzzle__round'))
 
+    # <시간 수정> 팀별로 시작 시간에 따라 계산합니다.
     def num_hints_total(self):
         '''
         Compute the total number of hints (used + remaining) available to this team.
@@ -381,13 +386,20 @@ class Team(models.Model):
 
         if not HINTS_ENABLED or self.hunt_is_over:
             return 0
-        if self.now < self.creation_time + TEAM_AGE_BEFORE_HINTS:
+        # <수정> 팀의 헌트 시작 시간으로부터 일정 시간이 지나야 힌트가 지급되도록 합니다. 아래는 원본.
+        # if self.now < self.creation_time + TEAM_AGE_BEFORE_HINTS:
+        #     return self.total_hints_awarded
+        if self.now < self.team_start_time + TEAM_AGE_BEFORE_HINTS:
             return self.total_hints_awarded
-        intervals = max(0, (self.now - (HINT_TIME - self.start_offset)) // HINT_INTERVAL + 1)
+
+        # <수정> HINT_TIME(글로벌 힌트 시작 시간) 대신 팀의 team_start_time을 기준으로 계산합니다.
+        intervals = max(0, (self.now - (self.team_start_time - self.start_offset)) // HINT_INTERVAL + 1)
         return self.total_hints_awarded + sum(HINTS_PER_INTERVAL[:intervals])
 
     def num_hints_used(self):
-        return sum(hint.consumes_hint for hint in self.asked_hints)
+        # <힌트 수정> 끝에 canned hint 사용량 추가. 아래는 원본
+        # return sum(hint.consumes_hint for hint in self.asked_hints)
+        return sum(hint.consumes_hint for hint in self.asked_hints)*2 + self.num_canned_hints_used
 
     def num_hints_remaining(self):
         return self.num_hints_total - self.num_hints_used
@@ -401,13 +413,18 @@ class Team(models.Model):
 
     def num_nonintro_hints_remaining(self):
         return self.num_hints_remaining - self.num_intro_hints_remaining
+    
+# <힌트 수정> canned hint 함수 추가함
+    def num_canned_hints_used(self):
+        return self.cannedhint_set.count()
 
+# <시간 수정> 글로벌한 free answer time을 팀별로 team_start_time으로 대체 계산
     def num_free_answers_total(self):
         if not FREE_ANSWERS_ENABLED or self.hunt_is_over:
             return 0
-        if self.now < self.creation_time + TEAM_AGE_BEFORE_FREE_ANSWERS:
+        if self.now < self.team_start_time + TEAM_AGE_BEFORE_FREE_ANSWERS:
             return self.total_free_answers_awarded
-        days = max(0, (self.now - (FREE_ANSWER_TIME - self.start_offset)).days + 1)
+        days = max(0, (self.now - (self.team_start_time + datetime.timedelta(days=6) - self.start_offset)).days + 1)
         return self.total_free_answers_awarded + sum(FREE_ANSWERS_PER_DAY[:days])
 
     def num_free_answers_used(self):
@@ -463,15 +480,19 @@ class Team(models.Model):
         metas_solved = []
         puzzles_unlocked = collections.OrderedDict()
         unlocks = []
+
         for puzzle in context.all_puzzles:
             unlocked_at = None
-            if 0 <= puzzle.unlock_hours and (
-                puzzle.unlock_hours == 0 or
-                not context.team or
+            # <시간 수정> 시간 기반 퍼즐 잠금 해제 로직을 팀의 team_start_time 기준으로 변경합니다.
+            # 팀이 헌트를 시작했고(team_start_time 존재), 시간제 잠금 해제를 허용한 경우에만 작동합니다.
+            if (0 <= puzzle.unlock_hours and
+                context.team and
+                context.team.team_start_time and
                 context.team.allow_time_unlocks):
-                unlock_time = context.start_time + datetime.timedelta(hours=puzzle.unlock_hours)
+                unlock_time = context.team.team_start_time + datetime.timedelta(hours=puzzle.unlock_hours)
                 if unlock_time <= context.now:
                     unlocked_at = unlock_time
+
             if context.hunt_is_prereleased or context.hunt_is_over:
                 unlocked_at = context.start_time
             elif context.team:
@@ -798,7 +819,7 @@ class Survey(models.Model):
             if isinstance(field, RatingField)
         ]
 
-
+# 힌트 관련 수정 필요
 class Hint(models.Model):
     '''A request for a hint.'''
 
@@ -856,6 +877,7 @@ class Hint(models.Model):
             o = o + ' {}'.format(self.get_status_display())
         return o
 
+# 힌트 관련 수정 필요 없이 따로 2 곱하는 로직 추가
     @property
     def consumes_hint(self):
         if self.status == Hint.REFUNDED:
@@ -865,6 +887,12 @@ class Hint(models.Model):
         if self.is_followup:
             return False
         return True
+
+# 고정형 힌트 사용량으로 추가함.
+# <힌트수정> 필요 없음.
+    # @property
+    # def consumes_check_hint(self):
+    #     return 1
 
     def recipients(self):
         if self.notify_emails == 'all':
@@ -899,7 +927,6 @@ class Hint(models.Model):
             settings.DOMAIN + 'hints?puzzle=%s' % self.puzzle_id,
         )
 
-
 @receiver(post_save, sender=Hint)
 def notify_on_hint_update(sender, instance, created, update_fields, **kwargs):
     # The .save() calls when updating certain Hint fields pass update_fields
@@ -923,3 +950,24 @@ def notify_on_hint_update(sender, instance, created, update_fields, **kwargs):
                 {'hint': instance, 'link': link},
                 instance.recipients())
             show_hint_notification(instance)
+
+# <힌트 수정>
+# CannedHint 모델을 새로 추가합니다.
+# 어떤 팀이, 어떤 퍼즐의, 어떤 고정 힌트를 열었는지 기록하는 역할을 합니다.
+class CannedHint(models.Model):
+    '''A record of a team unlocking a specific canned hint.'''
+    team = models.ForeignKey(Team, on_delete=models.CASCADE, verbose_name=_('team'))
+    puzzle = models.ForeignKey(Puzzle, on_delete=models.CASCADE, verbose_name=_('puzzle'))
+    # HTML 템플릿에 정의될 각 힌트의 고유 ID입니다.
+    hint_id = models.CharField(max_length=255, verbose_name=_('Hint ID'))
+    opened_datetime = models.DateTimeField(auto_now_add=True, verbose_name=_('opened datetime'))
+
+    class Meta:
+        # 한 팀이 같은 힌트를 여러 번 열 수 없도록 제약조건을 추가합니다.
+        unique_together = ('team', 'puzzle', 'hint_id')
+        verbose_name = _('canned hint unlock')
+        verbose_name_plural = _('canned hint unlocks')
+
+    def __str__(self):
+        return f'{self.team} unlocked "{self.hint_id}" for {self.puzzle}'
+    

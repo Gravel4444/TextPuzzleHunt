@@ -42,35 +42,283 @@
 영문 크로스워드에는 단서의 번호는 격자판의 왼쪽 위부터 오른쪽 아래로 읽어나갈 때의 순서대로 쓰여져 있습니다.
 이러한 규칙과 단어간에 겹쳐 나오는 음절, 그리고 세로 1번의 정답을 고려하면 충분히 격자판을 만들 수 있습니다.
 
-|    |    |    |    |    |    | 최 | 고 | 봉 |    |
-|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
-|    |    |    | 우 | 유 | 부 | 단 |    | 투 |    |
-|    | 탄 | 지 | 로 |    |    | 경 | 찰 |    |    |
-| 내 | 핵 |    |    | 의 | 외 | 로 |    | 출 |    |
-|    | 소 |    | 수 | 식 |    | 의 | 미 | 발 | 달 |
-| 배 | 추 |    | 놓 |    | 워 | 홀 |    |    | 아 |
-|    | 안 | 경 | 다 | 리 |    | 수 | 리 | 가 | 오 |
-|    |    | 쟁 |    |    | 당 | 번 |    |    | 르 |
-|    | 이 | 자 | 소 | 득 |    | 째 | 려 | 보 | 다 |
-| 도 | 착 |    | 시 |    | 제 |    |    | 르 |    |
-|    | 륙 |    | 지 | 하 | 철 | 노 | 선 | 도 |    |
+<table class="crossword">
+    <tbody>
+        <tr>
+            <td class="blank"></td>
+            <td class="blank"></td>
+            <td class="blank"></td>
+            <td class="blank"></td>
+            <td class="blank"></td>
+            <td class="blank"></td>
+            <td>최<span class="corner">1</span></td>
+            <td>고</td>
+            <td>봉<span class="corner">2</span></td>
+            <td class="blank"></td>
+        </tr>
+        <tr>
+            <td class="blank"></td>
+            <td class="blank"></td>
+            <td class="blank"></td>
+            <td>우<span class="corner">3</span></td>
+            <td>유</td>
+            <td>부</td>
+            <td>단</td>
+            <td class="blank"></td>
+            <td>투</td>
+            <td class="blank"></td>
+        </tr>
+        <tr>
+            <td class="blank"></td>
+            <td>탄<span class="corner">4</span></td>
+            <td>지</td>
+            <td>로</td>
+            <td class="blank"></td>
+            <td class="blank"></td>
+            <td>경<span class="corner">5</span></td>
+            <td>찰</td>
+            <td class="blank"></td>
+            <td class="blank"></td>
+        </tr>
+        <tr>
+            <td>내<span class="corner">6</span></td>
+            <td>핵</td>
+            <td class="blank"></td>
+            <td class="blank"></td>
+            <td>의<span class="corner">7</span></td>
+            <td>외</td>
+            <td>로</td>
+            <td class="blank"></td>
+            <td>출<span class="corner">8</span></td>
+            <td class="blank"></td>
+        </tr>
+        <tr>
+            <td class="blank"></td>
+            <td>소</td>
+            <td class="blank"></td>
+            <td>수<span class="corner">9</span></td>
+            <td>식</td>
+            <td class="blank"></td>
+            <td>의<span class="corner">10</span></td>
+            <td>미</td>
+            <td>발</td>
+            <td>달<span class="corner">11</span></td>
+        </tr>
+        <tr>
+            <td>배<span class="corner">12</span></td>
+            <td>추</td>
+            <td class="blank"></td>
+            <td>놓</td>
+            <td class="blank"></td>
+            <td>워<span class="corner">13</span></td>
+            <td>홀</td>
+            <td class="blank"></td>
+            <td class="blank"></td>
+            <td>아</td>
+        </tr>
+        <tr>
+            <td class="blank"></td>
+            <td>안<span class="corner">14</span></td>
+            <td>경<span class="corner">15</span></td>
+            <td>다</td>
+            <td>리</td>
+            <td class="blank"></td>
+            <td>수<span class="corner">16</span></td>
+            <td>리</td>
+            <td>가</td>
+            <td>오</td>
+        </tr>
+        <tr>
+            <td class="blank"></td>
+            <td class="blank"></td>
+            <td>쟁</td>
+            <td class="blank"></td>
+            <td class="blank"></td>
+            <td>당<span class="corner">17</span></td>
+            <td>번</td>
+            <td class="blank"></td>
+            <td class="blank"></td>
+            <td>르</td>
+        </tr>
+        <tr>
+            <td class="blank"></td>
+            <td>이<span class="corner">18</span></td>
+            <td>자</td>
+            <td>소<span class="corner">19</span></td>
+            <td>득</td>
+            <td class="blank"></td>
+            <td>째<span class="corner">20</span></td>
+            <td>려</td>
+            <td>보<span class="corner">21</span></td>
+            <td>다</td>
+        </tr>
+        <tr>
+            <td>도<span class="corner">22</span></td>
+            <td>착</td>
+            <td class="blank"></td>
+            <td>시</td>
+            <td class="blank"></td>
+            <td>제<span class="corner">23</span></td>
+            <td class="blank"></td>
+            <td class="blank"></td>
+            <td>르</td>
+            <td class="blank"></td>
+        </tr>
+        <tr>
+            <td class="blank"></td>
+            <td>륙</td>
+            <td class="blank"></td>
+            <td>지<span class="corner">24</span></td>
+            <td>하</td>
+            <td>철</td>
+            <td>노</td>
+            <td>선</td>
+            <td>도</td>
+            <td class="blank"></td>
+        </tr>
+    </tbody>
+</table>
 
 격자판을 완성하면 세로 1번의 답이 ‘**최단경로의 홀수번째**’라는 것을 알 수 있습니다.
 이는 세로 1번의 단서가 말해주듯 ‘이 퍼즐의 답을 얻기 위해 살펴봐야할 위치’에 해당합니다.
 이 퍼즐에는 ‘출발’과 ‘도착’이 있으므로, 이 둘을 잇는 ‘최단경로’를 그릴 수 있습니다.
 
-|    |    |    |    |    |    | 최 | 고 | 봉 |    |
-|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
-|    |    |    | 우 | 유 | 부 | 단 |    | 투 |    |
-|    | 탄 | 지 | 로 |    |    | 경 | 찰 |    |    |
-| 내 | 핵 |    |    | **의** | 외 | **로** |    | 출 |    |
-|    | 소 |    | **수** | 식 |    | 의 | **미** | 발 | 달 |
-| 배 | 추 |    | 놓 |    | 워 | 홀 |    |    | 아 |
-|    | 안 | 경 | **다** | 리 |    | 수 | 리 | 가 | 오 |
-|    |    | **쟁** |    |    | 당 | 번 |    |    | 르 |
-|    | **이** | 자 | 소 | 득 |    | 째 | 려 | 보 | 다 |
-| 도 | 착 |    | 시 |    | 제 |    |    | 르 |    |
-|    | 륙 |    | 지 | 하 | 철 | 노 | 선 | 도 |    |
+<table class="crossword">
+    <tbody>
+        <tr>
+            <td class="blank"></td>
+            <td class="blank"></td>
+            <td class="blank"></td>
+            <td class="blank"></td>
+            <td class="blank"></td>
+            <td class="blank"></td>
+            <td>최<span class="corner">1</span></td>
+            <td>고</td>
+            <td>봉<span class="corner">2</span></td>
+            <td class="blank"></td>
+        </tr>
+        <tr>
+            <td class="blank"></td>
+            <td class="blank"></td>
+            <td class="blank"></td>
+            <td>우<span class="corner">3</span></td>
+            <td>유</td>
+            <td>부</td>
+            <td>단</td>
+            <td class="blank"></td>
+            <td>투</td>
+            <td class="blank"></td>
+        </tr>
+        <tr>
+            <td class="blank"></td>
+            <td>탄<span class="corner">4</span></td>
+            <td>지</td>
+            <td>로</td>
+            <td class="blank"></td>
+            <td class="blank"></td>
+            <td>경<span class="corner">5</span></td>
+            <td>찰</td>
+            <td class="blank"></td>
+            <td class="blank"></td>
+        </tr>
+        <tr>
+            <td>내<span class="corner">6</span></td>
+            <td>핵</td>
+            <td class="blank"></td>
+            <td class="blank"></td>
+            <td class="accent"><strong>의</strong><span class="corner">7</span></td>
+            <td class="accent">외</td>
+            <td class="accent"><strong>로</strong></td>
+            <td class="blank"></td>
+            <td class="accent">출<span class="corner">8</span></td>
+            <td class="blank"></td>
+        </tr>
+        <tr>
+            <td class="blank"></td>
+            <td>소</td>
+            <td class="blank"></td>
+            <td class="accent"><strong>수</strong><span class="corner">9</span></td>
+            <td class="accent">식</td>
+            <td class="blank"></td>
+            <td class="accent">의<span class="corner">10</span></td>
+            <td class="accent"><strong>미</strong></td>
+            <td class="accent">발</td>
+            <td>달<span class="corner">11</span></td>
+        </tr>
+        <tr>
+            <td>배<span class="corner">12</span></td>
+            <td>추</td>
+            <td class="blank"></td>
+            <td class="accent">놓</td>
+            <td class="blank"></td>
+            <td>워<span class="corner">13</span></td>
+            <td>홀</td>
+            <td class="blank"></td>
+            <td class="blank"></td>
+            <td>아</td>
+        </tr>
+        <tr>
+            <td class="blank"></td>
+            <td>안<span class="corner">14</span></td>
+            <td class="accent">경<span class="corner">15</span></td>
+            <td class="accent"><strong>다</strong></td>
+            <td>리</td>
+            <td class="blank"></td>
+            <td>수<span class="corner">16</span></td>
+            <td>리</td>
+            <td>가</td>
+            <td>오</td>
+        </tr>
+        <tr>
+            <td class="blank"></td>
+            <td class="blank"></td>
+            <td class="accent"><strong>쟁</strong></td>
+            <td class="blank"></td>
+            <td class="blank"></td>
+            <td>당<span class="corner">17</span></td>
+            <td>번</td>
+            <td class="blank"></td>
+            <td class="blank"></td>
+            <td>르</td>
+        </tr>
+        <tr>
+            <td class="blank"></td>
+            <td class="accent"><strong>이</strong><span class="corner">18</span></td>
+            <td class="accent">자</td>
+            <td>소<span class="corner">19</span></td>
+            <td>득</td>
+            <td class="blank"></td>
+            <td>째<span class="corner">20</span></td>
+            <td>려</td>
+            <td>보<span class="corner">21</span></td>
+            <td>다</td>
+        </tr>
+        <tr>
+            <td class="accent">도<span class="corner">22</span></td>
+            <td class="accent">착</td>
+            <td class="blank"></td>
+            <td>시</td>
+            <td class="blank"></td>
+            <td>제<span class="corner">23</span></td>
+            <td class="blank"></td>
+            <td class="blank"></td>
+            <td>르</td>
+            <td class="blank"></td>
+        </tr>
+        <tr>
+            <td class="blank"></td>
+            <td>륙</td>
+            <td class="blank"></td>
+            <td>지<span class="corner">24</span></td>
+            <td>하</td>
+            <td>철</td>
+            <td>노</td>
+            <td>선</td>
+            <td>도</td>
+            <td class="blank"></td>
+        </tr>
+    </tbody>
+</table>
 
 이후 최단경로에서 ‘홀수번째’ 글자만 찾아 읽는다면 **미로의 수다쟁이**가 답으로 추출됩니다.
 

@@ -1,0 +1,36 @@
+{% extends "hints.html" %}
+{% load i18n %}
+{% load puzzle_tags %}
+
+{% block hint-body-html %}
+
+{% canned_hint "canned-hint-1" %}
+    {% hint_title %}
+        힌트 1
+    {% end_hint_title %}
+    {% hint_content %}
+        이것은 첫 번째 고정 힌트의 내용입니다. <b>HTML 태그</b>도 사용할 수 있습니다.
+    {% end_hint_content %}
+{% end_canned_hint %}
+
+
+{% canned_hint "canned-hint-2" %}
+    {% hint_title %}
+        힌트 2
+    {% end_hint_title %}
+    {% hint_content %}
+        두 번째 힌트입니다. <br> 줄바꿈도 가능합니다.
+    {% end_hint_content %}
+{% end_canned_hint %}
+
+
+{% canned_hint "super-secret-hint" %}
+    {% hint_title %}
+        비밀 힌트
+    {% end_hint_title %}
+    {% hint_content %}
+        힌트 ID는 원하는 문자열로 자유롭게 설정할 수 있습니다.
+    {% end_hint_content %}
+{% end_canned_hint %}
+
+{% endblock %}

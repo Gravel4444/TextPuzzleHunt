@@ -32,7 +32,7 @@
 echarts.init(document.getElementById('biggraph')).setOption({
   title: {
     left: "center",
-    textStyle: { color: "white" },
+    textStyle: { color: "black" },
     text: "{% blocktranslate with teams=teams|length|escapejs %}Top {{ teams }} Teams{% endblocktranslate %}",
   },
   tooltip: {
@@ -46,8 +46,8 @@ echarts.init(document.getElementById('biggraph')).setOption({
     orient: "horizontal",
     align: "left",
     bottom: 35,
-    textStyle: { color: "white", overflow: "truncate", width: 70 },
-    pageTextStyle: { color: "white" },
+    textStyle: { color: "black", overflow: "truncate", width: 70 },
+    pageTextStyle: { color: "black" },
     data: [
       {% for team in teams %}
         "{{ team.team_name|escapejs }}",
@@ -104,14 +104,17 @@ echarts.init(document.getElementById('biggraph')).setOption({
       div1.appendChild(span);
       div1.appendChild(document.createTextNode(teamName));
 
+      // 수정함. 그냥 가시성 문제...
+      // var div2 = document.createElement('div');
+      // var sl = document.createElement('small');
+      // sl.textContent = 'Solved: '
+      // div2.appendChild(sl);
+      // div2.appendChild(document.createTextNode(info));
+      // var ns = document.createElement('strong');
+      // ns.textContent = ' → ' + score;
+      // div2.appendChild(ns);
       var div2 = document.createElement('div');
-      var sl = document.createElement('small');
-      sl.textContent = 'Solved: '
-      div2.appendChild(sl);
-      div2.appendChild(document.createTextNode(info));
-      var ns = document.createElement('strong');
-      ns.textContent = ' → ' + score;
-      div2.appendChild(ns);
+      div2.innerHTML = '<small>Solved: <strong>' + info + '</strong></small> → <strong>' + score + '</strong>';
 
       var div3 = document.createElement('div');
       div3.textContent = date.toLocaleString();

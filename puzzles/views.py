@@ -42,6 +42,8 @@ from puzzles.models import (
     PuzzleMessage,
     Survey,
     Hint,
+    # <힌트 수정> canned hint 클래스 추가
+    CannedHint,
 )
 
 from puzzles.forms import (
@@ -68,6 +70,8 @@ from puzzles.hunt_config import (
     ONE_HINT_AT_A_TIME,
     INTRO_ROUND_SLUG,
     META_META_SLUG,
+    # 힌트 요청 끝나는 시간 추가
+    REQUESTING_HINT_END_TIME,
 )
 
 from puzzles.messaging import send_mail_wrapper, dispatch_victory_alert, show_victory_notification
@@ -162,7 +166,50 @@ def require_before_hunt_closed_or_admin(request):
 
 @require_GET
 def index(request):
-    return render(request, 'home.html')
+    can_start_hunt = False
+    
+    # 팀으로 로그인한 경우에만 로직을 실행합니다.
+    if request.context.team:
+        # 1. 팀의 시작 시간이 아직 없고 (not ...hunt_start_time)
+        # 2. 전체 헌트가 시작되었으며 (hunt_has_started)
+        # 3. 전체 헌트가 종료되지 않았을 때만 (not ...hunt_is_closed)
+        # 위 세 가지 조건을 모두 만족할 때만 can_start_hunt를 True로 설정합니다.
+        if not request.context.team.team_start_time and \
+           request.context.hunt_has_started and \
+           not request.context.hunt_is_closed:
+            can_start_hunt = True
+
+    # 계산된 결과를 템플릿으로 전달합니다.
+    return render(request, 'home.html', {
+        'can_start_hunt': can_start_hunt,
+    })
+
+# <시간 수정> 팀이 "!!시작하기!!" 버튼을 눌렀을 때 요청을 처리할 새로운 뷰를 추가합니다.
+@require_POST
+@require_before_hunt_closed_or_admin
+def start_hunt(request):
+    team = request.context.team
+    # 비정상적인 접근(로그인하지 않았거나 팀이 없는 경우)을 처리합니다.
+    if not team:
+        messages.error(request, _('퍼즐헌트 시작을 위해서는 팀으로 로그인해야 합니다. 등록해주세요!'))
+        return redirect('index')
+
+    # 이미 헌트를 시작한 팀이 다시 요청하는 경우를 처리합니다.
+    if team.team_start_time:
+        messages.warning(request, _('이미 퍼즐헌트를 시작했습니다. 새로고침 해보세요.'))
+        return redirect('puzzles')
+
+    # 전체 헌트가 시작되기 전에 시작을 시도하는 경우를 처리합니다.
+    if not request.context.hunt_has_started:
+        messages.error(request, _('아직 퍼즐헌트가 시작되지 않았습니다! 조금만 더 기다려주세요.'))
+        return redirect('index')
+
+    # 팀의 헌트 시작 시간을 현재 시간으로 기록하고 데이터베이스에 저장합니다.
+    team.team_start_time = request.context.now
+    team.save()
+    messages.success(request, _('📝 텍스트 퍼즐헌트를 시작합니다. 행운을 빌어요!'))
+    # 시작 후에는 퍼즐 목록 페이지로 이동시킵니다.
+    return redirect('puzzles')
 
 @require_GET
 def about(request):
@@ -313,6 +360,10 @@ def team(request, team_name):
         messages.error(request, _('Team “{}” not found.').format(team_name))
         return redirect('teams')
 
+    # <시간 수정> 시간 관련 통계(차트 등)의 기준이 되는 시작 시간을 팀의 실제 시작 시간으로 설정합니다.
+    # 만약 팀이 아직 시작하지 않았다면(비정상적인 경우), 전체 헌트 시작 시간을 기준으로 합니다.
+    team_start_time = team.team_start_time if team.team_start_time else HUNT_START_TIME
+
     # This Team.leaderboard_teams() call is expensive, but is
     # the only way right now to calculate rank accurately.
     # Hopefully it is not an issue in practice (especially
@@ -323,6 +374,13 @@ def team(request, team_name):
         if team.id == leaderboard_id:
             rank = i + 1 # ranks are 1-indexed
             break
+
+    # 1. 각 퍼즐별 힌트 사용 횟수를 미리 계산합니다.
+    hint_counts = defaultdict(int)
+    for hint in team.hint_set.all():
+        hint_counts[hint.puzzle_id] += 2
+    for canned_hint in team.cannedhint_set.all():
+        hint_counts[canned_hint.puzzle_id] += 1
 
     guesses = defaultdict(int)
     correct = {}
@@ -343,27 +401,39 @@ def team(request, team_name):
             }
         else:
             guesses[submission.puzzle_id] += 1
+
+    # 2. 헌트 완료 시간을 저장할 변수를 초기화합니다.
+    hunt_completion_time = None
     submissions = []
-    for puzzle in correct:
-        correct[puzzle]['guesses'] = guesses[puzzle]
-        submissions.append(correct[puzzle])
+    for puzzle_id, puzzle_data in correct.items():
+        puzzle_data['guesses'] = guesses[puzzle_id]
+        # 3. 계산해둔 힌트 횟수를 각 퍼즐 데이터에 추가합니다.
+        puzzle_data['hint_count'] = hint_counts[puzzle_id]
+        # 4. 최종 메타 퍼즐을 풀었다면, 그 시간을 헌트 완료 시간으로 기록합니다.
+        if puzzle_data['submission'].puzzle.slug == META_META_SLUG:
+            hunt_completion_time = puzzle_data['solve_time']
+
+        submissions.append(puzzle_data)
     submissions.sort(key=lambda s: s['solve_time'])
-    solves = [HUNT_START_TIME] + [s['solve_time'] for s in submissions]
+
+    # 5. 차트 계산 시 팀의 시작 시간을 사용하도록 수정합니다. (기존 버그 수정)
+    team_start_time = team.team_start_time if team.team_start_time else HUNT_START_TIME
+    solves = [team_start_time] + [s['solve_time'] for s in submissions]
     if solves[-1] >= HUNT_END_TIME:
         solves.append(min(request.context.now, HUNT_CLOSE_TIME))
     else:
         solves.append(HUNT_END_TIME)
     chart = {
-        'hunt_length': (solves[-1] - HUNT_START_TIME).total_seconds(),
+        'hunt_length': (solves[-1] - team_start_time).total_seconds(),
         'solves': [{
-            'before': (solves[i - 1] - HUNT_START_TIME).total_seconds(),
-            'after': (solves[i] - HUNT_START_TIME).total_seconds(),
+            'before': (solves[i - 1] - team_start_time).total_seconds(),
+            'after': (solves[i] - team_start_time).total_seconds(),
         } for i in range(1, len(solves))],
         'metas': [
-            (s['solve_time'] - HUNT_START_TIME).total_seconds()
+            (s['solve_time'] - team_start_time).total_seconds()
             for s in submissions if s['submission'].puzzle.is_meta
         ],
-        'end': (HUNT_END_TIME - HUNT_START_TIME).total_seconds(),
+        'end': (HUNT_END_TIME - team_start_time).total_seconds(),
     }
 
     return render(request, 'team.html', {
@@ -374,6 +444,8 @@ def team(request, team_name):
         'modify_info_available': is_own_team and not request.context.hunt_is_closed,
         'view_info_available': can_view_info,
         'rank': rank,
+        # 6. 계산된 헌트 완료 시간을 템플릿으로 전달합니다.
+        'hunt_completion_time': hunt_completion_time,
     })
 
 def teams_generic(request, hide_hidden):
@@ -496,7 +568,7 @@ def render_puzzles(request):
     correct = defaultdict(int)
     guesses = defaultdict(int)
     teams = defaultdict(set)
-    full_stats = request.context.is_superuser or request.context.hunt_is_over
+    full_stats = request.context.is_superuser or request.context.hunt_is_over or request.context.has_finished_hunt
     if full_stats or INITIAL_STATS_AVAILABLE:
         for submission in AnswerSubmission.objects.filter(
             used_free_answer=False,
@@ -830,12 +902,20 @@ def hint_list(request):
         })
 
 @validate_puzzle(require_team=True)
-@require_before_hunt_closed_or_admin
+# <힌트 수정> 헌트 끝난 이후에도 canned_hint를 볼 수 있도록 조절.
+# @require_before_hunt_closed_or_admin
 def hints(request):
     '''List or submit hint requests for a puzzle.'''
 
     puzzle = request.context.puzzle
     team = request.context.team
+
+    # <힌트 수정>
+    # 1. 현재 팀과 퍼즐에 대해 잠금 해제된 고정 힌트 ID 목록을 가져옵니다.
+    unlocked_canned_hint_ids = set(
+        CannedHint.objects.filter(team=team, puzzle=puzzle).values_list('hint_id', flat=True)
+    )
+
     open_hints = []
     if ONE_HINT_AT_A_TIME:
         open_hints = [hint for hint in team.asked_hints if hint.status == Hint.NO_RESPONSE]
@@ -847,18 +927,41 @@ def hints(request):
 
     error = None
     if request.context.hunt_is_over:
-        error = _('Sorry, hints are closed.')
+        error = _('퍼즐헌트가 끝났습니다.')
         can_followup = False
-    elif team.num_hints_remaining <= 0 and team.num_free_answers_remaining <= 0:
-        error = _('You have no hints available!')
+    elif request.context.requesting_hint_is_over:
+        error = _('힌트 요청은 더이상 불가능합니다. 고정된 힌트를 사용해보세요.')
+        can_followup = False
+    elif team.num_hints_remaining <= 1 and team.num_free_answers_remaining <= 1:
+        error = _('✏️<strong>연필</strong>이 부족합니다!')
     elif relevant_hints_remaining <= 0 and team.num_free_answers_remaining <= 0:
         error = _('You have no hints that can be used on this puzzle.')
     elif open_hints:
-        error = (_('You already have a hint open (on %s)! '
-            'You can have one hint open at a time.') % open_hints[0].puzzle)
+        error = (_('이미 <strong>%s 퍼즐</strong>에 힌트를 요청해 두었습니다!') % open_hints[0].puzzle)
         can_followup = False
 
     if request.method == 'POST':
+
+        # <힌트 수정> 아래 unlock_cannd_hint_id 관련 내용 추가
+        unlock_canned_hint_id = request.POST.get('unlock_canned_hint')
+        if unlock_canned_hint_id:
+            if team.num_hints_remaining >= 1:
+                # CannedHint 객체를 생성하여 데이터베이스에 저장합니다.
+                # models.py에서 수정한 num_hints_used 함수 덕분에,
+                # 이 객체가 생성되면 자동으로 힌트 코인이 1개 차감된 것으로 계산됩니다.
+                CannedHint.objects.create(
+                    team=team,
+                    puzzle=puzzle,
+                    hint_id=unlock_canned_hint_id
+                )
+                messages.success(request, _('힌트를 성공적으로 열었습니다!'))
+            else:
+                messages.error(request, _('힌트 코인이 부족합니다.'))
+
+            # 힌트 해금 후에도 목록이 열려 있도록 리다이렉트 URL에 파라미터를 추가합니다.
+            redirect_url = reverse('hints', args=[puzzle.slug]) + '?show_canned_hints=true'
+            return redirect(redirect_url)
+
         is_followup = can_followup and bool(request.POST.get('is_followup'))
         if error and not is_followup:
             messages.error(request, error)
@@ -884,14 +987,23 @@ def hints(request):
     else:
         form = RequestHintForm(team)
 
-    return render(request, 'hints.html', {
+    context_data = {
         'hints': puzzle_hints,
         'error': error,
         'form': form,
         'intro_count': sum(1 for p in request.context.all_puzzles if p.round.slug == INTRO_ROUND_SLUG),
         'relevant_hints_remaining': relevant_hints_remaining,
         'can_followup': can_followup,
-    })
+        # <힌트 수정> 아래 unlocked canend hint를 탬플릿으로 전달
+        'unlocked_canned_hint_ids': unlocked_canned_hint_ids,
+    }
+
+    # 개별 힌트 페이지를 위한 추가내용
+    template_name = 'hint_bodies/{}'.format(request.context.puzzle.body_template)
+    try:
+        return render(request, template_name, context_data)
+    except TemplateDoesNotExist:
+        return render(request, 'hints.html', context_data)
 
 @require_admin_or_impersonating
 def hint(request, id):
@@ -964,13 +1076,24 @@ def hint(request, id):
         .exclude(team=hint.team)
         .order_by('-answered_datetime')
     )[:limit]
+
     form['status'].field.widget.is_followup = hint.is_followup
     request.context.puzzle = hint.puzzle
+
+    # < 힌트 수정 > 이전에 봤던 canned_hint 확인하기.
+    canned_hint = (
+        CannedHint.objects
+        .select_related()
+        .filter(team=hint.team, puzzle=hint.puzzle)
+        .order_by('opened_datetime')
+    )
+
     return render(request, 'hint.html', {
         'hint': hint,
         'previous_same_team': previous_same_team,
         'previous_all_teams': previous_all_teams,
         'form': form,
+        'previous_canned_hint': canned_hint,
     })
 
 @require_GET
@@ -986,14 +1109,23 @@ def hunt_stats(request):
             solve_times[puzzle.id, team_id] <=
             solve_times[puzzle.round.meta_id, team_id] - datetime.timedelta(minutes=5))
 
+    # <힌트 수정> hint(요청)이랑 canned_hint(고정)에 대한 힌트 카운팅을 만들음.
     total_hints = 0
+    total_asked_hints = 0
+    total_canned_hints = 0
     hints_by_puzzle = defaultdict(int)
     hint_counts = defaultdict(int)
     for hint in Hint.objects.exclude(team__is_hidden=True):
-        total_hints += 1
-        hints_by_puzzle[hint.puzzle_id] += 1
+        total_hints += 2
+        total_asked_hints += 1
+        hints_by_puzzle[hint.puzzle_id] += 2
         if hint.consumes_hint:
-            hint_counts[hint.puzzle_id, hint.team_id] += 1
+            hint_counts[hint.puzzle_id, hint.team_id] += 2
+    for canned_hint in CannedHint.objects.exclude(team__is_hidden=True):
+        total_hints += 1
+        total_canned_hints += 1
+        hints_by_puzzle[canned_hint.puzzle_id] += 1
+        hint_counts[canned_hint.puzzle_id, canned_hint.team_id] += 1
 
     total_guesses = 0
     total_solves = 0
@@ -1036,6 +1168,8 @@ def hunt_stats(request):
         'total_teams': total_teams,
         'total_participants': total_participants,
         'total_hints': total_hints,
+        'total_asked_hints' : total_asked_hints,
+        'total_canned_hints' : total_canned_hints,
         'total_guesses': total_guesses,
         'total_solves': total_solves,
         'total_metas': total_metas,
@@ -1044,9 +1178,10 @@ def hunt_stats(request):
 
 @require_GET
 @validate_puzzle()
-@require_after_hunt_end_or_admin
+@require_after_hunt_end_or_finished
 def stats(request):
     '''After hunt ends, view stats for a specific puzzle.'''
+    # 헌트 완주, 헌트 종료 혹은 관리자
 
     puzzle = request.context.puzzle
     team = request.context.team
@@ -1057,7 +1192,7 @@ def stats(request):
         puzzle.answersubmission_set
         .filter(q, used_free_answer=False, submitted_datetime__lt=HUNT_END_TIME)
         .order_by('submitted_datetime')
-        .select_related('team')
+    .select_related('team')
     )
 
     solve_time_map = {}
@@ -1088,20 +1223,27 @@ def stats(request):
     } for solver in solvers_map.values()]
     solvers.sort(key=lambda d: d['solve_time'])
 
+    # <힌트 수정> 힌트 세분화 함
+    asked_hint_count = puzzle.hint_set.filter(q).count()
+    canned_hint_count = puzzle.cannedhint_set.filter(q).count()
+    
     return render(request, 'stats.html', {
         'solvers': solvers,
         'solves': len(solvers_map),
         'guesses': sum(total_guesses_map.values()),
         'answers_tried': incorrect_guesses.most_common(),
         'unlock_count': len(unlock_time_map),
-        'hint_count': puzzle.hint_set.filter(q).count(),
+        'asked_hint_count': asked_hint_count,
+        'canned_hint_count': canned_hint_count,
+        'total_hint_count': asked_hint_count*2 + canned_hint_count,
     })
 
 @require_GET
 @validate_puzzle()
-@require_after_hunt_end_or_admin
+@require_after_hunt_end_or_finished
 def solution(request):
     '''After hunt ends, view a puzzle's solution.'''
+    # 헌트 완주, 헌트 종료 혹은 관리자
 
     template_name = 'solution_bodies/{}'.format(request.context.puzzle.body_template)
     try:
@@ -1110,7 +1252,7 @@ def solution(request):
         return render(request, 'solution.html', {'template_name': template_name})
 
 @require_GET
-@require_after_hunt_end_or_admin
+@require_after_hunt_end_or_finished
 def solution_static(request, path):
     return serve(request, path, document_root=settings.SOLUTION_STATIC_ROOT)
 
@@ -1159,7 +1301,12 @@ def errata(request):
 
 @require_GET
 def wrapup(request):
-    if not WRAPUP_PAGE_VISIBLE and not request.context.is_superuser:
+    # Wrap-Up 페이지를 볼 수 있는 조건:
+    # 1. WRAPUP_PAGE_VISIBLE 설정이 True이고,
+    # 2. 헌트를 완료했거나, 사용자가 관리자여야 함
+    can_view_wrapup = WRAPUP_PAGE_VISIBLE and (request.context.has_finished_hunt or request.context.is_superuser)
+
+    if not can_view_wrapup:
         raise Http404
     return render(request, 'wrapup.html')
 
@@ -1167,33 +1314,31 @@ def wrapup(request):
 @require_GET
 @require_after_hunt_end_or_finished
 def finishers(request):
-    unlocks = OrderedDict()
-    solves = {}
-
-    for submission in AnswerSubmission.objects.filter(
+    # <시간 수정> 해당 함수 전부 수정. finishers data는 헌트 시작-끝 시간 기록함.
+    # 'AnswerSubmission'을 조회할 때 'team' 정보도 함께 가져옵니다. (select_related)
+    # 이제 이 한 번의 쿼리로 필요한 모든 정보를 얻을 수 있습니다.
+    finish_submissions = AnswerSubmission.objects.select_related('team').filter(
         puzzle__slug=META_META_SLUG,
         team__is_hidden=False,
         is_correct=True,
         submitted_datetime__lt=HUNT_END_TIME,
-    ).order_by('submitted_datetime'):
-        unlocks[submission.team_id] = None
-        solves[submission.team_id] = submission
-    for unlock in PuzzleUnlock.objects.select_related().filter(
-        team__id__in=unlocks,
-        puzzle__slug=META_META_SLUG,
-    ).prefetch_related('team__teammember_set'):
-        unlocks[unlock.team_id] = unlock
+    ).order_by('submitted_datetime').prefetch_related('team__teammember_set')
 
     data = []
-    for team_id, unlock in unlocks.items():
+    for submission in finish_submissions:
+        start_time = submission.team.team_start_time
+        solve_time = submission.submitted_datetime
+
         data.append({
-            'team': unlock.team,
-            'unlock_time': unlock.unlock_datetime,
-            'solve_time': solves[team_id].submitted_datetime,
-            'total_time': (solves[team_id].submitted_datetime - unlock.unlock_datetime).total_seconds(),
+            'team': submission.team,
+            'start_time': start_time,
+            'solve_time': solve_time,
+            'total_time': (solve_time - start_time).total_seconds(),
         })
+
     if request.context.is_superuser:
         data.reverse()
+
     return render(request, 'finishers.html', {'data': data})
 
 @require_GET
@@ -1228,6 +1373,13 @@ def bigboard_generic(request, hide_hidden):
     used_hints_map = defaultdict(int) # (team, puzzle) -> number of hints
     used_hints_by_team_map = defaultdict(int) # team -> number of hints
     used_hints_by_puzzle_map = defaultdict(int) # puzzle -> number of hints
+    # <힌트 수정> 두가지 분류 추가. used는 아중에 하나씩 합치는거로.
+    asked_hints_map = defaultdict(int) # (team, puzzle) -> number of asked_hints
+    asked_hints_by_team_map = defaultdict(int) # team -> number of asked_hints
+    asked_hints_by_puzzle_map = defaultdict(int) # puzzle -> number of asked_hints
+    canned_hints_map = defaultdict(int) # (team, puzzle) -> number of canned_hints
+    canned_hints_by_team_map = defaultdict(int) # team -> number of canned_hints
+    canned_hints_by_puzzle_map = defaultdict(int) # puzzle -> number of canned_hints
     meta_solves_map = defaultdict(int) # team -> number of meta solves
     solve_time_map = defaultdict(dict) # team -> {puzzle id -> solve time}
     during_hunt_solve_time_map = defaultdict(dict) # team -> {puzzle id -> solve time}
@@ -1271,6 +1423,7 @@ def bigboard_generic(request, hide_hidden):
         wrong_guesses_map[(team_id, puzzle_id)] += aggregate['count']
         wrong_guesses_by_team_map[team_id] += aggregate['count']
 
+    # <힌트 수정> asked_hints와 canned_hints 두개에 대해 각각 aggregate함.
     for aggregate in (
         Hint.objects
         .filter(status=Hint.ANSWERED, is_followup=False)
@@ -1279,9 +1432,30 @@ def bigboard_generic(request, hide_hidden):
     ):
         team_id = aggregate['team_id']
         puzzle_id = aggregate['puzzle_id']
-        used_hints_map[(team_id, puzzle_id)] += aggregate['count']
-        used_hints_by_team_map[team_id] += aggregate['count']
-        used_hints_by_puzzle_map[puzzle_id] += aggregate['count']
+        count = aggregate['count']
+
+        asked_hints_map[(team_id, puzzle_id)] += count
+        asked_hints_by_team_map[team_id] += count
+        asked_hints_by_puzzle_map[puzzle_id] += count
+        used_hints_map[(team_id, puzzle_id)] += count * 2
+        used_hints_by_team_map[team_id] += count * 2
+        used_hints_by_puzzle_map[puzzle_id] += count * 2
+
+    for aggregate in (
+        CannedHint.objects
+        .values('team_id', 'puzzle_id')
+        .annotate(count=Count('*'))
+    ):
+        team_id = aggregate['team_id']
+        puzzle_id = aggregate['puzzle_id']
+        count = aggregate['count']
+
+        canned_hints_map[(team_id, puzzle_id)] += count
+        canned_hints_by_team_map[team_id] += count
+        canned_hints_by_puzzle_map[puzzle_id] += count
+        used_hints_map[(team_id, puzzle_id)] += count
+        used_hints_by_team_map[team_id] += count
+        used_hints_by_puzzle_map[puzzle_id] += count
 
     if hide_hidden:
         teams = Team.objects.filter(is_hidden=False)
@@ -1317,6 +1491,10 @@ def bigboard_generic(request, hide_hidden):
             yield 'U' # unlocked
         if used_hints_map.get((team_id, puzzle_id)):
             yield 'H' # hinted
+        if asked_hints_map.get((team_id, puzzle_id)):
+            yield 'RH' # requested_hint (asked_hint)
+        if canned_hints_map.get((team_id, puzzle_id)):
+            yield 'CH' # canned_hint
         if solve_time and solve_time > HUNT_END_TIME:
             yield 'P' # post-hunt solve
         if solve_time and puzzle_id in puzzle_metas:
@@ -1333,12 +1511,15 @@ def bigboard_generic(request, hide_hidden):
             'free_solves': len(free_answer_map[team.id]),
             'wrong_guesses': wrong_guesses_by_team_map[team.id],
             'used_hints': used_hints_by_team_map[team.id],
+            'requested_hints': asked_hints_by_team_map[team.id],
+            'asked_hints': canned_hints_by_team_map[team.id],
             'finished': solve_position_map.get((team.id, meta_meta_id)),
             'meta_solves': meta_solves_map[team.id],
             'entries': [{
                 'wrong_guesses': wrong_guesses_map[(team.id, puzzle.id)],
                 'solve_position': solve_position_map.get((team.id, puzzle.id)),
-                'hints': used_hints_map[(team.id, puzzle.id)],
+                'requested_hints': asked_hints_map[(team.id, puzzle.id)],
+                'canned_hints': canned_hints_map[(team.id, puzzle.id)],
                 'cls': ' '.join(classes_of(team.id, puzzle.id)),
             } for puzzle in puzzles]
         })
@@ -1349,7 +1530,9 @@ def bigboard_generic(request, hide_hidden):
         'free_solves': free_answer_by_puzzle_map[puzzle.id],
         'total_guesses': total_guess_map[puzzle.id],
         'total_unlocks': unlock_count_map[puzzle.id],
-        'hints': used_hints_by_puzzle_map[puzzle.id],
+        'used_hints': used_hints_by_puzzle_map[puzzle.id],
+        'requested_hints': asked_hints_by_puzzle_map[puzzle.id],
+        'canned_hints': canned_hints_by_puzzle_map[puzzle.id],
     } for puzzle in puzzles]
 
     return render(request, 'bigboard.html', {
@@ -1443,6 +1626,7 @@ def guess_csv(request):
             'F' if ans.used_free_answer else ('Y' if ans.is_correct else 'N')])
     return response
 
+# <힌트 수정> 힌트 로그 담는 코드를 모두 수정함.
 @require_GET
 @require_admin
 def hint_csv(request):
@@ -1450,20 +1634,54 @@ def hint_csv(request):
     fname = 'gph_hintlog_{}.csv'.format(request.context.now.strftime('%Y%m%dT%H%M%S'))
     response['Content-Disposition'] = 'attachment; filename="{}"'.format(fname)
     writer = csv.writer(response)
-    for hint in (
-        Hint.objects
-        .annotate(team_name=F('team__team_name'), puzzle_name=F('puzzle__name'))
-        .order_by('submitted_datetime')
-        .exclude(team__is_hidden=True)
-    ):
+
+    # CSV 파일의 가독성을 위해 헤더(첫 줄)를 추가하고, 전체적인 로직을 개선합니다.
+    writer.writerow(['Timestamp', 'Team', 'Puzzle', 'Hint Type', 'Content / ID / Response'])
+
+    # 1. 두 종류의 힌트 데이터를 각각 준비합니다.
+    requested_hints_qs = Hint.objects.annotate(
+        team_name=F('team__team_name'),
+        puzzle_name=F('puzzle__name')
+    ).exclude(team__is_hidden=True)
+
+    canned_hints_qs = CannedHint.objects.annotate(
+        team_name=F('team__team_name'),
+        puzzle_name=F('puzzle__name')
+    ).exclude(team__is_hidden=True)
+
+    # 2. 두 데이터를 통일된 형식의 리스트로 합칩니다.
+    all_hints = []
+    for hint in requested_hints_qs:
+        all_hints.append({
+            "timestamp": hint.submitted_datetime,
+            "team": hint.team_name,
+            "puzzle": hint.puzzle_name,
+            "type": "Requested",
+            "content": hint.response
+        })
+
+    for canned_hint in canned_hints_qs:
+        all_hints.append({
+            "timestamp": canned_hint.opened_datetime,
+            "team": canned_hint.team_name,
+            "puzzle": canned_hint.puzzle_name,
+            "type": "Canned",
+            "content": f"ID: {canned_hint.hint_id}"
+        })
+
+    # 3. 전체 힌트 목록을 시간순으로 정렬합니다.
+    all_hints.sort(key=lambda x: x["timestamp"])
+
+    # 4. 정렬된 데이터를 CSV 파일에 한 줄씩 씁니다.
+    for hint_data in all_hints:
         writer.writerow([
-            hint.submitted_datetime.strftime('%Y-%m-%d %H:%M:%S'),
-            None if hint.answered_datetime is None else (
-                hint.answered_datetime.strftime('%Y-%m-%d %H:%M:%S')
-            ),
-            hint.team_name,
-            hint.puzzle_name,
-            hint.response])
+            hint_data["timestamp"].strftime('%Y-%m-%d %H:%M:%S'),
+            hint_data["team"],
+            hint_data["puzzle"],
+            hint_data["type"],
+            hint_data["content"]
+        ])
+        
     return response
 
 @require_GET
@@ -1502,8 +1720,4 @@ def accept_ranges_middleware(get_response):
         response['Accept-Ranges'] = 'bytes'
         return response
     return process_request
-
-def healthcheck(request):
-    """Fly.io의 헬스 체크를 위한 간단한 뷰"""
-    return HttpResponse("OK", status=200)
 

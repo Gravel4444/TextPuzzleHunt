@@ -43,7 +43,7 @@
         <p>{% blocktranslate with max_guesses=max_guesses_per_puzzle %}You have <strong>{{ max_guesses }} total guesses</strong> for each puzzle. If you legitimately run out of guesses and need more, feel free to contact us, though we won&rsquo;t grant your request if we see that you were, for example, guessing random thematic answers, or brute-forcing all 10-letter words.{% endblocktranslate %}</p>
     </div>
     <div class="no-break">
-        <h4 id="Format">{% translate "How will hints work?" %}</h4>
+        <h4 id="Hints">{% translate "How will hints work?" %}</h4>
         {% format_time hint_time "WEEKDATE_AT_TIME" as hint_start %}
         <p>{% blocktranslate %}Starting on <strong>{{hint_start}}</strong>, teams will receive one hint every <strong>FIXME</strong> until the end of the hunt.{% endblocktranslate %}</p>
         {% if intro_hints %}

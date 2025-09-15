@@ -56,10 +56,10 @@
         {% endif %}
         {% endfor %}
 
-        <button class="btn" type="submit">{% translate "Submit" %}</button>
-        {% if past_surveys %}
+        <button class="btn" type="submit">평가 {% translate "Submit" %}</button>
+        <!-- {% if past_surveys %}
         <a class="btn danger" style="float: right" href="javascript:clearSurvey()">{% translate "Reset" %}</a>
-        {% endif %}
+        {% endif %} -->
 
         <style>
         .rating.rating {
@@ -106,13 +106,19 @@
 
     {% if past_surveys %}
     <table class="list-table">
+        <!-- <colgroup>
+            <col style="width: 10px">
+            <col style="width: 10px">
+            <col>
+            <col style="width: 4ch">
+        </colgroup> -->
         <tr>
             {% for field in survey_fields %}
-            <th>{{ field.adjective|title }}</th>
+            <th style="width: 9%">{{ field.adjective|title }}</th>
             {% endfor %}
             <th>{% translate "Comments" %}</th>
-            <th>{% translate "Submitted" %}</th>
-            <th></th>
+            <th style="width: 18%">{% translate "Submitted" %}</th>
+            <th style="width: 13%"></th>
         </tr>
         {% for past_survey in past_surveys %}
         <tr>

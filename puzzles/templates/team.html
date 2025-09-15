@@ -11,7 +11,7 @@
 {% if modify_info_available %}
 <a href="{% url 'edit-team' %}" class="btn">{% translate "Edit team members" %}</a>
 <a href="{% url 'password_change' %}" class="btn">{% translate "Change password" %}</a>
-{% if not hunt_is_over %}
+<!-- {% if not hunt_is_over %}
 <a href="javascript:toggleTimeUnlocks()" class="btn">
     {% if team.allow_time_unlocks %}
     {% translate "Disable time unlocks" %}
@@ -36,7 +36,7 @@ Note that this means you may see fewer puzzles than if you were logged out. Also
     {% endif %}
 }
 </script>
-{% endif %}
+{% endif %} -->
 {% endif %}
 {% endblock %}
 
@@ -45,7 +45,7 @@ Note that this means you may see fewer puzzles than if you were logged out. Also
 <style>
 main {
     display: flex;
-    gap: 2.5em;
+    gap: 0em;
     flex-direction: column;
 }
 
@@ -58,42 +58,67 @@ main {
     opacity: 0.5;
 }
 
-.free td:last-child:before {
-    content: "(";
-}
-
-.free td:last-child:after {
-    content: ")";
-}
 </style>
 
 <h1>{{ view_team.team_name }}</h1>
 
 <main>
+    <h4>팀원</h4>
     {% for team_member in view_team.teammember_set.all %}
     {{ team_member.name }}{% if forloop.revcounter != 1 %}, {% endif %}
     {% endfor %}
-    {% if submissions|length %}
+    <br><br>
+    
     {% if view_info_available or hunt_is_over %}
+    <h4>기록</h4>
+    <ul>
+        <li>
+            <strong>시작 시간</strong>
+            {% if view_team.team_start_time %}
+                {% format_time view_team.team_start_time "DATE_AT_TIME" as team_start_time %}
+                : {{ team_start_time }}
+            {% elif not hunt_has_started %}
+                {% format_time start_time "DATE_AT_TIME" as hunt_start_time %}
+                : <small>아직 퍼즐헌트가 시작되지 않았습니다. {{ hunt_start_time }}을 기대해주세요.</small>
+            {% else %}
+                : <small>아직 퍼즐헌트를 시작하기 전입니다. <a href="{% url 'index' %}">메인화면 페이지</a>에서부터 시작하세요.</small>
+            {% endif %}
+        </li>
+        {% if view_team.team_start_time %}
+        <li>
+            <strong>완료 시간</strong>
+            {% if hunt_completion_time %}
+                {% format_time hunt_completion_time "DATE_AT_TIME" as team_completion_time %}
+                : {{ team_completion_time }}
+            {% else %}
+                : <small>아직 퍼즐헌트를 완료하기 전입니다. <a href="{% url 'puzzles' %}">퍼즐 페이지</a>에서부터 이어가세요.</small>
+            {% endif %}
+        </li>
+        {% endif %}
+    </ul>
+    {% if submissions|length %}
     <table class="sortable list-table">
-        <col style="width: 40%">
-        <col style="width: 10%">
-        <col style="width: 20%">
-        <col style="width: 10%">
-        <col style="width: 20%">
+        <col>
+        <col>
+        <col>
+        <col style="width: 18%">
+        <col style="width: 14%">
+        <col style="width: 18%">
         <tr>
             <th>{% translate "Puzzle" %}</th>
             <th>{% translate "Incorrect guesses" %}</th>
-            <th>{% translate "Unlock time" %} ({{ start_time|date:"T" }})</th>
+            <th>✏️<b>연필</b> 사용량</th>
+            <th>{% translate "Unlock time" %}</th>
             <th>{% translate "Time to solve" %}</th>
-            <th>{% translate "Solve time" %} ({{ start_time|date:"T" }})</th>
+            <th>{% translate "Solve time" %}</th>
         </tr>
         {% for s in submissions %}
         <tr{% if s.submission.used_free_answer %} class="free"{% endif %}>
             <td sorttable_customkey="{{ s.submission.puzzle.name }}"{% if s.submission.puzzle.is_meta %} class="meta-stats"{% endif %}>
                 <a href="{% url 'puzzle' s.submission.puzzle.slug %}">{{ s.submission.puzzle.name }}</a>
             </td>
-            <td>{{ s.guesses }}</td>
+            <td style="text-align: center;">{{ s.guesses }}</td>
+            <td style="text-align: center;">{{ s.hint_count }}</td>
             <td sorttable_customkey="{{ s.unlock_time|unix_time }}">{% format_time s.unlock_time %}</td>
             <td sorttable_customkey="{{ s.open_duration }}">{% format_duration s.open_duration %}</td>
             <td sorttable_customkey="{{ s.solve_time|unix_time }}">{% format_time s.solve_time %}</td>

@@ -10,17 +10,26 @@
 {% block content %}
 
 <style>
+  body{
+    position: relative;
+  }
+  
   aside {
     display: none;
   }
 
   @media screen and (min-width: 961px) {
+    
     aside {
       display: block;
-      position: fixed;
-      width: 240px;
+      position: absolute;
+      width: 200px;
       top: 120px;
-      left: 0;
+      right: 10px;
+
+      padding: 3px 10px;
+      text-align: right;
+      background: linear-gradient(to right, transparent, rgba(207, 58, 36, 0.2));
     }
 
     aside div {
@@ -38,9 +47,10 @@
     aside .highlight {
       font-weight: bold;
     }
+   
 
     .content {
-      margin-left: calc(240px - 10vw);
+      /* margin-left: calc(240px - 10vw); */
     }
   }
 </style>
@@ -48,12 +58,17 @@
 <h1>{% translate "Wrap-Up" %}</h1>
 
 <main>
+<p style="text-align: center;">{% translate "Congratulations!" %}</p>
 
-<p>{% translate "Congratulations!" %}</p>
+<h1>제목1</h1>
+가나다라 마바사아자차카타파하
+수정하기
+
 
 </main>
 
 <aside>
+  [바로가기]
   <script>
     const heads = [...$('h1,h2,h3,h4,h5,h6')].map(head => [head, $('<div>')
       .text(head.textContent)

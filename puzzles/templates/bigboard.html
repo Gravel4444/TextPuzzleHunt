@@ -17,7 +17,7 @@
 body {
     width: auto;
     max-width: none;
-    margin: 0 5vw;
+    margin: 0 10vw;
 }
 
 .bg {
@@ -57,7 +57,10 @@ td.B { {# backsolved #}
 td.F { {# free answer #}
     background-color: #cea;
 }
-td.H { {# hinted #}
+td.H { {# hint #}
+    background-image: linear-gradient(to bottom, transparent 60%, #080 60%);
+}
+td.HH { {# hint analytics #}
     background-image: linear-gradient(to bottom right, transparent 50%, #bee 50%);
 }
 td.P { {# post-hunt solve #}
@@ -150,6 +153,7 @@ small {
 <col> {# solves #}
 <col> {# metas #}
 <col> {# hints #}
+<col> {# requested hints / canned hints #}
 <col class="end"> {# last solve #}
 {% for puzzle in puzzles %}
 <col{% if puzzle.puzzle.is_meta %} class="end"{% endif %}>
@@ -157,9 +161,10 @@ small {
 <tr>
     <th>{% translate "Team" %}
     <th>{% translate "#" %}
-    <th>{% include 'icon-solve.svg' %}
-    <th>{% include 'icon-meta.svg' %}
-    <th>{% include 'icon-hint.svg' %}
+    <th>⭕
+    <th>Ⓜ️
+    <th>✏️
+    <th>요청/보기
     <th>{% translate "Last solve" %}
     {% for puzzle in puzzles %}
     <th><a class="puzzle-title-header-link" data-puzzle-name="{{ puzzle.puzzle.name }}" href="{% url 'stats' puzzle.puzzle.slug %}">{{ puzzle.puzzle.short_name }}</a>
@@ -168,7 +173,7 @@ small {
 <tr>
     <td>{% translate "Solves" %}
     <td>
-    <td colspan="4">
+    <td colspan="5">
     {% for puzzle in puzzles %}
     <td class="S">{{ puzzle.solves }}
     {% endfor %}
@@ -176,7 +181,7 @@ small {
 <tr>
     <td>{% translate "Guesses" %}
     <td>
-    <td colspan="4">
+    <td colspan="5">
     {% for puzzle in puzzles %}
     <td class="W">{{ puzzle.total_guesses }}
     {% endfor %}
@@ -184,18 +189,28 @@ small {
 <tr>
     <td>{% translate "Unlocks" %}
     <td>
-    <td colspan="4">
+    <td colspan="5">
     {% for puzzle in puzzles %}
     <td class="U">{{ puzzle.total_unlocks }}
     {% endfor %}
 </tr>
 {% if hints_enabled %}
 <tr>
-    <td>{% translate "Hints" %}
+    <td>✏️연필 사용
     <td>
-    <td colspan="4">
+    <td colspan="5">
     {% for puzzle in puzzles %}
-    <td class="H">{{ puzzle.hints }}
+    <td class="H">{{ puzzle.used_hints }}
+    {% endfor %}
+</tr>
+{% endif %}
+{% if hints_enabled %}
+<tr>
+    <td>✏️요청/보기
+    <td>
+    <td colspan="5">
+    {% for puzzle in puzzles %}
+    <td class="HH">{{ puzzle.requested_hints }} / {{ puzzle.canned_hints }}
     {% endfor %}
 </tr>
 {% endif %}
@@ -203,7 +218,7 @@ small {
 <tr>
     <td>{% include 'icon-answer.svg' %}
     <td>
-    <td colspan="4">
+    <td colspan="5">
     {% for puzzle in puzzles %}
     <td class="F">{{ puzzle.free_solves }}
     {% endfor %}
@@ -212,7 +227,7 @@ small {
 <tr>
     <td>{% translate "%Solve/Guess" %}
     <td>
-    <td colspan="4">
+    <td colspan="5">
     {% for puzzle in puzzles %}
     <td>{% percentage puzzle.solves puzzle.total_guesses %}
     {% endfor %}
@@ -220,7 +235,7 @@ small {
 <tr>
     <td>{% translate "%Solve/Unlock" %}
     <td>
-    <td colspan="4">
+    <td colspan="5">
     {% for puzzle in puzzles %}
     <td>{% percentage puzzle.solves puzzle.total_unlocks %}
     {% endfor %}
@@ -255,6 +270,10 @@ small {
         {{ board_entry.used_hints }} / {{ board_entry.team.num_hints_total }}
         {% endif %}
     <td>
+        {% if board_entry.used_hints %}
+        {{ board_entry.requested_hints }} / {{ board_entry.asked_hints }}
+        {% endif %}
+    <td>
         {% format_time board_entry.last_solve_time %}
     {% for entry in board_entry.entries %}
     <td{% if entry.cls %} class="{{ entry.cls }}"{% endif %}>
@@ -264,8 +283,8 @@ small {
         {% if entry.wrong_guesses %}
         &minus;{{ entry.wrong_guesses }}
         {% endif %}
-        {% if entry.hints %}
-        <small>+{{ entry.hints }}</small>
+        {% if entry.requested_hints or entry.canned_hints %}
+        <small>{{ entry.requested_hints }} / {{ entry.canned_hints }}</small>
         {% endif %}
     {% endfor %}
 </tr>
