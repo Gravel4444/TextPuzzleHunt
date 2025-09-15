@@ -148,10 +148,14 @@ p {
 /* Links
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 a {
-  color: #0056b3; }
+  color: #0056b3;
+  text-decoration: underline;
+  /* text-decoration-color: #0056b3;  밑줄 색상을 글자색보다 연하게 = #7ab5ff */
+  text-decoration-thickness: 1px; /* 밑줄 두께를 얇게 */
+  text-underline-offset: 4px;     /* 밑줄을 아래로 내리기 */  
+}
 a:hover {
   color: #0056b3; }
-
 
 /* Buttons
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
@@ -162,19 +166,19 @@ input[type="reset"],
 input[type="button"] {
   display: inline-block;
   height: 38px;
-  padding: 0 30px;
   color: #555;
   text-align: center;
   font-size: 11px;
   font-weight: 600;
-  line-height: 38px;
   letter-spacing: .1rem;
   text-transform: uppercase;
   text-decoration: none;
   white-space: nowrap;
   background-color: transparent;
   border-radius: 4px;
-  border: 1px solid #bbb;
+  border: 5px solid #333333; /* 2px 두께의 검은색 테두리 */
+  padding: 2px 8px          ;/* 안쪽 여백 조정 */
+  line-height: 1.5;          /* 줄 높이 조정 */
   cursor: pointer;
   box-sizing: border-box; }
 .button:hover,
@@ -188,7 +192,6 @@ input[type="submit"]:focus,
 input[type="reset"]:focus,
 input[type="button"]:focus {
   color: #333;
-  border-color: #888;
   outline: 0; }
 .button.button-primary,
 button.button-primary,
@@ -316,15 +319,15 @@ pre > code {
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 th,
 td {
-  padding: 12px 15px;
+  padding: 7.5px 10px;
   text-align: left;
   border-bottom: 1px solid #E1E1E1; }
-th:first-child,
+/* th:first-child,
 td:first-child {
   padding-left: 0; }
 th:last-child,
 td:last-child {
-  padding-right: 0; }
+  padding-right: 0; } */
 
 
 /* Spacing

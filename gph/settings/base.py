@@ -33,7 +33,7 @@ RECAPTCHA_SCORE_THRESHOLD = 0.5
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['textpuzzlehunt.onrender.com']
 
 # Application definition
 
@@ -69,22 +69,19 @@ MIDDLEWARE = [
     'puzzles.views.accept_ranges_middleware',
 ]
 
+# <수정> Render 환경 변수(REDIS_URL)를 직접 사용하도록 고정합니다.
+REDIS_URL = os.environ.get('REDIS_URL')
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://127.0.0.1:6379/1",
-        "OPTIONS": {
-            "CLIENT_CLASS": "django_redis.client.DefaultClient",
-        },
+        "LOCATION": REDIS_URL + "/1",
+        "OPTIONS": {"CLIENT_CLASS": "django_redis.client.DefaultClient"},
     }
 }
-
 CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
-        "CONFIG": {
-            "hosts": [{'address':('127.0.0.1', 6379), 'db': 2}],
-        },
+        "CONFIG": {"hosts": [REDIS_URL + "/2"]},
     }
 }
 
@@ -152,10 +149,11 @@ FORMAT_MODULE_PATH = ['gph.formats']
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
+# <수정> Whitenoise를 사용하도록 정적 파일 설정을 변경합니다.
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.normpath(os.path.join(BASE_DIR, 'static'))
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') # collectstatic 명령어로 파일이 모일 위치
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 SOLUTION_STATIC_ROOT = os.path.normpath(os.path.join(BASE_DIR, 'puzzles/templates/solution_bodies'))
-STATICFILES_STORAGE = 'gph.storage.CustomStorage'
 
 # Email SMTP information
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -185,65 +183,33 @@ EMAIL_SUBJECT_PREFIX = '[📝텍스트 퍼즐헌트📝] ' # 원하는 제목 �
 #     'formatter': 'django',
 # },
 
+
+# <수정> 파일이 아닌 콘솔(stdout)으로 로그를 출력하도록 변경합니다. Render는 콘솔 로그를 수집합니다.
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
     'formatters': {
-        'django': {
-            'format': '%(asctime)s (PID %(process)d) [%(levelname)s] %(module)s\n%(message)s'
-        },
         'puzzles': {
             'format': '%(asctime)s (PID %(process)d) [%(levelname)s] %(name)s %(message)s'
         },
     },
-    # FIXME you may want to change the filenames to something like
-    # /srv/logs/django.log or similar
     'handlers': {
-        'django': {
+        'console': {
             'level': 'INFO',
-            'class': 'logging.FileHandler',
-            'filename': os.path.join(LOGS_DIR, 'django.log'),
-            'formatter': 'django',
-        },
-        'general': {
-            'level': 'INFO',
-            'class': 'logging.FileHandler',
-            'filename': os.path.join(LOGS_DIR, 'general.log'),
-            'formatter': 'puzzles',
-        },
-        'puzzle': {
-            'level': 'INFO',
-            'class': 'logging.FileHandler',
-            'filename': os.path.join(LOGS_DIR, 'puzzle.log'),
-            'formatter': 'puzzles',
-        },
-        'request': {
-            'level': 'INFO',
-            'class': 'logging.FileHandler',
-            'filename': os.path.join(LOGS_DIR, 'request.log'),
+            'class': 'logging.StreamHandler',
             'formatter': 'puzzles',
         },
     },
     'loggers': {
         'django': {
-            'handlers': ['django'],
+            'handlers': ['console'],
             'level': 'INFO',
             'propagate': True,
         },
         'puzzles': {
-            'handlers': ['general'],
+            'handlers': ['console'],
             'level': 'INFO',
             'propagate': True,
-        },
-        'puzzles.puzzle': {
-            'handlers': ['puzzle'],
-            'level': 'INFO',
-            'propagate': False,
-        },
-        'puzzles.request': {
-            'handlers': ['request'],
-            'level': 'INFO',
-            'propagate': False,
         },
     },
 }
@@ -259,22 +225,30 @@ LOGOUT_REDIRECT_URL = 'index'
 
 HUNT_START_TIME = timezone.make_aware(datetime.datetime(
     year=2025,
-    month=9,
-    day=9,
-    hour=20,
-    minute=0,
-), timezone=datetime.timezone(datetime.timedelta(hours=11)))
+    month=10,
+    day=7,
+    hour=19,
+    minute=00,
+), timezone=datetime.timezone(datetime.timedelta(hours=9)))
 HUNT_END_TIME = timezone.make_aware(datetime.datetime(
-    year=9002,
-    month=1,
-    day=1,
-    hour=0,
-    minute=0,
-), timezone=datetime.timezone(datetime.timedelta(hours=11)))
+    year=2030,
+    month=10,
+    day=9,
+    hour=18,
+    minute=59,
+), timezone=datetime.timezone(datetime.timedelta(hours=9)))
 HUNT_CLOSE_TIME = timezone.make_aware(datetime.datetime(
-    year=9003,
-    month=1,
-    day=1,
-    hour=0,
-    minute=0,
-), timezone=datetime.timezone(datetime.timedelta(hours=11)))
+    year=2030,
+    month=10,
+    day=9,
+    hour=19,
+    minute=00,
+), timezone=datetime.timezone(datetime.timedelta(hours=9)))
+
+REQUESTING_HINT_END_TIME = timezone.make_aware(datetime.datetime(
+    year=2025,
+    month=10,
+    day=21,
+    hour=23,
+    minute=59,
+), timezone=datetime.timezone(datetime.timedelta(hours=9)))

@@ -185,7 +185,7 @@ class Context:
     # the most recent GPH, so it'll show all GPHs run so far. If you don't have
     # an archive, you don't have to bother with this.
     def archive_link(self):
-        return reverse('archive') if settings.DEBUG else 'https://textpuzzlehunt.onrender.com//archive'
+        return reverse('archive') if settings.DEBUG else 'https://textpuzzlehunt.onrender.com/archive'
 
     def has_finished_hunt(self):
         return any(puzzle.slug == META_META_SLUG for puzzle in self.team.solves.values()) if self.team else False

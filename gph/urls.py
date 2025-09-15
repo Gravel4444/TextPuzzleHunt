@@ -43,6 +43,9 @@ urlpatterns = [
 
     path('', views.index, name='index'),
 
+    # <시작 수정> 시작 url을 추가합니다.
+    path('start-hunt/', views.start_hunt, name='start_hunt'),
+
     path('about', views.about, name='about'),
     path('archive', views.archive, name='archive'),
     path('register', views.register, name='register'),

@@ -15,9 +15,12 @@ DOMAIN = 'FIXME'
 # ['galacticpuzzlehunt.com', 'gph.example.com']; or just ['*']
 ALLOWED_HOSTS = ['textpuzzlehunt.onrender.com']
 
-
 DATABASES = {
-    'default': dj_database_url.config(conn_max_age=600, ssl_require=True)
+    'default': dj_database_url.config(
+        conn_max_age=600,
+        conn_health_checks=True,
+        ssl_require=True,
+    )
 }
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
