@@ -33,21 +33,22 @@ logger = logging.getLogger('puzzles.messaging')
 # Usernames that the bot will send messages to Discord with when various things
 # happen. It's really not important that these are different. It's just for
 # flavor.
-ALERT_DISCORD_USERNAME = 'FIXME PH AlertBot'
-CORRECT_SUBMISSION_DISCORD_USERNAME = 'FIXME PH WinBot'
-INCORRECT_SUBMISSION_DISCORD_USERNAME = 'FIXME PH FailBot'
-FREE_ANSWER_DISCORD_USERNAME = 'FIXME PH HelpBot'
-VICTORY_DISCORD_USERNAME = 'FIXME PH CongratBot'
+ALERT_DISCORD_USERNAME = '📝알림봇'
+CORRECT_SUBMISSION_DISCORD_USERNAME = '⭕🎉제출-정답'
+INCORRECT_SUBMISSION_DISCORD_USERNAME = '❌💦제출-오답'
+FREE_ANSWER_DISCORD_USERNAME = 'FREE ANSWER'
+VICTORY_DISCORD_USERNAME = '👏완주'
 
 # Should be Discord webhook URLs that look like
 # https://discordapp.com/api/webhooks/(numbers)/(letters)
 # From a channel you can create them under Integrations > Webhooks.
 # They can be the same webhook if you don't care about keeping them in separate
 # channels.
-ALERT_WEBHOOK_URL = 'FIXME'
-SUBMISSION_WEBHOOK_URL = 'FIXME'
-FREE_ANSWER_WEBHOOK_URL = 'FIXME'
-VICTORY_WEBHOOK_URL = 'FIXME'
+# 하드코딩된 'FIXME' 값을 Render 환경 변수에서 읽어오도록 변경합니다.
+ALERT_WEBHOOK_URL = getattr(settings, 'ALERT_WEBHOOK_URL', None)
+SUBMISSION_WEBHOOK_URL = getattr(settings, 'SUBMISSION_WEBHOOK_URL', None)
+FREE_ANSWER_WEBHOOK_URL = getattr(settings, 'SUBMISSION_WEBHOOK_URL', None)
+VICTORY_WEBHOOK_URL = getattr(settings, 'VICTORY_WEBHOOK_URL', None)
 
 # Assuming you want messages on a messaging platform that's not Discord but
 # supports at least a vaguely similar API, change the following code

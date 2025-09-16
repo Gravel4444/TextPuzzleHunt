@@ -169,7 +169,7 @@
                         {% translate "Story" %}
                     </a>
                     {% endif %}
-                    {% if team_has_started or hunt_is_closed %}
+                    {% if team_has_started or hunt_is_closed or is_superuser %}
                     <a{% if '/puzzle' in request.path or puzzle %} class="selected-tab"{% endif %} href="{% url 'puzzles' %}">
                         {% translate "Puzzles" %}
                     </a>
@@ -182,7 +182,7 @@
                         {% translate "Updates" %}
                     </a>
                     {% endif %}
-                    {% if has_finished_hunt %}
+                    {% if has_finished_hunt or is_superuser %}
                     <a{% if '/wrapup' in request.path %} class="selected-tab"{% endif %} href="{% url 'wrapup' %}">
                         {% translate "Wrap-Up" %}
                     </a>

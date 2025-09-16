@@ -5,7 +5,9 @@ import re
 
 from django import template
 from django.template.base import NodeList
+from django.template.loader import render_to_string #추가함
 from django.template.loader_tags import BlockNode
+from django.urls import reverse #추가함
 from django.utils import timezone
 from django.utils import formats
 from django.utils import dateformat #추가함
