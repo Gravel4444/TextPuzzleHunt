@@ -51,3 +51,15 @@ GA_CODE = '''
 # csrf 403 에러 수정.
 # Render 배포 환경의 CSRF 보안 설정을 위해 웹사이트의 주소를 신뢰할 수 있는 출처로 추가합니다.
 CSRF_TRUSTED_ORIGINS = ['https://textpuzzlehunt.onrender.com']
+
+
+# Discord Webhook URLs
+ALERT_WEBHOOK_URL = os.environ.get('ALERT_WEBHOOK_URL')
+SUBMISSION_WEBHOOK_URL = os.environ.get('SUBMISSION_WEBHOOK_URL')
+FREE_ANSWER_WEBHOOK_URL = os.environ.get('FREE_ANSWER_WEBHOOK_URL')
+VICTORY_WEBHOOK_URL = os.environ.get('VICTORY_WEBHOOK_URL')
+
+# Discord Bot Credentials
+DISCORD_TOKEN = os.environ.get('DISCORD_TOKEN')
+DISCORD_GUILD_ID = os.environ.get('DISCORD_GUILD_ID')
+DISCORD_HINT_CHANNEL_ID = os.environ.get('DISCORD_HINT_CHANNEL_ID')

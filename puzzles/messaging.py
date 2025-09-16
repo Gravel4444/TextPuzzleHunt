@@ -121,12 +121,13 @@ def send_mail_wrapper(subject, template, context, recipients):
 
 
 class DiscordInterface:
-    TOKEN = None # FIXME a long token from Discord
+    TOKEN = getattr(settings, 'DISCORD_TOKEN', None) # FIXME a long token from Discord
 
     # the next two should be big decimal numbers; in Discord, you can right
     # click and Copy ID to get them
-    GUILD = 'FIXME'
-    HINT_CHANNEL = 'FIXME'
+    # 디스코드 token, guild, hint_channel 추가함.
+    GUILD = getattr(settings, 'DISCORD_GUILD_ID', None)
+    HINT_CHANNEL = getattr(settings, 'DISCORD_HINT_CHANNEL_ID', None)
 
     # You also need to enable the "Server Members Intent" under the "Privileged
     # Gateway Intents" section of the "Bot" page of your application from the
