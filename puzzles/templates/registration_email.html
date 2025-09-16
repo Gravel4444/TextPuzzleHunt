@@ -1,7 +1,8 @@
 {% load i18n %}
-<p>{% blocktranslate %}You have successfully registered team {{ team_name }} for the {{ hunt_title }}.{% endblocktranslate %}</p>
 
-<p>{% blocktranslate %}If you need to modify your team information, you can do so at <a href="{{ team_link }}">{{ team_link }}</a>{% endblocktranslate %}</p>
+<p>📝 {{ hunt_title }}에 오신 것을 환영합니다!<br><br>
+다음 팀이 성공적으로 등록되었습니다. : {{ team_name }}<br><br>
+팀 정보를 수정해야 하는 경우, <a href="{{ team_link }}">팀 페이지</a>를 방문해 주세요.<br>
+</p>
 
-<p>{% translate "See you at the hunt!" %}<br>
-{{ hunt_organizers }}</p>
+<p>{% translate "See you at the hunt!" %}</p>
