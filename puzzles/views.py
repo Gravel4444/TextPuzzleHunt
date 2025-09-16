@@ -532,8 +532,9 @@ def puzzles(request):
     Includes solved puzzles and displays their answer.
 
     Most teams will visit this page a lot.'''
-
-    if request.context.hunt_has_started:
+    # admin도 헌트 시작 전 퍼즐페이지 볼 수 있음.
+    
+    if request.context.hunt_has_started or request.context.is_superuser:
         return render(request, 'puzzles.html', {'rounds': render_puzzles(request)})
     elif request.context.hunt_has_almost_started:
         return render(request, 'countdown.html', {'start': request.context.start_time})

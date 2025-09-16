@@ -8,9 +8,10 @@
 {% endblock %}
 
 {% block top-left-actions %}
-{% if round.slug != intro_round_slug %}
-<a href="{% url 'round' round.slug %}" class="btn">퍼즐 목록</a> <!--{{ round.name }} 대신에 '퍼즐 목록' 사용-->
-{% endif %}
+<a href="{% url 'puzzles' %}" class="btn">퍼즐 목록</a>
+<!-- {% if round.slug != intro_round_slug %}
+<a href="{% url 'round' round.slug %}" class="btn">{{ round.name }}</a>
+{% endif %} -->
 {% if team and not hunt_is_closed %}
 <a href="{% url 'solve' puzzle.slug %}" class="btn">{% translate "Submit an answer" %}</a>
 {% if not puzzle.is_meta and num_free_answers_remaining > 0 and puzzle_answer is None %}
