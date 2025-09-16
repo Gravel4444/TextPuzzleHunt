@@ -47,3 +47,7 @@ GA_CODE = '''
   gtag('config', 'G-20GVWJS0Q8');
 </script>
 '''
+
+# csrf 403 에러 수정.
+# Render 배포 환경의 CSRF 보안 설정을 위해 웹사이트의 주소를 신뢰할 수 있는 출처로 추가합니다.
+CSRF_TRUSTED_ORIGINS = ['https://textpuzzlehunt.onrender.com']
