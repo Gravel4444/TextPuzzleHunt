@@ -1650,7 +1650,7 @@ msgstr "비밀번호 변경 완료"
 #: .\puzzles\templates\password_change_done.html:7
 #, python-format
 msgid "You may <a href=\"%(home_url)s\">return to the home page</a>."
-msgstr "<a href=\"%(home_url)s\">메인화면ㅇ로 돌아가기</a>"
+msgstr "<a href=\"%(home_url)s\">메인화면으로 돌아가기</a>"
 
 #: .\puzzles\templates\password_reset.html:5 .\puzzles\templates\password_reset_done.html:5
 msgid "Password Reset"

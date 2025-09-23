@@ -232,6 +232,9 @@ def register(request):
         validate_max=True,
     )
 
+    if request.user.is_authenticated:
+        return redirect('index')
+
     if request.method == 'POST':
         form = RegisterForm(request.POST)
         formset = team_members_formset(request.POST)

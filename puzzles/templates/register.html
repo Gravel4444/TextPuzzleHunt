@@ -11,7 +11,7 @@
 <h2>{% translate "Register a new team" %}</h2>
 
 {% if team %}
-<h4>{% blocktranslate with team_name=team.team_name %}You&rsquo;re already logged in as {{team_name}}!{% endblocktranslate %}</h4>
+<h4>이미 다음 팀으로 로그인 했습니다. : {{ team.team_name }}</h4>
 {% endif %}
 
 <form id="register" method="post">
