@@ -120,59 +120,48 @@ def send_mail_wrapper(subject, template, context, recipients):
             subject, ', '.join(recipients), traceback.format_exc()))
 
 
-class DiscordInterface:
-    TOKEN = getattr(settings, 'DISCORD_TOKEN', None) # FIXME a long token from Discord
+# messaging.py 파일의 DiscordInterface 클래스부터 그 아래 한 줄까지를
+# 아래 내용으로 완전히 교체하세요.
 
-    # the next two should be big decimal numbers; in Discord, you can right
-    # click and Copy ID to get them
-    # 디스코드 token, guild, hint_channel 추가함.
+class DiscordInterface:
+    # 비동기(async) 코드를 올바르게 처리하도록 클래스 전체 로직을 변경합니다.
+    TOKEN = getattr(settings, 'DISCORD_TOKEN', None)
     GUILD = getattr(settings, 'DISCORD_GUILD_ID', None)
     HINT_CHANNEL = getattr(settings, 'DISCORD_HINT_CHANNEL_ID', None)
-
-    # You also need to enable the "Server Members Intent" under the "Privileged
-    # Gateway Intents" section of the "Bot" page of your application from the
-    # Discord Developer Portal. Or you can comment out the code that
-    # initializes `self.avatars` below.
 
     def __init__(self):
         self.client = None
         self.avatars = None
         if self.TOKEN and not settings.IS_TEST:
-            self.client = discord.Client()
-            self.client.loop = asyncio.new_event_loop()
-            self.client.loop.run_until_complete(self.client.login(self.TOKEN))
-            # Look man, I dunno. I have no clue how Python async works and this
-            # is all a house of cards that probably works totally differently
-            # depending on your environment. If you can find a way to reliably
-            # call these async things from here, please send us a PR.
+            intents = discord.Intents.default()
+            intents.members = True # 서버 멤버 목록을 가져오기 위한 필수 권한
+            self.client = discord.Client(intents=intents)
+
+    async def _login_and_get_avatars(self):
+        """A helper async function to log in and fetch member avatars."""
+        await self.client.login(self.TOKEN)
+        avatars = {}
+        try:
+            guild = await self.client.fetch_guild(self.GUILD)
+            async for member in guild.fetch_members(limit=None):
+                avatar = member.display_avatar.url
+                for name in (member.nick, member.name, member.global_name):
+                    if name:
+                        avatars[name] = avatar
+        except Exception:
+            logger.error("Failed to fetch guild or members for avatars.\n" + traceback.format_exc())
+        finally:
+            # 아바타를 가져온 후에는 봇을 로그아웃시켜 불필요한 연결을 유지하지 않습니다.
+            await self.client.close()
+        return avatars
 
     def get_avatar(self, claimer):
         if self.avatars is None:
-            self.avatars = {}
-            if self.client is not None:
-                guild = discord.Guild(data=self.client.loop.run_until_complete(
-                    self.client.http.get_guild(self.GUILD)), state=self.client._connection)
-                for data in self.client.loop.run_until_complete(
-                    self.client.http.get_members(self.GUILD, limit=1000, after=None)):
-                    avatar = discord.Member(data=data, guild=guild, state=self.client._connection).display_avatar.url
-                    for name in (data.get('nick'), data['user'].get('username'), data['user'].get('global_name')):
-                        if name: self.avatars[name] = avatar
+            if not self.client:
+                self.avatars = {}
+            else:
+                self.avatars = async_to_sync(self._login_and_get_avatars)()
         return self.avatars.get(claimer)
-
-    # If you get an error code 50001 when trying to create a message, even
-    # though you're sure your bot has all the permissions, it might be because
-    # you need to "connect to and identify with a gateway at least once"??
-    # https://discord.com/developers/docs/resources/channel#create-message
-
-    # I spent like four hours trying to find weird asynchronous ways to do this
-    # right before each time I send a message, but it seems maybe you actually
-    # just need to do this once and your bot can create messages forever?
-    # pycord's Client does this. So I believe you can fix this by running a
-    # script like the following *once* on your local machine (it will, as
-    # advertised, run forever; just kill it after a few seconds)?
-
-    # import discord
-    # discord.Client().run(TOKEN)
 
     def update_hint(self, hint):
         HintsConsumer.send_to_all(json.dumps({'id': hint.id,
@@ -199,54 +188,191 @@ class DiscordInterface:
             message = hint.long_discord_message()
             logger.info(_('Hint, {}: {}\n{}').format(debug, hint, message))
             logger.info(_('Embed: {}').format(embed))
-        elif hint.discord_id:
+            return
+
+        async def _update_hint_async():
+            if not self.client.is_ready():
+                await self.client.login(self.TOKEN)
+            
             try:
-                self.client.loop.run_until_complete(self.client.http.edit_message(
-                    self.HINT_CHANNEL, hint.discord_id, embeds=[embed]))
-            except Exception:
-                dispatch_general_alert(_('Discord API failure: modify\n{}').format(
-                    traceback.format_exc()))
-        else:
-            message = hint.long_discord_message()
-            try:
-                discord_id = self.client.loop.run_until_complete(self.client.http.send_message(
-                    self.HINT_CHANNEL, message, embeds=[embed]))['id']
-            except Exception:
-                dispatch_general_alert(_('Discord API failure: create\n{}').format(
-                    traceback.format_exc()))
-                return
-            hint.discord_id = discord_id
-            hint.save(update_fields=('discord_id',))
+                if hint.discord_id:
+                    await self.client.http.edit_message(
+                        self.HINT_CHANNEL, hint.discord_id, embeds=[embed])
+                else:
+                    message = hint.long_discord_message()
+                    response = await self.client.http.send_message(
+                        self.HINT_CHANNEL, message, embeds=[embed])
+                    hint.discord_id = response['id']
+                    hint.save(update_fields=('discord_id',))
+            finally:
+                await self.client.close()
+        
+        try:
+            async_to_sync(_update_hint_async)()
+        except Exception:
+            dispatch_general_alert(_('Discord API failure\n{}').format(traceback.format_exc()))
 
     def clear_hint(self, hint):
         HintsConsumer.send_to_all(json.dumps({'id': hint.id}))
-        if self.client is None:
+        if self.client is None or not hint.discord_id:
             logger.info(_('Hint done: {}').format(hint))
-        elif hint.discord_id:
-            # what DPPH did instead of deleting messages:
-            # (nb. I tried to make these colors color-blind friendly)
+            return
 
-            embed = collections.defaultdict(lambda: collections.defaultdict(dict))
-            if hint.status == hint.ANSWERED:
-                embed['color'] = 0xaaffaa
-            elif hint.status == hint.REFUNDED:
-                embed['color'] = 0xcc6600
-            # nothing for obsolete
+        embed = collections.defaultdict(lambda: collections.defaultdict(dict))
+        if hint.status == hint.ANSWERED:
+            embed['color'] = 0xaaffaa
+        elif hint.status == hint.REFUNDED:
+            embed['color'] = 0xcc6600
 
-            embed['author']['name'] = _('{} by {}').format(hint.get_status_display(), hint.claimer)
-            embed['author']['url'] = hint.full_url()
-            embed['description'] = hint.response[:250]
-            avatar = self.get_avatar(hint.claimer)
-            if avatar: embed['author']['icon_url'] = avatar
-            debug = _('claimed by {}').format(hint.claimer)
+        embed['author']['name'] = _('{} by {}').format(hint.get_status_display(), hint.claimer)
+        embed['author']['url'] = hint.full_url()
+        embed['description'] = hint.response[:250]
+        avatar = self.get_avatar(hint.claimer)
+        if avatar: embed['author']['icon_url'] = avatar
+        
+        async def _clear_hint_async():
+            if not self.client.is_ready():
+                await self.client.login(self.TOKEN)
             try:
-                self.client.loop.run_until_complete(self.client.http.edit_message(
-                    self.HINT_CHANNEL, hint.discord_id, content=hint.short_discord_message(), embeds=[embed]))
-            except Exception:
-                dispatch_general_alert(_('Discord API failure: modify\n{}').format(
-                    traceback.format_exc()))
+                await self.client.http.edit_message(
+                    self.HINT_CHANNEL, hint.discord_id, content=hint.short_discord_message(), embeds=[embed])
+            finally:
+                await self.client.close()
+
+        try:
+            async_to_sync(_clear_hint_async)()
+        except Exception:
+            dispatch_general_alert(_('Discord API failure: modify\n{}').format(traceback.format_exc()))
 
 discord_interface = DiscordInterface()
+
+# class DiscordInterface:
+#     TOKEN = getattr(settings, 'DISCORD_TOKEN', None) # FIXME a long token from Discord
+
+#     # the next two should be big decimal numbers; in Discord, you can right
+#     # click and Copy ID to get them
+#     # 디스코드 token, guild, hint_channel 추가함.
+#     GUILD = getattr(settings, 'DISCORD_GUILD_ID', None)
+#     HINT_CHANNEL = getattr(settings, 'DISCORD_HINT_CHANNEL_ID', None)
+
+#     # You also need to enable the "Server Members Intent" under the "Privileged
+#     # Gateway Intents" section of the "Bot" page of your application from the
+#     # Discord Developer Portal. Or you can comment out the code that
+#     # initializes `self.avatars` below.
+
+#     def __init__(self):
+#         self.client = None
+#         self.avatars = None
+#         if self.TOKEN and not settings.IS_TEST:
+#             self.client = discord.Client()
+#             self.client.loop = asyncio.new_event_loop()
+#             self.client.loop.run_until_complete(self.client.login(self.TOKEN))
+#             # Look man, I dunno. I have no clue how Python async works and this
+#             # is all a house of cards that probably works totally differently
+#             # depending on your environment. If you can find a way to reliably
+#             # call these async things from here, please send us a PR.
+
+#     def get_avatar(self, claimer):
+#         if self.avatars is None:
+#             self.avatars = {}
+#             if self.client is not None:
+#                 guild = discord.Guild(data=self.client.loop.run_until_complete(
+#                     self.client.http.get_guild(self.GUILD)), state=self.client._connection)
+#                 for data in self.client.loop.run_until_complete(
+#                     self.client.http.get_members(self.GUILD, limit=1000, after=None)):
+#                     avatar = discord.Member(data=data, guild=guild, state=self.client._connection).display_avatar.url
+#                     for name in (data.get('nick'), data['user'].get('username'), data['user'].get('global_name')):
+#                         if name: self.avatars[name] = avatar
+#         return self.avatars.get(claimer)
+
+#     # If you get an error code 50001 when trying to create a message, even
+#     # though you're sure your bot has all the permissions, it might be because
+#     # you need to "connect to and identify with a gateway at least once"??
+#     # https://discord.com/developers/docs/resources/channel#create-message
+
+#     # I spent like four hours trying to find weird asynchronous ways to do this
+#     # right before each time I send a message, but it seems maybe you actually
+#     # just need to do this once and your bot can create messages forever?
+#     # pycord's Client does this. So I believe you can fix this by running a
+#     # script like the following *once* on your local machine (it will, as
+#     # advertised, run forever; just kill it after a few seconds)?
+
+#     # import discord
+#     # discord.Client().run(TOKEN)
+
+#     def update_hint(self, hint):
+#         HintsConsumer.send_to_all(json.dumps({'id': hint.id,
+#             'content': render_to_string('hint_list_entry.html', {
+#                 'hint': hint, 'now': timezone.localtime()})}))
+#         embed = collections.defaultdict(lambda: collections.defaultdict(dict))
+#         embed['author']['url'] = hint.full_url()
+#         if hint.claimed_datetime:
+#             embed['color'] = 0xdddddd
+#             embed['timestamp'] = hint.claimed_datetime.isoformat()
+#             embed['author']['name'] = _('Claimed by {}').format(hint.claimer)
+#             avatar = self.get_avatar(hint.claimer)
+#             if avatar: embed['author']['icon_url'] = avatar
+#             debug = _('claimed by {}').format(hint.claimer)
+#         else:
+#             embed['color'] = 0xff00ff
+#             embed['author']['name'] = _('U N C L A I M E D')
+#             claim_url = hint.full_url(claim=True)
+#             embed['title'] = _('Claim: ') + claim_url
+#             embed['url'] = claim_url
+#             debug = 'unclaimed'
+
+#         if self.client is None:
+#             message = hint.long_discord_message()
+#             logger.info(_('Hint, {}: {}\n{}').format(debug, hint, message))
+#             logger.info(_('Embed: {}').format(embed))
+#         elif hint.discord_id:
+#             try:
+#                 self.client.loop.run_until_complete(self.client.http.edit_message(
+#                     self.HINT_CHANNEL, hint.discord_id, embeds=[embed]))
+#             except Exception:
+#                 dispatch_general_alert(_('Discord API failure: modify\n{}').format(
+#                     traceback.format_exc()))
+#         else:
+#             message = hint.long_discord_message()
+#             try:
+#                 discord_id = self.client.loop.run_until_complete(self.client.http.send_message(
+#                     self.HINT_CHANNEL, message, embeds=[embed]))['id']
+#             except Exception:
+#                 dispatch_general_alert(_('Discord API failure: create\n{}').format(
+#                     traceback.format_exc()))
+#                 return
+#             hint.discord_id = discord_id
+#             hint.save(update_fields=('discord_id',))
+
+#     def clear_hint(self, hint):
+#         HintsConsumer.send_to_all(json.dumps({'id': hint.id}))
+#         if self.client is None:
+#             logger.info(_('Hint done: {}').format(hint))
+#         elif hint.discord_id:
+#             # what DPPH did instead of deleting messages:
+#             # (nb. I tried to make these colors color-blind friendly)
+
+#             embed = collections.defaultdict(lambda: collections.defaultdict(dict))
+#             if hint.status == hint.ANSWERED:
+#                 embed['color'] = 0xaaffaa
+#             elif hint.status == hint.REFUNDED:
+#                 embed['color'] = 0xcc6600
+#             # nothing for obsolete
+
+#             embed['author']['name'] = _('{} by {}').format(hint.get_status_display(), hint.claimer)
+#             embed['author']['url'] = hint.full_url()
+#             embed['description'] = hint.response[:250]
+#             avatar = self.get_avatar(hint.claimer)
+#             if avatar: embed['author']['icon_url'] = avatar
+#             debug = _('claimed by {}').format(hint.claimer)
+#             try:
+#                 self.client.loop.run_until_complete(self.client.http.edit_message(
+#                     self.HINT_CHANNEL, hint.discord_id, content=hint.short_discord_message(), embeds=[embed]))
+#             except Exception:
+#                 dispatch_general_alert(_('Discord API failure: modify\n{}').format(
+#                     traceback.format_exc()))
+
+# discord_interface = DiscordInterface()
 
 
 # A WebsocketConsumer subclass that can exchange messages with a single
