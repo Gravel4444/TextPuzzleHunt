@@ -120,8 +120,7 @@ def send_mail_wrapper(subject, template, context, recipients):
             subject, ', '.join(recipients), traceback.format_exc()))
 
 
-# messaging.py 파일의 DiscordInterface 클래스부터 그 아래 한 줄까지를
-# 아래 내용으로 완전히 교체하세요.
+# puzzles/messaging.py 파일의 DiscordInterface 클래스 부분을 교체하세요.
 
 class DiscordInterface:
     # 비동기(async) 코드를 올바르게 처리하도록 클래스 전체 로직을 변경합니다.
@@ -190,20 +189,17 @@ class DiscordInterface:
             logger.info(_('Embed: {}').format(embed))
             return
 
+        # 힌트가 업데이트될 때마다 항상 새로운 메시지를 보내도록 변경합니다.
         async def _update_hint_async():
             if not self.client.is_ready():
                 await self.client.login(self.TOKEN)
             
             try:
-                if hint.discord_id:
-                    await self.client.http.edit_message(
-                        self.HINT_CHANNEL, hint.discord_id, embeds=[embed])
-                else:
-                    message = hint.long_discord_message()
-                    response = await self.client.http.send_message(
-                        self.HINT_CHANNEL, message, embeds=[embed])
-                    hint.discord_id = response['id']
-                    hint.save(update_fields=('discord_id',))
+                # 기존 메시지를 수정하는 대신, 항상 새로운 메시지를 보냅니다.
+                message = hint.long_discord_message()
+                await self.client.http.send_message(
+                    self.HINT_CHANNEL, message, embeds=[embed])
+                # discord_id를 저장하는 부분을 완전히 제거합니다.
             finally:
                 await self.client.close()
         
@@ -214,7 +210,7 @@ class DiscordInterface:
 
     def clear_hint(self, hint):
         HintsConsumer.send_to_all(json.dumps({'id': hint.id}))
-        if self.client is None or not hint.discord_id:
+        if self.client is None:
             logger.info(_('Hint done: {}').format(hint))
             return
 
@@ -230,12 +226,14 @@ class DiscordInterface:
         avatar = self.get_avatar(hint.claimer)
         if avatar: embed['author']['icon_url'] = avatar
         
+        # 힌트가 완료될 때도 수정 대신 새로운 메시지를 보냅니다.
         async def _clear_hint_async():
             if not self.client.is_ready():
                 await self.client.login(self.TOKEN)
             try:
-                await self.client.http.edit_message(
-                    self.HINT_CHANNEL, hint.discord_id, content=hint.short_discord_message(), embeds=[embed])
+                # 기존 메시지를 수정하는 대신, 새로운 완료 메시지를 보냅니다.
+                await self.client.http.send_message(
+                    self.HINT_CHANNEL, content=hint.short_discord_message(), embeds=[embed])
             finally:
                 await self.client.close()
 
@@ -243,7 +241,6 @@ class DiscordInterface:
             async_to_sync(_clear_hint_async)()
         except Exception:
             dispatch_general_alert(_('Discord API failure: modify\n{}').format(traceback.format_exc()))
-
 discord_interface = DiscordInterface()
 
 # class DiscordInterface:

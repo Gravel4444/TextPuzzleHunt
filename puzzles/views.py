@@ -263,19 +263,16 @@ def register(request):
             messages.error(request, _('Recaptcha failed.'))
             return redirect('register')
 
-        if form.is_valid() and formset.is_valid():
-            data = form.cleaned_data
-            formset_data = formset.cleaned_data
-
-            user = User.objects.create_user(
-                data.get('team_id'),
-                password=data.get('password'),
-                first_name=data.get('team_name'),
-            )
+if form.is_valid() and formset.is_valid():
+            # form.save()가 비밀번호 검증과 사용자 생성을 모두 처리합니다.
+            user = form.save()
+            
+            # user 객체에서 직접 사용자 정보를 가져와 Team을 생성합니다.
             team = Team.objects.create(
                 user=user,
-                team_name=data.get('team_name'),
+                team_name=user.first_name,
             )
+            formset_data = formset.cleaned_data
             for team_member in formset_data:
                 TeamMember.objects.create(
                     team=team,
@@ -285,16 +282,17 @@ def register(request):
 
             login(request, user)
             team_link = request.build_absolute_uri(
-                reverse('team', args=(data.get('team_name'),))
+                reverse('team', args=(user.first_name,))
             )
             send_mail_wrapper(
                 _('Team created'), 'registration_email',
                 {
-                    'team_name': data.get('team_name'),
+                    'team_name': user.first_name,
                     'team_link': team_link,
                 },
                 team.get_emails())
             return redirect('index')
+
     else:
         form = RegisterForm()
         formset = team_members_formset()
