@@ -263,7 +263,7 @@ def register(request):
             messages.error(request, _('Recaptcha failed.'))
             return redirect('register')
 
-if form.is_valid() and formset.is_valid():
+        if form.is_valid() and formset.is_valid():
             # form.save()가 비밀번호 검증과 사용자 생성을 모두 처리합니다.
             user = form.save()
             
