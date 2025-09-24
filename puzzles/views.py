@@ -264,13 +264,20 @@ def register(request):
             return redirect('register')
 
         if form.is_valid() and formset.is_valid():
-            # form.save()가 비밀번호 검증과 사용자 생성을 모두 처리합니다.
-            user = form.save()
-            
-            # user 객체에서 직접 사용자 정보를 가져와 Team을 생성합니다.
+            # 폼 데이터에서 team_name을 직접 가져옵니다.
+            team_name = form.cleaned_data.get('team_name')
+
+            # UserCreationForm의 save 기능을 사용하되, 바로 DB에 저장하지 않습니다 (commit=False).
+            user = form.save(commit=False)
+            # 가져온 team_name을 user의 first_name 필드에 직접 할당합니다.
+            user.first_name = team_name
+            # 이제 모든 정보가 포함된 user 객체를 DB에 저장합니다.
+            user.save()
+
+            # 방금 저장한 team_name을 사용하여 Team 객체를 생성합니다.
             team = Team.objects.create(
                 user=user,
-                team_name=user.first_name,
+                team_name=team_name,
             )
             formset_data = formset.cleaned_data
             for team_member in formset_data:
@@ -281,13 +288,14 @@ def register(request):
                 )
 
             login(request, user)
+            # URL을 생성할 때도 안전하게 team_name 변수를 사용합니다.
             team_link = request.build_absolute_uri(
-                reverse('team', args=(user.first_name,))
+                reverse('team', args=(team_name,))
             )
             send_mail_wrapper(
                 _('Team created'), 'registration_email',
                 {
-                    'team_name': user.first_name,
+                    'team_name': team_name,
                     'team_link': team_link,
                 },
                 team.get_emails())
