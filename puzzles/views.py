@@ -293,10 +293,6 @@ def register(request):
                 team.get_emails())
             return redirect('index')
 
-    else:
-        form = RegisterForm()
-        formset = team_members_formset()
-
     return render(request, 'register.html', {
         'form': form,
         'team_members_formset': formset,
