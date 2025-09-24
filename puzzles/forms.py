@@ -2,6 +2,7 @@ import re
 import unicodedata
 
 from django import forms
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.core.validators import validate_email
 from django.utils.translation import gettext as _
@@ -19,15 +20,17 @@ def looks_spammy(s):
     if all(unicodedata.category(c).startswith(('Z', 'C')) for c in s): return True
     return re.search('https?://', s, re.IGNORECASE) is not None
 
-class RegisterForm(forms.Form):
-    team_id = forms.CharField(
-        label=_('Team Username'),
-        max_length=100,
-        help_text=(
-            _('This is the private username your team will use when logging in. '
-            'It should be short and not contain special characters.')
-        ),
-    )
+
+# ✅ 2. forms.Form 대신 UserCreationForm을 상속받도록 변경합니다.
+# 이렇게 해야 .save() 메서드와 자동 비밀번호 검증 기능을 사용할 수 있습니다.
+class RegisterForm(UserCreationForm):
+    # 💡 UserCreationForm이 username, password, password2 필드를
+    # 💡 자동으로 만들어주므로, 기존에 있던 필드 정의는 삭제하거나 주석 처리합니다.
+    # team_id = forms.CharField(...)
+    # password = forms.CharField(...)
+    # password2 = forms.CharField(...)
+
+    # ✅ 3. User 모델에 없는 추가 필드(team_name)만 새로 정의해줍니다.
     team_name = forms.CharField(
         label=_('Team Name'),
         max_length=200,
@@ -35,21 +38,17 @@ class RegisterForm(forms.Form):
             _('This is how your team name will appear on the public leaderboard.')
         ),
     )
-    password = forms.CharField(
-        label=_('Team Password'),
-        widget=forms.PasswordInput,
-        help_text=_('You’ll probably share this with your team.'),
-    )
-    password2 = forms.CharField(
-        label=_('Retype Password'),
-        widget=forms.PasswordInput,
-    )
+
+    # ✅ 4. Meta 클래스를 추가하여 UserCreationForm의 기본 설정을 확장합니다.
+    class Meta(UserCreationForm.Meta):
+        model = User
+        # 💡 중요: 폼에 표시될 필드를 지정합니다. 'team_id' 대신 'username'을 사용합니다.
+        # 💡 views.py에서도 이제 'team_id'가 아닌 'username'으로 데이터를 가져와야 합니다.
+        fields = ('username', 'team_name')
+
 
     def clean(self):
         cleaned_data = super(RegisterForm, self).clean()
-        team_id = cleaned_data.get('team_id')
-        password = cleaned_data.get('password')
-        password2 = cleaned_data.get('password2')
         team_name = cleaned_data.get('team_name')
 
         if not team_name or looks_spammy(team_name):
@@ -57,17 +56,23 @@ class RegisterForm(forms.Form):
                 _('That public team name isn’t allowed.')
             )
 
-        if password != password2:
-            raise forms.ValidationError(
-                _('Passwords don’t match.')
-            )
+        # 💡 UserCreationForm이 비밀번호 일치 여부와 username(team_id) 중복 여부를
+        # 💡 자동으로 검사해주므로, 아래 로직들은 더 이상 필요 없어 주석 처리합니다.
+        # password = cleaned_data.get('password')
+        # password2 = cleaned_data.get('password2')
+        # if password != password2:
+        #     raise forms.ValidationError(
+        #         _('Passwords don’t match.')
+        #     )
+        #
+        # team_id = cleaned_data.get('team_id')
+        # if User.objects.filter(username=team_id).exists():
+        #     raise forms.ValidationError(
+        #         _('That login username has already been taken by a different '
+        #         'team.')
+        #     )
 
-        if User.objects.filter(username=team_id).exists():
-            raise forms.ValidationError(
-                _('That login username has already been taken by a different '
-                'team.')
-            )
-
+        # ✅ 5. 팀 이름 중복 검사는 커스텀 로직이므로 그대로 유지합니다.
         if Team.objects.filter(team_name=team_name).exists():
             raise forms.ValidationError(
                 _('That public team name has already been taken by a different '
