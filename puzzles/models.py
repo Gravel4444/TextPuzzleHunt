@@ -902,9 +902,12 @@ class Hint(models.Model):
         return [self.notify_emails]
 
     def full_url(self, claim=False):
-        url = settings.DOMAIN + 'hint/%s' % self.id
-        if claim: url += '?claim=true'
-        return url
+        # reverse() 함수를 사용하여 URL 경로를 안전하게 생성합니다.
+        path = reverse('hint', args=(self.id,))
+        if claim:
+            path += '?claim=true'
+        # 'https://'를 명확하게 추가하여 올바른 전체 URL을 만듭니다.
+        return f'https://{settings.DOMAIN}{path}'
 
     def short_discord_message(self, threshold=500):
         return (
@@ -942,8 +945,10 @@ def notify_on_hint_update(sender, instance, created, update_fields, **kwargs):
         if 'discord_id' not in update_fields:
             discord_interface.clear_hint(instance)
         if 'response' in update_fields:
-            link = settings.DOMAIN.rstrip('/') + reverse(
-                'hints', args=(instance.puzzle.slug,))
+            domain = settings.DOMAIN.rstrip('/')
+            path = reverse('hints', args=(instance.puzzle.slug,))
+            link = f"https://{domain}{path}"
+ 
             send_mail_wrapper(
                 _('Hint answered for {}').format(instance.puzzle),
                 'hint_answered_email',
