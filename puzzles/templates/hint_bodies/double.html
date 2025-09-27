@@ -4,32 +4,48 @@
 
 {% block hint-body-html %}
 
-{% canned_hint "canned-hint-1" %}
+{% canned_hint "복제1F 여러 개" %}
     {% hint_title %}
-        힌트 1
+        <span class="flavor">여러 개</span>
     {% end_hint_title %}
     {% hint_content %}
-        이것은 첫 번째 고정 힌트의 내용입니다. <b>HTML 태그</b>도 사용할 수 있습니다.
+        아마 <strong>2개</strong>씩 보이는 것 같습니다.
     {% end_hint_content %}
 {% end_canned_hint %}
 
-
-{% canned_hint "canned-hint-2" %}
+{% canned_hint "복제2 /" %}
     {% hint_title %}
-        힌트 2
+        /
     {% end_hint_title %}
     {% hint_content %}
-        두 번째 힌트입니다. <br> 줄바꿈도 가능합니다.
+        /의 왼쪽은 <strong>하나</strong>만, /의 오른쪽은 <strong>여러 개</strong>를 고려합니다.
     {% end_hint_content %}
 {% end_canned_hint %}
 
-
-{% canned_hint "super-secret-hint" %}
+{% canned_hint "복제3 답" %}
     {% hint_title %}
-        비밀 힌트
+        구해내야
     {% end_hint_title %}
     {% hint_content %}
-        힌트 ID는 원하는 문자열로 자유롭게 설정할 수 있습니다.
+        일반적으로 퍼즐을 풀기 위해 얻어야 하는 것입니다.
+    {% end_hint_content %}
+{% end_canned_hint %}
+
+{% canned_hint "복제4 공" %}
+    {% hint_title %}
+        아무것도 없는
+    {% end_hint_title %}
+    {% hint_content %}
+        한자로 생각해보는 것이 도움이 됩니다.
+    {% end_hint_content %}
+{% end_canned_hint %}
+
+{% canned_hint "복제5 억" %}
+    {% hint_title %}
+        89%
+    {% end_hint_title %}
+    {% hint_content %}
+        억을 다르게 표현했을 때 9개중 8개에 해당합니다.
     {% end_hint_content %}
 {% end_canned_hint %}
 

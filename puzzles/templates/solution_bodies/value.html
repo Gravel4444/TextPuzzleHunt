@@ -1,32 +1,687 @@
 {% extends "solution.html" %}
 
 {% block puzzle-author %}
-Galactic Trendsetters
+자갈
 {% endblock %}
 
 {% block solution-body-md %}
-Each answer has a double letter[^1]. Each answer also has a distinct length from 4 to 9. Sort by the length and read the double letters. They say **SAMPLE**.
 
-[^1]: Two consecutive letters that are the same.
+'가치' 퍼즐에는 다음과 같은 발상이 사용됩니다.  
+각 글자마다 기준에 따라 점수를 매겨서, **글자의 가치**를 숫자로 나타낼 수 있습니다.  
+추가로 이때까지 풀어낸 퍼즐들의 발상을 조합하여 새로운 문제를 풀어냅니다.  
 
-*[SAMPLE]: sample puzzle
+‘가치’ 퍼즐은 메타 문제는 아니므로, 이전 퍼즐들의 정답이 사용되지는 않습니다.  
+하지만 이전 퍼즐들에서 사용된 **발상**이 엮여 있고, 퍼즐의 제목도 사용합니다.
+
+| 퍼즐 제목 | 사용된 발상  |
+|-----------|--------------|
+| 회전      | 180도 회전   |
+| 복제      | 글자의 중복  |
+| 삼체      | 세 쌍의 단어 |
+| 미로      | 크로스워드   |
+| 숫자      | 애너그램     |
+| 암호      | 기역1이24    |
+| 장난      | 크립틱       |
+| 달력      | 달력         |
+| 초안      | 분류         |
+| 가치      | 글자의 가치  |
+
+## 1단계. 10개의 문제
+
+10개의 작은 문제들을 풀어냅니다. 그 정답과 사용된 퍼즐, 그리고 해설을 확인해보세요.
+각 문제들은 두 가지의 발상이 사용되며, 그중 하나는 다음 문제에도 사용됩니다. 이를 잘 활용하면 각 문제를 빠르게 접근하여 풀어낼 수 있습니다.
+
+
+### 1.  
+답: 지  
+사용: 숫자+초안  
+해설:  
+초안의 방식으로 글을 이어 단서를 얻고, 나온 답을 숫자의 방식으로 풀어서 합치면 됩니다.  
+
+| 모은 단서                                                          | 답   | 숫자 | 기역1이24 |
+|--------------------------------------------------------------------|------|------|-----------|
+| 고장난 물건을 수리하는 데에 쓰거나 무언가 제조하면 사용하는 도구들 | 공구 | 09   | ㅈ        |
+| 사는 집을 다른 데로 바꾸거나 법인의 사무를 처리하는 사람들         | 이사 |   24 | ㅣ        |
+
+
+### 2.  
+답: 화폐  
+사용: 초안+미로  
+해설:  
+
+<table class="crossword">
+    <tbody>
+        <tr>
+            <td>무<span class="corner">1</span></td>
+            <td>소</td>
+            <td>외<span class="corner">2</span></td>
+            <td class="blank"></td>
+            <td>마<span class="corner">1</span></td>
+            <td>노</td>
+            <td>유<span class="corner">2</span></td>
+        </tr>
+        <tr>
+            <td>영</td>
+            <td class="accent">화</td>
+            <td>관</td>
+            <td class="blank"></td>
+            <td>조</td>
+            <td class="accent">폐</td>
+            <td>기</td>
+        </tr>
+        <tr>
+            <td>장<span class="corner">3</span></td>
+            <td>기</td>
+            <td>적</td>
+            <td class="blank"></td>
+            <td>단<span class="corner">3</span></td>
+            <td>물</td>
+            <td>질</td>
+        </tr>
+    </tbody>
+</table>
+
+가로  
+1. 두려워할 만한 것이 없음 / 마노의 붉은 갈색 잿물  
+3. 오랜 기간에 걸치는 것 / 당분이 많이 들어간 물질  
+세로  
+1. 긴급체포의 다른 말로 영장 없는 상태 / 말을 수호하기 위해 제사 지내던 단  
+2. 겉으로 드러난. 또는 그런 것. / 유기 화합물. 또는 그런 성질.  
+
+
+### 3.  
+
+답: 장  
+사용: 미로+장난  
+해설:  
+
+<table class="crossword">
+    <tbody>
+        <tr>
+            <td>조<span class="corner">1</span></td>
+            <td>화</td>
+            <td>미<span class="corner">2</span></td>
+        </tr>
+        <tr>
+            <td>직</td>
+            <td class="accent">장</td>
+            <td>인</td>
+        </tr>
+        <tr>
+            <td>명<span class="corner">3</span></td>
+            <td>품</td>
+            <td>계</td>
+        </tr>
+    </tbody>
+</table>
+
+| 번호  |  정의                        | 말장난                      | 정답     |
+|------|------------------------------|------------------------------|----------|
+| 가로 1 |  잘 어울리는 아름다움      | 조수미 -[전날]-> 조화미         | 조화미     |
+| 가로 3 |  조심해야 할 수법          | 도->레->미 + 인계(물려주다)        | 미인계   |
+| 세로 1 |  로켓단 같은                  | 조명 + (곧을)직 -[사이]-> 조직명     | 조직명  |
+| 세로 2 |  비싼걸 사려고 돈을 모으는 모임 | 한자로 (밝은)명 + (물건)품 + (세상)계            | 명품계 |
+
+### 4.  
+답: 찾기  
+사용: 장난+가치  
+해설:  
+cryptic 단서로 해석을 하면 됩니다. '안'의 기본 점수(초성에 따라 변화하지 않는 점수)는 11점이고, 초성에 따른 추가적인 점수 변화를 표에 나타냈으니 참고하세요.    
+
+| 정의                        | 말장난                                                              | 정답     |
+|----------------------------|----------------------------------------------------------------------|----------|
+| 인터넷에서 할 수 있는 행위   | 가치-[암호(애너그램)]-> **차기** + ‘안’의 가치를 3 낮추는 초성 **ㅈ, ㅊ, ㅋ, ㅌ** <br>-[안에 ~ 더하다]-> 찾기    | 찾기     |
+
+| 특성      | ㄱ | ㄴ | ㄷ | ㄹ | ㅁ | ㅂ | ㅅ | ㅇ | ㅈ | ㅊ | ㅋ | ㅌ | ㅍ | ㅎ |
+|-----------|----|----|----|----|----|----|----|----|----|----|----|----|----|----|
+| 울림소리  |    |  2 |    |  2 |  2 |    |    |  2 |    |    |    |    |    |    |
+| 빈공간    |    |    |    |    |  3 |  3 |    |  3 |    |    |    |    |  3 |  3 |
+| 키보드    |  3 |  2 |  3 |  2 |  2 |  3 |  3 |  2 |  3 |  1 |  1 |  1 |  1 |  2 |
+| 문장      |    |    |    |    |    |    |    |  6 |  7 |    |    |    |    |    |
+| 중간점수  | 14 | 15 | 14 | 15 | 18 | 17 | 14 | 24 | 21 | 12 | 12 | 12 | 15 | 16 |
+| 자릿수 합 |  5 |  6 |  5 |  6 |  9 |  8 |  5 |  **6** |  **3** |  **3** |  **3** |  **3** |  6 |  7 |
+
+
+### 5.  
+답: 목마  
+사용: 가치+복제  
+해설:  
+복제의 방식으로 두 글자에 대한 범위를 좁힐 수 있고, 그중 가치를 계산하여 알맞는 글자를 찾습니다.  
+각각 **몰, 막**에 대한 설명입니다. 이후 지시된 대로 종성을 바꿔 합치면 **목말**이 됩니다.  
+목말의 맞춤법은 **목마**와 주로 혼동되므로 답이 됩니다.  
+
+
+### 6.  
+답: 관  
+사용: 복제+달력  
+해설:  
+달력 속의 글자 중에서 설명하는 글자를 찾으면 됩니다.  
+글자의 중복을 고려하면 **모+세, 방, 의, 일**를 찾을 수 있습니다.  
+이 뒤에는 모두 **관**이 붙을 수 있으므로 답이 됩니다.  
+
+
+### 7.  
+답: 문제  
+사용: 달력+암호  
+해설:  
+달력에서 각 날짜에 해당하는 글자는 **쟁, 세, 목, 누** 입니다.  
+이를 애너그램으로 풀어내면 **오색 문제**로, 4색 정리보다는 쉬운 수학문제입니다.  
+여기서 색깔인 '오색'을 빼면 답인 **문제**가 나옵니다.  
+
+### 8.  
+답: 인간  
+사용: 암호+삼체  
+해설:  
+삼체처럼 나열된 단어를 묶고 정리하되, 정리하는 규칙을 '완전 반대로' 하여 **가나다순의 역순**으로 정리합니다.  
+
+| 첫 단어           | 둘째 단어           | 셋째 단어       | 인덱싱 | 추출 |
+|-------------------|--------------------|---------------|:----:|----|
+| 아기             | 미인                | 동물          |   4  |  인  |
+| 된장             | 고추장              | 간장           |   6  |  간  |
+
+
+### 9.  
+답: 기  
+사용: 삼체+회전  
+해설:  
+괄호 안의 회전되어 있는 내용을 삼체처럼 풀어냅니다.  
+
+| 단어들                   | 영어로                 | 겹치는 글자 |
+|-------------------------|-----------------------|-------------|
+| 네지레<br>밀리오<br>타마키                 | NEJIRE<br>MIRIO<br>TAMAKI                 | I           |
+| 레아 오르가나<br>루크 스카이워커<br>한 솔로 | LEIA ORGANA<br>LUKE SKYWALKER<br>HAN SOLO | A, L        |
+| 리사<br>매기<br>바트                      | LISA<br>MAGGIE<br>BART                    | A           |
+
+이후 지시대로 두번 나온 알파벳인 'A'를 제거하고, ABC순으로 나열하면 '**IL**'이 됩니다.  
+괄호 안에 있으므로 풀어내면 정답인 **기**가 됩니다.  
+
+
+### 10.  
+답: 패드  
+사용: 회전+숫자  
+해설:  
+괄호 안에 있는 내용들은 뒤집더라도 비슷한 모양으로 해석되지 않습니다.  
+그래서 먼저 기역1이24를 통해 한글 자음(ㄱ, ㄴ, ㅁ)을 숫자로 바꿔야 합니다.  
+EㄴEhㄴㅁㄱEㄱ -> E2Eh251E1  
+이제 괄호 안에 넣어서 뒤집으면 다음과 같습니다.  
+<span class="rotated-text">( E2Eh251E1 )</span> -> 131524323  
+숫자를 한글로 해석하기 위해 다시 한번 더 기역1이24를 사용하면 됩니다.   
+13 15 24 3 23 -> ㅍㅏㅣㄷㅡ -> **패드**  
+
+
+## 2단계. 단어 찾기  
+
+10개의 문제들의 답은, 10개의 **퍼즐의 제목**과 연결지을 수 있습니다.
+퍼즐의 제목 이후에 중간 정답을 붙여서, 10가지 문제의 순서에 맞게 퍼즐의 제목들을 나열할 수 있습니다.  
+
+| 대응하는 퍼즐 제목 | 중간 정답 |
+|--------------------|-----------|
+| 초안               | 지        |
+| 암호               | 화폐      |
+| 달력               | 장        |
+| 미로               | 찾기      |
+| 회전               | 목마      |
+| 가치               | 관        |
+| 삼체               | 문제      |
+| 복제               | 인간      |
+| 장난               | 기        |
+| 숫자               | 패드      |
+
+
+## 3단계. 글자의 가치  
+
+각 문제마다 대응하는 퍼즐의 제목을 찾아낸 이후에는, 이번 퍼즐의 제목에 걸맞게 그 **가치**를 구해야 합니다.
+**글자 점수 계산법**에 나온 글자의 특성마다 점수를 더해 최종점수를 구해냅니다. <a href="#appendix">가장 아래의 표</a>를 참고하세요.   
+
+## 4단계. 최종 정답  
+
+퍼즐의 제목은 모두 두글자였으므로, 각 단어의 가치는 두자리 숫자가 됩니다.
+또한 최댓값이 24이므로 **기역1이24**를 활용해볼 수 있습니다. 한글로 변환하면 **테스트힙**이 나옵니다.  
+이때까지의 모든 과정을 다음 표로 정리할 수 있습니다.
+
+| #  |  발상 1 | 발상 2 | 중간 정답 | 대응하는 퍼즐 | 가치 | 기역1이24 |
+|----|--------------|--------------|-----------|---------------|------|-----------|
+|  1 | 기역1이24    | 분류         | 지        | 초안          |   12 | ㅌ        |
+|  2 | 분류         | 크로스워드   | 화폐      | 암호          |   17 | ㅓ        |
+|  3 | 크로스워드   | 크립틱       | 장        | 달력          |   24 | ㅣ        |
+|  4 | 크립틱       | 글자의 가치  | 찾기      | 미로          | 07   | ㅅ        |
+|  5 | 글자의 가치  | 글자의 중복  | 목마      | 회전          |   23 | ㅡ        |
+|  6 | 글자의 중복  | 달력         | 관        | 가치          |   12 | ㅌ        |
+|  7 | 달력         | 애너그램     | 문제      | 삼체          |   23 | ㅡ        |
+|  8 | 애너그램     | 세 쌍의 단어 | 인간      | 복제          |   14 | ㅎ        |
+|  9 | 세 쌍의 단어 | 180도 회전   | 기        | 장난          |   24 | ㅣ        |
+| 10 | 180도 회전   | 기역1이24    | 패드      | 숫자          | 06   | ㅂ        |
+
+마지막 문구인 1은 기역1이24로 변환하면 **ㄱ**이 됩니다. 이를 적절한 위치에 추가한다면 정답은 **텍스트 힙**이 됩니다.
+
+
 {% endblock %}
 
 {% block author-notes-html %}
-hi
+겁내힘들다
 {% endblock %}
 
 {% block appendix-title %}
-Fancy Title
+글자의 가치 계산 표
 {% endblock %}
 
-{% block appendix-md %}
-Length | Answer        | Double Letter
------- | ------------- | -------------
-4      | BA**SS**      | S
-5      | IS**AA**C     | A
-6      | HA**MM**ER    | M
-7      | SCRI**PP**S   | P
-8      | PARA**LL**EL  | L
-9      | ENGIN**EE**RS | E
+{% block appendix-html %}
+<table class="calculation">
+    <colgroup>
+        <col>
+        <col>
+        <col class="thick-border-right">
+        <col>
+        <col class="thick-border-right">
+        <col>
+        <col class="thick-border-right">
+        <col>
+        <col class="thick-border-right">
+        <col>
+        <col class="thick-border-right">
+        <col>
+        <col class="thick-border-right">
+        <col>
+        <col class="thick-border-right">
+        <col>
+        <col class="thick-border-right">
+        <col>
+        <col class="thick-border-right">
+        <col>
+        <col class="thick-border-right">
+        <col>
+        <col class="thick-border-right">
+    </colgroup>
+    <thead>
+        <tr>
+            <th>분류</th>
+            <th>특성</th>
+            <th>점수</th>
+            <th>초</th>
+            <th>안</th>
+            <th>암</th>
+            <th>호</th>
+            <th>달</th>
+            <th>력</th>
+            <th>미</th>
+            <th>로</th>
+            <th>회</th>
+            <th>전</th>
+            <th>가</th>
+            <th>치</th>
+            <th>삼</th>
+            <th>체</th>
+            <th>복</th>
+            <th>제</th>
+            <th>장</th>
+            <th>난</th>
+            <th>숫</th>
+            <th>자</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td rowspan="4">글자</td>
+            <td>종성 유무</td>
+            <td>4</td>
+            <td></td>
+            <td></td>
+            <td>1</td>
+            <td></td>
+            <td>1</td>
+            <td>1</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>1</td>
+            <td></td>
+            <td></td>
+            <td>1</td>
+            <td></td>
+            <td>1</td>
+            <td></td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>울림소리</td>
+            <td>2</td>
+            <td></td>
+            <td>2</td>
+            <td>2</td>
+            <td></td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td></td>
+            <td>1</td>
+            <td></td>
+            <td></td>
+            <td>1</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>1</td>
+            <td>2</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>직교점</td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td>2</td>
+            <td></td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td></td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+        </tr>
+        <tr>
+            <td>빈공간</td>
+            <td>3</td>
+            <td></td>
+            <td>1</td>
+            <td>2</td>
+            <td>1</td>
+            <td></td>
+            <td></td>
+            <td>1</td>
+            <td></td>
+            <td>1</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>1</td>
+            <td></td>
+            <td>1</td>
+            <td></td>
+            <td>1</td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr class="section-start">
+            <td rowspan="4">키보드</td>
+            <td>아랫줄</td>
+            <td>1</td>
+            <td>1</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>1</td>
+            <td></td>
+            <td>1</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>1</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>중간줄</td>
+            <td>2</td>
+            <td>1</td>
+            <td>3</td>
+            <td>3</td>
+            <td>2</td>
+            <td>2</td>
+            <td>1</td>
+            <td>2</td>
+            <td>2</td>
+            <td>3</td>
+            <td>2</td>
+            <td>1</td>
+            <td>1</td>
+            <td>2</td>
+            <td></td>
+            <td>1</td>
+            <td></td>
+            <td>2</td>
+            <td>3</td>
+            <td></td>
+            <td>1</td>
+        </tr>
+        <tr>
+            <td>윗줄</td>
+            <td>3</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>1</td>
+            <td>2</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>1</td>
+            <td>1</td>
+            <td></td>
+            <td>1</td>
+            <td>1</td>
+            <td>2</td>
+            <td>2</td>
+            <td>1</td>
+            <td></td>
+            <td>2</td>
+            <td>1</td>
+        </tr>
+        <tr>
+            <td>shift</td>
+            <td>0</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr class="section-start">
+            <td rowspan="3">문장</td>
+            <td>6점</td>
+            <td>6</td>
+            <td></td>
+            <td>1</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>1</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>1</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>7점</td>
+            <td>7</td>
+            <td></td>
+            <td></td>
+            <td>1</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td></td>
+            <td></td>
+            <td>1</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>1</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>8점</td>
+            <td>8</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>1</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>1</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr class="section-start">
+            <td colspan="3"><strong>중간점수</strong></td>
+            <td><strong>4</strong></td>
+            <td><strong>20</strong></td>
+            <td><strong>28</strong></td>
+            <td><strong>16</strong></td>
+            <td><strong>14</strong></td>
+            <td><strong>22</strong></td>
+            <td><strong>9</strong></td>
+            <td><strong>7</strong></td>
+            <td><strong>17</strong></td>
+            <td><strong>21</strong></td>
+            <td><strong>13</strong></td>
+            <td><strong>11</strong></td>
+            <td><strong>17</strong></td>
+            <td><strong>12</strong></td>
+            <td><strong>16</strong></td>
+            <td><strong>13</strong></td>
+            <td><strong>17</strong></td>
+            <td><strong>22</strong></td>
+            <td><strong>12</strong></td>
+            <td><strong>6</strong></td>
+        </tr>
+        <tr class="section-start">
+            <td rowspan="2">계산</td>
+            <td colspan="2">자릿수 합</td>
+            <td>4</td>
+            <td>2</td>
+            <td>1</td>
+            <td>7</td>
+            <td>5</td>
+            <td>4</td>
+            <td>9</td>
+            <td>7</td>
+            <td>8</td>
+            <td>3</td>
+            <td>4</td>
+            <td>2</td>
+            <td>8</td>
+            <td>3</td>
+            <td>7</td>
+            <td>4</td>
+            <td>8</td>
+            <td>4</td>
+            <td>3</td>
+            <td>6</td>
+        </tr>
+        <tr>
+            <td colspan="2">mod 3</td>
+            <td>1</td>
+            <td></td>
+            <td>1</td>
+            <td></td>
+            <td>2</td>
+            <td></td>
+            <td>0</td>
+            <td></td>
+            <td>2</td>
+            <td></td>
+            <td>1</td>
+            <td></td>
+            <td>2</td>
+            <td></td>
+            <td>1</td>
+            <td></td>
+            <td>2</td>
+            <td></td>
+            <td>0</td>
+            <td></td>
+        </tr>
+        <tr class="section-start">
+            <td colspan="3"><strong>최종점수</strong></td>
+            <td><strong>1</strong></td>
+            <td><strong>2</strong></td>
+            <td><strong>1</strong></td>
+            <td><strong>7</strong></td>
+            <td><strong>2</strong></td>
+            <td><strong>4</strong></td>
+            <td><strong>0</strong></td>
+            <td><strong>7</strong></td>
+            <td><strong>2</strong></td>
+            <td><strong>3</strong></td>
+            <td><strong>1</strong></td>
+            <td><strong>2</strong></td>
+            <td><strong>2</strong></td>
+            <td><strong>3</strong></td>
+            <td><strong>1</strong></td>
+            <td><strong>4</strong></td>
+            <td><strong>2</strong></td>
+            <td><strong>4</strong></td>
+            <td><strong>0</strong></td>
+            <td><strong>6</strong></td>
+        </tr>
+    </tbody>
+</table>
+
+
 {% endblock %}

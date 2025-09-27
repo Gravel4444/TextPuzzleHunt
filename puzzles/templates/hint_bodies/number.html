@@ -4,32 +4,49 @@
 
 {% block hint-body-html %}
 
-{% canned_hint "canned-hint-1" %}
+{% canned_hint "숫자1F 숫자" %}
     {% hint_title %}
-        힌트 1
+        <span class="flavor">숫자</span>
     {% end_hint_title %}
     {% hint_content %}
-        이것은 첫 번째 고정 힌트의 내용입니다. <b>HTML 태그</b>도 사용할 수 있습니다.
+        번역을 하고 난 다음에 비로소 숫자를 얻을 수 있습니다. 예시문항을 잘 파악하면 숫자를 해독하기 편합니다.
     {% end_hint_content %}
 {% end_canned_hint %}
 
-
-{% canned_hint "canned-hint-2" %}
+{% canned_hint "숫자2F 컴퓨터" %}
     {% hint_title %}
-        힌트 2
+        <span class="flavor">컴퓨터</span>
     {% end_hint_title %}
     {% hint_content %}
-        두 번째 힌트입니다. <br> 줄바꿈도 가능합니다.
+        번역을 하기 위해 컴퓨터가 필요한 것 같습니다. 컴퓨터가 있어야만 해석하기 편합니다.
     {% end_hint_content %}
 {% end_canned_hint %}
 
-
-{% canned_hint "super-secret-hint" %}
+{% canned_hint "숫자3 첫 시작" %}
     {% hint_title %}
-        비밀 힌트
+        첫 시작
     {% end_hint_title %}
     {% hint_content %}
-        힌트 ID는 원하는 문자열로 자유롭게 설정할 수 있습니다.
+        맨 처음에는 나열된 영어 문자열에서 규칙을 찾아야 합니다. 특이하게 자주 보이는 알파벳이나, 뜬금없이 단어 중간에 나오는 대문자들을 잘 살펴보세요.
+    {% end_hint_content %}
+{% end_canned_hint %}
+
+{% canned_hint "숫자4 숫자 해독" %}
+    {% hint_title %}
+        tntwk goehr
+    {% end_hint_title %}
+    {% hint_content %}
+        숫자의 최댓값과, 자리수를 잘 구분한다면 쉽게 잘라야 하는 부분을 알 수 있습니다. 띄어쓰기도 꼭 참고하세요.
+    {% end_hint_content %}
+{% end_canned_hint %}
+
+{% canned_hint "숫자5 최종 정답" %}
+    {% hint_title %}
+        최종 정답
+    {% end_hint_title %}
+    {% hint_content %}
+        쪽지의 내용은 답을 개연성 있게 만들고자 넣은 부가적인 요소입니다.
+        모두 해석할 필요는 없지만, 쪽지의 <b>두 번째 문단</b>이나 플레이버 텍스트가 답을 고르는 데에 도움이 될 수 있습니다.
     {% end_hint_content %}
 {% end_canned_hint %}
 

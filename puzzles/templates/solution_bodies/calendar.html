@@ -1,32 +1,161 @@
 {% extends "solution.html" %}
 
 {% block puzzle-author %}
-Galactic Trendsetters
+자갈
 {% endblock %}
 
 {% block solution-body-md %}
-Each answer has a double letter[^1]. Each answer also has a distinct length from 4 to 9. Sort by the length and read the double letters. They say **SAMPLE**.
 
-[^1]: Two consecutive letters that are the same.
+<style>
+    .bold { font-family: 'NanumSquareNeoExtraBold'; }
+    .color-1 { background-color: #f4cccc; }
+    .color-2 { background-color: #fce5cd; }
+    .color-3 { background-color: #fff2cc; }
+    .color-4 { background-color: #d9ead3; }
+    .color-5 { background-color: #cfe2f3; }
+    .color-6 { background-color: #c9daf8; }
+    .color-7 { background-color: #d9d2e9; }
+</style>
 
-*[SAMPLE]: sample puzzle
+
+'달력' 퍼즐에는 다음과 같은 발상이 사용됩니다.  
+**달력**의 칸마다 글자를 채워넣고, 특히 요일을 의미하는 글자는 해당 요일에 배치합니다.  
+
+‘달력’ 퍼즐은 메타 문제로, 이전 퍼즐들의 정답이 사용됩니다.  
+이전 정답들을 ‘달력’과 연관지어 생각해보면, 정답들에 모두 요일이 들어간다는 공통점을 발견할 수 있습니다.
+또한 정답을 모두 합치면 30글자로, 9월의 날짜 수와 동일합니다.
+따라서 달력 안에 일정을 채워넣듯 정답들을 배치하며, 요일에 해당하는 글자는 그 요일에 들어가도록 배열하면 됩니다.
+
+<table class="crossword">
+    <tbody>
+        <tr class="accent bold">
+            <td>일</td>
+            <td>월</td>
+            <td>화</td>
+            <td>수</td>
+            <td>목</td>
+            <td>금</td>
+            <td>토</td>
+        </tr>
+        <tr>
+            <td class="blank"></td>
+            <td class="color-6"><strong>시<span class="corner">1</span></strong></td>
+            <td class="color-6">공<span class="corner">2</span></td>
+            <td class="color-6">기<span class="corner">3</span></td>
+            <td class="color-6">하<span class="corner">4</span></td>
+            <td class="color-6">영<span class="corner">5</span></td>
+            <td class="color-6"><span class="bold">토</span><span class="corner">6</span></td>
+        </tr>
+        <tr>
+            <td class="color-3">미<span class="corner">7</span></td>
+            <td class="color-3"><strong>로<span class="corner">8</span></strong></td>
+            <td class="color-3">의<span class="corner">9</span></td>
+            <td class="color-3"><span class="bold">수</span><span class="corner">10</span></td>
+            <td class="color-3"><strong>다<span class="corner">11</span></strong></td>
+            <td class="color-3">쟁<span class="corner">12</span></td>
+            <td class="color-3">이<span class="corner">13</span></td>
+        </tr>
+        <tr>
+            <td class="color-2">칸<span class="corner">14</span></td>
+            <td class="color-2">만<span class="corner">15</span></td>
+            <td class="color-2"><span class="bold">화</span><span class="corner">16</span></td>
+            <td class="color-5">가<span class="corner">17</span></td>
+            <td class="color-5">야<span class="corner">18</span></td>
+            <td class="color-5"><span class="bold">금</span><span class="corner">19</span></td>
+            <td class="color-1">누<span class="corner">20</span></td>
+        </tr>
+        <tr>
+            <td class="color-1">나<span class="corner">21</span></td>
+            <td class="color-1"><span class="bold">월</span><span class="corner">22</span></td>
+            <td class="color-1"><strong>세<span class="corner">23</span></strong></td>
+            <td class="color-1">방<span class="corner">24</span></td>
+            <td class="color-4"><span class="bold">목</span><span class="corner">25</span></td>
+            <td class="color-4">공<span class="corner">26</span></td>
+            <td class="color-7">내<span class="corner">27</span></td>
+        </tr>
+        <tr>
+            <td class="color-7"><span class="bold">일</span><span class="corner">28</span></td>
+            <td class="color-7">모<span class="corner">29</span></td>
+            <td class="color-7">레<span class="corner">30</span></td>
+            <td class="blank"></td>
+            <td class="blank"></td>
+            <td class="blank"></td>
+            <td class="blank"></td>
+        </tr>
+    </tbody>
+</table>
+
+주어진 단서를 통해 9월 23일, 8일, 8일, 11일, 1일에 해당하는 글자를 읽으면 **세로로 다시**라는 문구가 나옵니다.
+‘…’을 고려하여 앞뒤를 이어붙여 읽으면, **달력 자체를 가로에서 세로로 돌린 후**, 같은 규칙을 적용하여 정답들을 다시 배치하라는 지시가 됩니다.
+토요일에 대응하는 정답인 ‘시공기하 영토’를 넣기 위해서는 달력의 일요일 부분이 가장 위에, 토요일 부분이 가장 아래로 가야 합니다.
+
+<table class="crossword">
+    <tbody>
+        <tr>
+            <td class="color-7">내<span class="corner">28</span></td>
+            <td class="color-7"><span class="bold">일</span><span class="corner">21</span></td>
+            <td class="color-7">모<span class="corner">14</span></td>
+            <td class="color-7">레<span class="corner">7</span></td>
+            <td class="blank"></td>
+            <td class="accent bold">일</td>
+        </tr>
+        <tr>
+            <td class="color-1">누<span class="corner">29</span></td>
+            <td class="color-1"><strong>나<span class="corner">22</span></strong></td>
+            <td class="color-1"><span class="bold">월</span><span class="corner">15</span></td>
+            <td class="color-1">세<span class="corner">8</span></td>
+            <td class="color-1">방<span class="corner">1</span></td>
+            <td class="accent bold">월</td>
+        </tr>
+        <tr>
+            <td class="color-2">칸<span class="corner">30</span></td>
+            <td class="color-2"><strong>만<span class="corner">23</span></strong></td>
+            <td class="color-2"><span class="bold">화</span><span class="corner">16</span></td>
+            <td class="color-3">미<span class="corner">9</span></td>
+            <td class="color-3">로<span class="corner">2</span></td>
+            <td class="accent bold">화</td>
+        </tr>
+        <tr>
+            <td class="blank"></td>
+            <td class="color-3"><strong>의<span class="corner">24</span></strong></td>
+            <td class="color-3"><span class="bold">수</span><span class="corner">17</span></td>
+            <td class="color-3">다<span class="corner">10</span></td>
+            <td class="color-3">쟁<span class="corner">3</span></td>
+            <td class="accent bold">수</td>
+        </tr>
+        <tr>
+            <td class="blank"></td>
+            <td class="color-3"><strong>이<span class="corner">25</span></strong></td>
+            <td class="color-4"><span class="bold">목</span><span class="corner">18</span></td>
+            <td class="color-4">공<span class="corner">11</span></td>
+            <td class="color-5">가<span class="corner">4</span></td>
+            <td class="accent bold">목</td>
+        </tr>
+        <tr>
+            <td class="blank"></td>
+            <td class="color-5"><strong>야<span class="corner">26</span></strong></td>
+            <td class="color-5"><span class="bold">금</span><span class="corner">19</span></td>
+            <td class="color-6">시<span class="corner">12</span></td>
+            <td class="color-6">공<span class="corner">5</span></td>
+            <td class="accent bold">금</td>
+        </tr>
+        <tr>
+            <td class="blank"></td>
+            <td class="color-6"><strong>기<span class="corner">27</span></strong></td>
+            <td class="color-6">하<span class="corner">20</span></td>
+            <td class="color-6">영<span class="corner">13</span></td>
+            <td class="color-6"><span class="bold">토</span><span class="corner">6</span></td>
+            <td class="accent bold">토</td>
+        </tr>
+    </tbody>
+</table>
+
+중요한 일정이 있는 9월 22일부터 다음 날짜로 넘어가면서 말이 되는 곳까지 읽어나가면, 정답은 **나만의 이야기**가 됩니다.
+
+
+
 {% endblock %}
 
 {% block author-notes-html %}
 hi
-{% endblock %}
-
-{% block appendix-title %}
-Fancy Title
-{% endblock %}
-
-{% block appendix-md %}
-Length | Answer        | Double Letter
------- | ------------- | -------------
-4      | BA**SS**      | S
-5      | IS**AA**C     | A
-6      | HA**MM**ER    | M
-7      | SCRI**PP**S   | P
-8      | PARA**LL**EL  | L
-9      | ENGIN**EE**RS | E
 {% endblock %}

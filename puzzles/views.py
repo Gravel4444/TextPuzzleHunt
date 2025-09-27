@@ -966,7 +966,7 @@ def hints(request):
                 )
                 messages.success(request, _('힌트를 성공적으로 열었습니다!'))
             else:
-                messages.error(request, _('힌트 코인이 부족합니다.'))
+                messages.error(request, _('✏️<strong>연필</strong>이 부족합니다.'))
 
             # 힌트 해금 후에도 목록이 열려 있도록 리다이렉트 URL에 파라미터를 추가합니다.
             redirect_url = reverse('hints', args=[puzzle.slug]) + '?show_canned_hints=true'
