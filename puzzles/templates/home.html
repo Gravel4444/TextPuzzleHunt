@@ -46,8 +46,8 @@
     /* 1. 띄어쓰기 기준으로만 줄바꿈되도록 설정 */
     word-break: keep-all;
     /* 2. 화면 크기에 따라 글씨 크기가 자동으로 조절되도록 설정 */
-    /* 최소 4rem, 기본은 화면 너비의 5%, 최대 6rm */
-    font-size: clamp(4rem, 5vw, 6rem);
+    /* 최소 24px, 기본은 화면 너비의 5%, 최대 50px */
+    font-size: clamp(24px, 5vw, 6rem);
 }
 
 .marquee-container {
@@ -97,14 +97,18 @@
 {% blocktranslate with title=hunt_title %}The {{ title }} is now over, but you can still register and progress through the hunt until {{ hunt_close }}.{% endblocktranslate %}
 {% endif %}
 <br>
-{% with feedback_url="https://FIXME" %}
+{% if wrapup_page_visible %}
+{% url 'wrapup' as wrapup_url %}
+퍼즐헌트를 마쳤다면 <a href="{{ wrapup_url }}">마무리 페이지</a>를 방문해 보세요!
+{% endif %}
+<!-- {% with feedback_url="https://FIXME" %}
 {% if wrapup_page_visible %}
 {% url 'wrapup' as wrapup_url %}
 {% blocktranslate %}Please fill out our <a href="{{ feedback_url }}">feedback form</a> and check out our <a href="{{ wrapup_url }}">wrap-up</a>!{% endblocktranslate %}
 {% else %}
 {% blocktranslate %}Please fill out our <a href="{{ feedback_url }}">feedback form</a> to let us know what you thought about the hunt.{% endblocktranslate %}
 {% endif %}
-{% endwith %}
+{% endwith %} -->
 </div>
 {% endif %}
 
@@ -112,9 +116,9 @@
     <div>
         <h4>{% translate "What" %}</h4>
         <div class="info-desc">
-            {% translate "A mysterious list of puzzles has appeared on the internet! If you can solve them, you could win prizes and bragging rights!" %}<sup>*</sup>
-            <br><br>
-            <div class="footnote"><sup>*</sup>{% translate "there are no prizes" %}</div>
+            인터넷에 의문의 퍼즐 목록이 나타났습니다!
+            <br>
+            흐음... 신기하게도 <b>텍스트</b>로만 이뤄진 퍼즐들 같군요.  
         </div>
     </div>
     <div>
@@ -125,26 +129,20 @@
             {% if hunt_is_over %}
             {% blocktranslate %}The hunt began on {{ hunt_start }}, and ended on {{ hunt_end }}.{% endblocktranslate %}
             {% else %}
-            {% days_between start_time end_time as num_days %}
-            {% blocktranslate %}The hunt will begin on {{ hunt_start }}, and it will end {{ num_days }} days later on {{ hunt_end }}.{% endblocktranslate %}
+            텍스트 퍼즐헌트는 {{ hunt_start }}에 시작하여 약 5년 가량 열려 있습니다.  
+            <br>
+            그 사이에는 <b>언제든지 등록 후 시작</b>할 수 있습니다.  
             {% endif %}
         </div>
     </div>
     <div>
         <h4>{% translate "Who" %}</h4>
         <div class="info-desc">
-            {% with organizer="FIXME" %}
-            {% if hunt_is_closed %}
-            {% blocktranslate %}This was a puzzlehunt run by {{ organizer }}.{% endblocktranslate %}
-            {% else %}
+            누구나 퍼즐헌트를 플레이할 수 있습니다.  
+            친구들과 팀을 만들어 도전해 보세요.  
+            <br>
             {% url 'about' as about_url %}
-            {% blocktranslate %}This is a puzzlehunt run by {{ organizer }}.{% endblocktranslate %}
-            {% blocktranslate %}Registration is open! Be sure to check out our <a href="{{ about_url }}">about</a> page for more information.{% endblocktranslate %}
-            {% endif %}
-            {% endwith %}
-            {% comment %}
-            {% blocktranslate with previous_hunts="FIXME" %}It is the follow-up to the previous <a href="{{ archive_link }}">{{ previous_hunts }} Puzzle Hunts</a>.{% endblocktranslate %}
-            {% endcomment %}
+            자세한 정보는 <a href="{{ about_url }}">소개 페이지</a>를 확인하세요.
         </div>
     </div>
 </div>

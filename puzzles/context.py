@@ -117,8 +117,11 @@ class BaseContext:
         return self.team and self.team.team_start_time
     
     # <힌트 수정> 함수 새로 추가. 힌트 요청 가능한지 아닌지
+    def hint_end_time(self):
+        return REQUESTING_HINT_END_TIME
+    
     def requesting_hint_is_over(self):
-        return self.now >= REQUESTING_HINT_END_TIME
+        return self.now >= self.hint_end_time
 
 # Also include the constants from hunt_config.
 for (key, value) in hunt_config.__dict__.items():
