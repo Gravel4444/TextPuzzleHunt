@@ -264,22 +264,22 @@ LOGOUT_REDIRECT_URL = 'index'
 
 HUNT_START_TIME = timezone.make_aware(datetime.datetime(
     year=2025,
-    month=11,
-    day=21,
+    month=12,
+    day=12,
     hour=19,
     minute=00,
 ), timezone=datetime.timezone(datetime.timedelta(hours=9)))
 HUNT_END_TIME = timezone.make_aware(datetime.datetime(
     year=2030,
-    month=11,
-    day=21,
+    month=12,
+    day=12,
     hour=19,
     minute=00,
 ), timezone=datetime.timezone(datetime.timedelta(hours=9)))
 HUNT_CLOSE_TIME = timezone.make_aware(datetime.datetime(
     year=2030,
-    month=11,
-    day=21,
+    month=12,
+    day=12,
     hour=19,
     minute=00,
 ), timezone=datetime.timezone(datetime.timedelta(hours=9)))
@@ -287,7 +287,7 @@ HUNT_CLOSE_TIME = timezone.make_aware(datetime.datetime(
 REQUESTING_HINT_END_TIME = timezone.make_aware(datetime.datetime(
     year=2025,
     month=12,
-    day=7,
+    day=28,
     hour=23,
     minute=59,
 ), timezone=datetime.timezone(datetime.timedelta(hours=9)))
