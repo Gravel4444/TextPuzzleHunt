@@ -115,6 +115,10 @@ h1, h2 {
     /* border-bottom: 1px solid #e9ecef; /* 연한 회색 구분선 */
 }
 
+h5 {
+    font-size: 2.5rem;   /* 폰트 크기 살짝 조정 */
+}
+
 main {
     position: relative;
     background-color: #ffffff;

@@ -8,49 +8,53 @@
 {% endblock %}
 
 {% block content %}
+네, 주석을 모두 제거한 깔끔한 코드입니다. 기존 코드 위치에 그대로 붙여넣으시면 됩니다.
+
+HTML
 
 <style>
-  body{
+  body {
     position: relative;
   }
-  
+
   aside {
     display: none;
   }
 
-  @media screen and (min-width: 961px) {
-    
+  @media screen and (min-width: 1200px) {
     aside {
       display: block;
-      position: absolute;
+      position: fixed;
       width: 200px;
       top: 120px;
-      right: 10px;
-
-      padding: 3px 10px;
+      right: 20px;
+      padding: 10px;
       text-align: right;
-      background: linear-gradient(to right, transparent, rgba(207, 58, 36, 0.2));
+      background: linear-gradient(to right, transparent, rgba(207, 58, 36, 0.1));
+      border-right: 3px solid rgba(207, 58, 36, 0.5);
+      z-index: 100;
+      max-height: 80vh;
+      overflow-y: auto;
     }
 
     aside div {
-      color: var(--link-text-color);
+      color: var(--link-text-color, #333);
       cursor: pointer;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      margin-bottom: 4px;
+      font-size: 0.9rem;
     }
 
-    aside :hover {
+    aside div:hover {
       text-decoration: underline;
+      background-color: rgba(255, 255, 255, 0.5);
     }
 
     aside .highlight {
       font-weight: bold;
-    }
-   
-
-    .content {
-      /* margin-left: calc(240px - 10vw); */
+      color: #cf3a24;
     }
   }
 </style>
@@ -60,20 +64,20 @@
 <main>
 <p style="text-align: center;">{% translate "Congratulations!" %}</p>
 
-<h1>스토리</h1>
+<h2>스토리</h2>
 
 당신은 매일같이 여러 소설을 써내려가는 소설가입니다. 7가지의 퍼즐들은 각각 소설책이고, 플레이버 텍스트는 등장인물의 대사였습니다. 메타 퍼즐과 최종 퍼즐은 당신에 대한 이야기이며, 플레이버 텍스트는 내레이션입니다.
 <br>
-소설책은 에피소드 형식으로 되어 있어서, 전체적인 스토리를 알기 위해선 ‘<strong>초안</strong>’ 퍼즐에서처럼 여러개의 소설책을 이어서 봐야 합니다. 대략적으로 정리하면 다음과 같습니다.
+소설책은 에피소드 형식으로 되어 있어서, 전체적인 스토리를 알기 위해선 '<strong>초안</strong>' 퍼즐에서처럼 여러개의 소설책을 이어서 봐야 합니다. 대략적으로 정리하면 다음과 같습니다.
 <br><br>
 1. 시리즈: 꿈
 <br>
 목공(편의상 목수)은 생계를 유지하기 위해 어려서부터 열심히 목공 일을 해왔다. 가끔 블랙아웃을 겪을 정도로 신체에 부담이 가지만 그만둘 수는 없었다. 하지만 그에게도 만화가라는 어릴 적 꿈이 있고, 포기할 수 없던 그는 미술학원 근처를 돌아다니며 관심을 보인다. 이를 알아챈 목수의 누나는 자신의 자취방에서 숙식을 해결하며 꿈을 이루는 데에 조금이라도 보탬이 되도록 쪽지를 보낸다.
-<br>
+<br><br>
 2. 시리즈: 이세계
 <br>
 갑작스럽게 이세계로 놓여진 주인공은 신비한 영토에 발을 들이게 된다. 투명한 미로에 갇힐 뻔 했지만 수다쟁이를 만나 간신히 위험을 면하게 되고, 언어 체계도 달랐지만 시간을 들여 공부했다. 수다쟁이와 친구가 된 후, 그가 미로를 정말 좋아하고 더 많은 사람이 오길 원한다는 점을 알아차린다. 그래서 주인공이 가야금 연주를 가르쳐주며, 아름다운 선율로 미로를 홍보하기로 한다.
-<br>
+<br><br>
 3. 현실: 소설가
 <br>
 책을 좋아하는 당신은 자신의 아이디어를 직접 이야기로 만들고 싶었습니다. 브레인스토밍을 하고 그 내용을 정리하며, 거의 한 달 넘게 몰두하며 당신만의 소설을 써내려가기 시작합니다. 좋아하는 구절을 듬뿍 담아, 결국 소설을 완성합니다.
@@ -81,9 +85,9 @@
 <table>
   <thead>
     <tr>
-      <th>분류</th>
-      <th>제목</th>
-      <th>플레이버 텍스트</th>
+      <th style="width: 7%">분류</th>
+      <th style="width: 7%">제목</th>
+      <th style="width: 86%">플레이버 텍스트</th>
     </tr>
   </thead>
   <tbody>
@@ -140,26 +144,26 @@
   </tbody>
 </table>
 
-<h1>퍼즐헌트 제작</h1>
+<h2>퍼즐헌트 제작</h2>
 
-<h2>1. 제작 기간</h2>
+<h5>1. 제작 기간</h5>
 8월: 프로젝트 시작
 <br>9월: 문제 제작 및 웹사이트 제작 
 <br>10월-11월: 플레이 테스트
 <br>12월: 출시
-<br><br>
+<br>
 <br>7월 29일: gph-site 템플릿으로 퍼즐헌트 제작 가능성 확인
 <br>8월 18일: 퍼즐 복제, 삼체 등의 발상을 가지고 프로젝트 시작
 <br>8월 20일: 메타퍼즐 달력의 발상 구체화, 정답들 정함
 <br>8월 마지막 주: <a href=”https://2025.galacticpuzzlehunt.com/” target=”_blank”>GPH 2025</a> 참여
-<br><br>
+<br>
 <br>8월 30일: 퍼즐 삼체 완성
 <br>9월 1일: 퍼즐 회전, 장난 완성
 <br>9월 3일: 퍼즐 복제 완성
 <br>9월 4일: 퍼즐 미로, 암호 완성
 <br>9월 5일: 퍼즐 숫자 완성, 메타퍼즐 초안, 가치 발상 떠오름
 <br>9월 6일: 메타퍼즐 초안, 가치 완성
-<br><br>
+<br>
 <br>9월 둘째 주: 해설 작성, 9월 말 출시 포기
 <br>9월 셋째 주: 웹사이트 제작
 <br>9월 넷째 주: 웹사이트 힌트 시스템 구축, 힌트 작성
@@ -168,7 +172,7 @@
 <br>11월 셋째 주: 플레이테스트 피드백 반영
 <br>11월 넷째 주: 홍보 시작
 
-<h2>2. 제작 방법</h2>
+<h5>2. 제작 방법</h5>
 텍스트 퍼즐헌트의 가장 큰 목표는 ‘한국어로 된 짧은 퍼즐헌트 제작’이였고, 그 다음 목표는 ‘퍼즐헌트 초심자도 즐길 수 있도록, 해외 퍼즐헌트에서 쉬운 아이디어를 벤치마킹하여 활용하자’ 였습니다.
 <br>
 목표를 빠르게 달성하고 더 어렵고 규모가 큰 다른 퍼즐헌트 제작으로 넘어가려 했습니다. 그래서 아트에 크게 신경쓰지 않기 위해 “텍스트”로만 이뤄진 퍼즐이라는 테마를 기획하게 되었습니다. 하지만 결국 1인 제작의 한계에 부딪혀 출시가 늦어지게 되었습니다.
@@ -181,7 +185,7 @@
 <br><br>
 퍼즐헌트의 구조에 대해 조금 아쉬운 것이 있습니다. 미궁과는 다른 퍼즐헌트의 매력은 병렬적으로 풀어낼 수 있는 구조와 백솔브라고 생각합니다. 예전에 다른 한국어 퍼즐헌트인 <a href=”https://mrrheehunt.net/” target=”_blank”>미스터리 퍼즐헌트</a>를 플레이하면서 조금 선형적이라는 인식을 받았어서 이를 탈피하고 싶었지만, 저 역시 비슷한 구조의 퍼즐헌트를 만들고 말았습니다. (항상 감사합니다.) 짧은 퍼즐헌트는 어쩔 수 없이 이렇게 되나봅니다. 다음 퍼즐헌트를 만든다면 더 긴 길이로 병렬적으로 구성하고 싶습니다.
 
-<h2>3. 웹사이트</h2>
+<h5>3. 웹사이트</h5>
 저는 기초적인 수준의 python 코딩만 할 수 있고, 나머지 코딩 지식은 전무합니다. 그럼에도 1인 개발로 웹사이트를 운영할 수 있었던 것은 오픈 소스로 열린 <a href=”https://github.com/galacticpuzzlehunt/gph-site” target=”_blank”>gph-site</a>와 Gemini 덕분입니다. 웹사이트 개발의 전 과정을 gph-site를 기반으로 Gemini에게 물어보며 진행했습니다.
 <br><br>
 처음에는 로컬 개발환경에서 Django와 친해지는 시간을 가졌습니다. 그리고 웹사이트 디자인과 시스템을 수정했습니다. 초기 css 디자인은 Gemini가 거의 바이브코딩 급으로 해주더라고요. 물론 색감이나 디테일은 직접 수정했습니다.
@@ -194,30 +198,31 @@
 <br>
 출시에 맞춰서 많은 사람이 접속할 수 있도록 “render”를 업그레이드 하는 것과, 웹사이트 도메인을 구매하는 것 외에는 지출한 내역이 없습니다. 물론 다음 퍼즐헌트를 진행한다면, 자본을 더 투자하여 불편을 최소화하려 생각하고 있습니다.
 
-<h2>4. 테스트 플레이</h2>
+<h5>4. 테스트 플레이</h5>
 원래는 자그마한 프로젝트이므로 테스트 플레이 없이 바로 공개할 생각이였습니다. 하지만 메타문제를 만들고 규모가 커지니, 오류 없이 잘 굴러갔으면 좋겠더라고요. 그래서 더 좋은 퀄리티의 문제를 위하여 지인들 중 소규모 인원을 모집하여 테스트를 진행했습니다.
 <br>
-확실히 테스트를 하니 너무 저만의 관점에서 문제를 제작하려 한 것이 느껴지더라고요. 대형 퍼즐헌트나 퍼즐게임에서 왜 그렇게 열심히, 또 여러 차례 테스트를 진행하는지 알 수 있었습니다. 그럼에도 원하던 퍼즐 경험을 제공할 수 있어서 다행이라 생각합니다.
+확실히 테스트를 하니 너무 저만의 관점에서 문제를 제작하려 한 것이 느껴졌습니다. 대형 퍼즐헌트나 퍼즐게임에서 왜 그렇게 열심히, 또 여러 차례 테스트를 진행하는지 알 수 있었습니다. 그럼에도 원하던 퍼즐 경험을 제공할 수 있어서 다행이라 생각합니다.
 <br>
 테스트 플레이에 큰 강제성이 없었어서 테스트 기간이 늘어났고, 출시가 한 차례 미뤄지게 되었습니다. 테스트 플레이어분들에게 처음부터 full-play test를 요청한 것이 장벽으로 작용했던 것 같습니다. 추후에는 개별적인 문제가 검수되자 마자 테스트플레이를 하는 방식도 고려하고자 합니다.
 <br>
 그럼에도 불구하고, 테스트 플레이어로 참여해주셔서 다시 한 번 감사드립니다.
 
-<h2>5. 홍보 및 출시</h2>
+<h5>5. 홍보 및 출시</h5>
 2026년 1월에 업데이트 예정입니다.
 
 
-<h1>부록</h1>
+<h2>부록</h2>
 
-<h2>1. 제작자 Q&A</h2>
+<h5>1. 제작자 Q&A</h5>
 2026년 1월에 업데이트 예정입니다.
 
-<h2>2. 경험 공유</h2>
+<h5>2. 경험 공유</h5>
 2026년 1월에 업데이트 예정입니다.
+<br>
 각 팀이 피드백과 함께 공유하고자 하는 내용이 있다면, 검수 후 실릴 예정입니다.
 
 
-<h1>크레딧</h1>
+<h2>크레딧</h2>
 
 <div style="text-align: center;">
 총괄: 자갈
@@ -232,21 +237,41 @@
 </main>
 
 <aside>
-  [바로가기]
-  <script>
-    const heads = [...$('h1,h2,h3,h4,h5,h6')].map(head => [head, $('<div>')
-      .text(head.textContent)
-      .css('padding-left', head.tagName.substr(1) + 'em')
-      .click(() => head.scrollIntoView())
-      .appendTo('aside')]);
-    function highlight() {
-      const rects = heads.map(([head]) => head.getBoundingClientRect());
-      heads.forEach(([head, link], i) => link.toggleClass('highlight',
-        (!rects[i + 1] || rects[i + 1].top > 0) && rects[i].top < innerHeight));
-    }
-    document.addEventListener('scroll', highlight, { passive: true });
-    highlight();
-  </script>
+  <div style="font-weight:bold; margin-bottom:10px; font-size:1.1em;">[바로가기]</div>
 </aside>
+
+<script>
+  const heads = [...$('h1,h2,h3,h4,h5,h6')].map(head => {
+    const $head = $(head);
+    const depth = parseInt(head.tagName.substring(1));
+    
+    const $link = $('<div>')
+      .text($head.text())
+      .css('padding-right', (depth - 1) * 10 + 'px')
+      .click(() => {
+        head.scrollIntoView({ behavior: 'smooth' });
+      })
+      .appendTo('aside');
+      
+    return [head, $link];
+  });
+
+  function highlight() {
+    const innerHeight = window.innerHeight;
+    
+    heads.forEach(([head, link], i) => {
+        const rect = head.getBoundingClientRect();
+        const nextRect = heads[i + 1] ? heads[i + 1][0].getBoundingClientRect() : null;
+        
+        const isActive = (rect.top < innerHeight * 0.3) && 
+                         (!nextRect || nextRect.top > innerHeight * 0.3);
+                         
+        link.toggleClass('highlight', isActive);
+    });
+  }
+
+  document.addEventListener('scroll', highlight, { passive: true });
+  highlight();
+</script>
 
 {% endblock %}
