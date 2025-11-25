@@ -33,7 +33,7 @@ RECAPTCHA_SCORE_THRESHOLD = 0.5
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['textpuzzlehunt.onrender.com']
+ALLOWED_HOSTS = ['textpuzzlehunt.onrender.com', 'textpuzzlehunt.com', 'www.textpuzzlehunt.com']
 
 # Application definition
 

@@ -13,7 +13,7 @@ DOMAIN = 'textpuzzlehunt.onrender.com'
 
 # List of places you're serving from, e.g.
 # ['galacticpuzzlehunt.com', 'gph.example.com']; or just ['*']
-ALLOWED_HOSTS = ['textpuzzlehunt.onrender.com']
+ALLOWED_HOSTS = ['textpuzzlehunt.onrender.com', 'textpuzzlehunt.com', 'www.textpuzzlehunt.com']
 
 DATABASES = {
     'default': dj_database_url.config(
