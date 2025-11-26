@@ -189,10 +189,17 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') # collectstatic 명령어로
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 SOLUTION_STATIC_ROOT = os.path.normpath(os.path.join(BASE_DIR, 'puzzles/templates/solution_bodies'))
 
-# <수정> Email settings changed to use SendGrid
-EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
-SENDGRID_API_KEY = os.environ.get("SANDGRID_EMAIL_KEY")
+# MailerSend SMTP 설정
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.mailersend.net'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 EMAIL_SUBJECT_PREFIX = '[📝텍스트 퍼즐헌트📝] '
+
+# 중요: 보내는 사람 주소는 인증받은 도메인 주소여야 합니다.
+DEFAULT_FROM_EMAIL = 'TextPuzzleHunt <admin@textpuzzlehunt.com>'
 
 # Email SMTP information
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
