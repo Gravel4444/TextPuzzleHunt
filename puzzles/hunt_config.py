@@ -13,7 +13,7 @@ CONTACT_EMAIL = 'koreapuzzlehunt@gmail.com'
 # the sender from which automatic emails are sent; your mail sending service
 # might require you set this to something (check settings/base.py to put your
 # actual mail sending service credentials)
-MESSAGING_SENDER_EMAIL = 'admin@textpuzzlehunt.com'
+MESSAGING_SENDER_EMAIL = 'TextPuzzleHunt <admin@textpuzzlehunt.com>'
 
 # Change this to True to reveal the story page to everyone.
 STORY_PAGE_VISIBLE = False
