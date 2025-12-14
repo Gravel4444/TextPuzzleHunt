@@ -721,7 +721,7 @@ a.main-content-anchor {
     width: 100%;
     font-family: sans-serif;
     font-size: 14px;
-    border: 2px solid #333;
+    border: 2.5px solid #333;
 }
 .calculation th, .calculation td {
     border: 1px solid #ccc;
@@ -731,13 +731,13 @@ a.main-content-anchor {
 }
 .calculation thead th {
     font-weight: bold;
-    border-bottom: 2px solid #333;
+    border-bottom: 2.5px solid #333;
 }
 .calculation .section-start td {
-    border-top: 2px solid #333;
+    border-top: 2.5px solid #333;
 }
 .calculation .thick-border-right {
-    border-right: 2px solid #333;
+    border-right: 2.5px solid #333;
 }
 
 .form-section {
